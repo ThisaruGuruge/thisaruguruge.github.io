@@ -1,0 +1,23 @@
+- name: LinkedIn
+  url: https://www.linkedin.com/in/thisaruguruge/
+  icon: ph ph-linkedin-logo
+
+- name: Twitter
+  url: https://twitter.com/ThisaruGuruge
+  icon: ph ph-twitter-logo
+
+- name: GitHub
+  url: https://github.com/ThisaruGuruge
+  icon: ph ph-github-logo
+
+- name: Stack Overflow
+  url: https://stackoverflow.com/users/3615862/thisarug
+  icon: ph ph-stack-overflow-logo
+
+- name: Medium
+  url: https://thisaru.medium.com
+  icon: ph ph-medium-logo
+
+- name: Instagram
+  url: https://www.instagram.com/thisarug/
+  icon: ph ph-instagram-logo

@@ -1,0 +1,48 @@
+- position: Associate Technical Lead
+  company: WSO2 LLC.
+  logo: /assets/images/logos/wso2.png
+  team: Ballerina Standard Library
+  start: June, 2021
+  end: Present
+  technologies: GraphQL, Ballerina, Java, JavaScript, Apollo, NodeJS, GitOps, Git, CI/CD Pipelines
+  description: >-
+    Lead a small sub-team in the Ballerina Standard Library that developed and maintained multiple Standard Library
+    modules including the GraphQL, SerDes, Auth, OAuth2, NATS, and RabbitMQ modules. Also responsible for Ballerina
+    Standard Library build and release pipelines.
+
+- position: Senior Software Engineer
+  company: WSO2 LLC.
+  logo: /assets/images/logos/wso2.png
+  team: Ballerina Standard Library
+  start: October, 2019
+  end: May, 2021
+  technologies: GraphQL, Ballerina, Java, Kafka, Git, GitOps, Jenkins, CI/CD Pipelines
+  description: >-
+    As a member of the Ballerina Standard Library team, I was responsible for developing and maintaining multiple
+    Ballerina Standard Library modules including the GraphQL, Kafka, and Task modules. I also worked on the Ballerina
+    HTTP resiliency which is a part of the Ballerina HTTP module. I also worked on the Ballerina Standard Library test
+    automation project. I have designed and implemented the Ballerina Standard Library build and release pipelines. I
+    have also worked as one of the release managers for Ballerina language where I managed multiple Ballerina releases.
+
+- position: Software Engineer
+  company: WSO2 LLC.
+  logo: /assets/images/logos/wso2.png
+  team: Ballerina Standard Library
+  start: September, 2019
+  end: June, 2018
+  technologies: Ballerina, Java, Kafka, Git, GitOps
+  description: >-
+    As a member of the Ballerina Standard Library team, I was responsible for developing and maintaining multiple
+    Ballerina Standard Library modules including the Kafka and Task modules.
+
+- position: R&D Engineer I
+  company: Synopsys Inc.
+  logo: /assets/images/logos/synopsys.png
+  team: Verification Group
+  start: November, 2016
+  end: May, 2018
+  technologies: C, C++, Python, Perl, Verilog, Perforce
+  description: >-
+    Worked as an R&D Engineer in the Verification Group at Synopsys Inc. As a member of the Clock Domain Crossing (CDC)
+    team, I was responsible for reset verification. I have also worked on test case migration automation project where
+    we migrated more than 20000 test cases from SpyGlass to NextGen.

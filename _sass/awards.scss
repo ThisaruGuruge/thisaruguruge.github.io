@@ -1,0 +1,55 @@
+.award {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 2.4rem 3.2rem;
+
+    border: 2px solid var(--color-green);
+    border-radius: 10px;
+}
+
+.awards--header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 1.8rem;
+}
+
+.awards--title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    text-align: center;
+
+    height: 5.6rem;
+}
+
+.awards--date {
+    text-align: center;
+
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 0.2rem;
+}
+
+.awards--content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1rem;
+    gap: 1.4rem;
+}
+
+.award .ph {
+    font-size: 6.4rem;
+    color: var(--color-green);
+}
+
+.award--date {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-green);
+}

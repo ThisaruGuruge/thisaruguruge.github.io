@@ -1,0 +1,51 @@
+.experience--header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.experience--subheading {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin-bottom: 2.4rem;
+}
+
+.experience--company {
+    display: flex;
+    gap: 3.2rem;
+
+    align-items: center;
+}
+
+.experience--company-logo {
+    width: 4.8rem;
+    height: 4.8rem;
+}
+
+.experience--content {
+    margin-top: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.experience--description {
+    line-height: 1.4;
+    letter-spacing: 0.2rem;
+    font-weight: 400;
+}
+
+.experience--technologies-title {
+    font-weight: 600;
+    color: var(--color-secondary);
+    letter-spacing: normal;
+}
+
+.experience--technologies {
+    color: var(--color-green);
+    font-weight: 600;
+    letter-spacing: 0.4rem;
+    line-height: 1.4;
+}

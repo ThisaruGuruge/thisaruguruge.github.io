@@ -1,0 +1,101 @@
+.header {
+    border-bottom: 1px solid var(--color-secondary);
+    padding: 3.2rem 0;
+}
+
+.header--container {
+    padding: 3.2rem 4.8rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header--logo-link {
+    text-decoration: none;
+    font-size: 4.4rem;
+
+    cursor: pointer;
+}
+
+.header--logo-link:link,
+.header--logo-link:visited {
+    color: var(--color-secondary);
+}
+
+.header--logo-link:hover,
+.header--logo-link:active {
+    color: var(--color-secondary);
+}
+
+.main-nav--list {
+    list-style: none;
+
+    display: flex;
+    gap: 4.8rem;
+}
+
+.main-nav--link {
+    font-size: 2.4rem;
+    text-decoration: none;
+}
+
+.active {
+    color: var(--color-green) !important;
+}
+
+.main-nav--link:link,
+.main-nav--link:visited {
+    color: var(--color-secondary);
+}
+
+.main-nav--link:hover,
+.main-nav--link:active {
+    color: var(--color-secondary);
+}
+
+/* Mobile Navigation */
+
+.btn-mobile-nav {
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    display: none;
+}
+
+.icon-mobile-nav {
+    height: 4.8rem;
+    width: 4.8rem;
+    color: #333;
+}
+
+.icon-mobile-nav .ph-close {
+    display: none;
+}
+
+.header--quote {
+    font-size: 2.4rem;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 1.2rem;
+    color: var(--color-green);
+
+    text-transform: uppercase;
+    background-image: linear-gradient(-225deg, #36ba01 0%, #009a22 29%, #00ff2b 67%, #009a22 100%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    background-clip: text;
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 2s linear infinite;
+    display: inline-block;
+}
+
+@keyframes textclip {
+    to {
+        background-position: 200% center;
+    }
+}

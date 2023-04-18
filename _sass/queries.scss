@@ -1,0 +1,148 @@
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #000;
+    --color-secondary: #fff;
+    --color-selected: #696767;
+    --color-link: #787474;
+    --color-green: #008f11;
+  }
+}
+
+@media screen and (prefers-color-scheme: light) {
+  :root {
+    --color-primary: #fff;
+    --color-secondary: #000;
+    --color-selected: #c5c3c3;
+    --color-link: #454545;
+    --color-green: #16a016;
+  }
+}
+
+@media screen and (max-width: 70em) {
+  html {
+    font-size: 45%;
+  }
+
+  .btn-mobile-nav {
+    display: block;
+    z-index: 9999;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translateX(100%);
+
+    background-color: var(--color-primary);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.5s ease-in;
+
+    /* Hide Navigation */
+    /* 1. Hide the element */
+    opacity: 0;
+
+    /* 2. Make it unaccessible for mouse and keyboard */
+    pointer-events: none;
+
+    /* 3. Hide from screen readers */
+    visibility: hidden;
+    z-index: 100;
+  }
+
+  .icon-mobile-nav {
+    font-size: 4.8rem;
+  }
+
+  .ph-x {
+    display: none;
+  }
+
+  .nav-open .btn-mobile-nav .ph-x {
+    display: block;
+  }
+
+  .nav-open .main-nav {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  .nav-open .btn-mobile-nav .ph-list {
+    display: none;
+  }
+
+  .main-nav--list {
+    display: flex;
+    flex-direction: column;
+    gap: 4.8rem;
+  }
+
+  .main-nav--link:link,
+  .main-nav--link:visited {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (max-width: 52em) {
+  html {
+    font-size: 37.5%;
+  }
+
+  .header--logo-link {
+    font-size: 3.2rem;
+  }
+
+  .main-nav--link:link,
+  .main-nav--link:visited {
+    font-size: 2.8rem;
+  }
+}
+
+@media screen and (max-width: 44em) {
+  html {
+    font-size: 31.25%;
+  }
+
+  .header--logo-link {
+    font-size: 3.6rem;
+  }
+
+  .main-nav--link:link,
+  .main-nav--link:visited {
+    font-size: 2.4rem;
+  }
+}
+
+@media screen and (max-width: 36em) {
+  html {
+    font-size: 25%;
+  }
+
+  .footer--container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer--social-media-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer--social-media-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

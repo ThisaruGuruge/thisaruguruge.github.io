@@ -1,0 +1,11 @@
+<footer class="footer">
+    <ul class="footer--social-media-items container">
+        {% for item in site.data.social-media %}
+        <li class="footer--social-media-item">
+            <a href="{{ item.url }}" class="footer--social-media-link {{ item.icon }}" target="_blank">
+                {{ item.name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</footer>

@@ -1,0 +1,33 @@
+.text {
+  line-height: 1.6;
+  letter-spacing: 0.2rem;
+
+  &:not(:last-child) {
+    margin-bottom: 1.8rem;
+  }
+
+  text-justify: auto;
+}
+
+.text-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.text-link:link,
+.text-link:visited {
+  color: var(--color-link);
+}
+
+.experience--items {
+  display: flex;
+  flex-direction: column;
+  gap: 6.4rem;
+}
+
+.awards--items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1.2rem;
+  row-gap: 1.2rem;
+}

@@ -1,0 +1,27 @@
+<header class="header">
+    <section class="header--container container">
+        <div class="header--logo">
+            <a href="/" class="header--logo-link">
+                ./Thisaru Guruge
+            </a>
+        </div>
+        <nav class="main-nav">
+            <ul class="main-nav--list">
+                {% for item in site.data.main-navigation %}
+                <li class="main-nav--item">
+                    <a href="{{ item.url }}" class="main-nav--link {% if page.url == item.url %}active{% endif %}">
+                        {{ item.name }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        <button class="btn-mobile-nav">
+            <i class="icon-mobile-nav ph ph-list"></i>
+            <i class="icon-mobile-nav ph ph-x"></i>
+        </button>
+    </section>
+    <section class="container">
+        <p class="header--quote">Reality is the fantasy we choose to believe</p>
+    </section>
+</header>

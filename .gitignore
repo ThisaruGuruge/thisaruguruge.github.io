@@ -1,0 +1,12 @@
+# Jekyll Generated Files
+_site/
+.jekyll-cache
+.sass-cache
+.jekyll-metadata
+
+# macOS Files
+.DS_Store
+
+# IDE Files
+.idea/
+.vscode/

@@ -42,7 +42,7 @@ title: "Home"
 
 <section class="section section--awards container">
     <h1 class="section--title title--primary">Awards and Trophies</h1>
-    <div class="awards--items">
+    <div class="awards--items grid grid--col-3">
         {% for item in site.data.awards %}
             {% include award.html award=item %}
         {% endfor %}

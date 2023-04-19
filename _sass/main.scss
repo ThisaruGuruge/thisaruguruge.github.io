@@ -26,8 +26,6 @@
 }
 
 .awards--items {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   column-gap: 1.2rem;
   row-gap: 1.2rem;
 }

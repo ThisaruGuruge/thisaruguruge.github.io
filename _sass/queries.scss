@@ -126,13 +126,19 @@
 
 @media screen and (max-width: 36em) {
   html {
-    font-size: 25%;
+    font-size: 30%;
   }
 
   .footer--container {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .grid--col-2,
+  .grid--col-3,
+  .grid--col-4 {
+    grid-template-columns: 1fr;
   }
 
   .footer--social-media-items {

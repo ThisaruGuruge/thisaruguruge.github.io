@@ -1,0 +1,22 @@
+<section class="section section--education container">
+    <h1 class="section--title title--primary">Education and Certifications</h1>
+    <div class="education--items">
+        {% for education in site.data.educations %}
+        <article class="education--item">
+            <h2 class="education--item-title">{{ education.title }}</h2>
+            <div class="education--subheading">
+                <div class="education--institute-logos">
+                    <img src="{{ education.logo}}" alt="{{ education.company }} Logo" class="education--institute-logo">
+                </div>
+                <div class="education--institute-details">
+                    <h3 class="education--class">{{ education.class }}</h3>
+                    <h4 class="education--institute-name">{{ education.institute }} </h4>
+                    <p class="education--time-period">{{ education.period }}</p>
+                </div>
+            </div>
+            <div class="education--description">
+                <p class="text">{{ education.description }}</p>
+        </article>
+        {% endfor %}
+    </div>
+</section>

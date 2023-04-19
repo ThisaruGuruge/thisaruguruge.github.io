@@ -19,13 +19,9 @@
   color: var(--color-link);
 }
 
-.experience--items {
-  display: flex;
-  flex-direction: column;
-  gap: 6.4rem;
+.text-link:hover,
+.text-link:active {
+  color: var(--color-green);
+  font-weight: 600;
 }
 
-.awards--items {
-  column-gap: 1.2rem;
-  row-gap: 1.2rem;
-}

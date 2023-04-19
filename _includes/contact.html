@@ -1,0 +1,18 @@
+<section class="section section--contact container">
+    <h1 class="section--title title--primary">Contact</h1>
+    <article class="contact--content">
+        <div class="contact--image">
+            <img src="/assets/images/profile.webp" alt="Thisaru Guruge's Profile Image" class="profile-image">
+        </div>
+        <div class="contact--information">
+            <a href="mailto:{{ site.email }}" class="text-link contact--email">{{ site.email }}</a>
+            <div class="contact--social-media-icons">
+                {% for item in site.data.social-media %}
+                <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer" class="text-link">
+                    <i class="ph ph-{{ item.icon }} contact--icon"></i>
+                </a>
+                {% endfor%}
+            </div>
+        </div>
+    </article>
+</section>

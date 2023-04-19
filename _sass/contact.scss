@@ -1,0 +1,28 @@
+.profile-image {
+    width: 12.8rem;
+}
+
+.contact--content {
+    display: flex;
+    align-items: center;
+    gap: 2.4rem;
+}
+
+.contact--information {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+}
+
+.contact--email {
+    letter-spacing: 0.4rem;
+}
+
+.contact--social-media-icons {
+    display: flex;
+    gap: 1.8rem;
+}
+
+.contact--icon {
+    font-size: 3.2rem;
+}

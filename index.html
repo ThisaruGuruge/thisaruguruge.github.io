@@ -30,25 +30,16 @@ title: "Home"
         NATS, and RabbitMQ packages.
     </p>
     <p class="text">I am a wildlife conservationist and I do conservation-related work in my leisure time. I am also
-    into wildlife photography, mainly focused on insects and reptiles. I also play guitar, write songs, and sing. I
-    enjoy movies and TV series. I enjoy long talks about philosophy, science, and almost everything. I believe that the
-    journey matters more than the destination.</p>
+        into wildlife photography, mainly focused on insects and reptiles. I also play guitar, write songs, and sing. I
+        enjoy movies and TV series. I enjoy long talks about philosophy, science, and almost everything. I believe that
+        the journey matters more than the destination.
+    </p>
 </section>
 
-<section class="section section--experience container">
-    <h1 class="section--title title--primary">Experience</h1>
-    <div class="experience--items">
-        {% for item in site.data.experiences %}
-            {% include experience.html experience=item %}
-        {% endfor %}
-    </div>
-</section>
+{% include contact.html %}
 
-<section class="section section--awards container">
-    <h1 class="section--title title--primary">Awards and Trophies</h1>
-    <div class="awards--items grid grid--col-3">
-        {% for item in site.data.awards %}
-            {% include award.html award=item %}
-        {% endfor %}
-    </div>
-</section>
+{% include experiences.html %}
+
+{% include awards.html %}
+
+{% include educations.html %}

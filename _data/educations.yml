@@ -1,0 +1,23 @@
+- title: M.Sc. (Environmental Sciences)
+  class: Reading
+  period: 2019 - 2022
+  institute: Faculty of Science, University of Colombo
+  logo: /assets/images/logos/uoc.webp
+
+- title: B.Sc. Engineering (Computer Engineering)
+  class: Second Class Honours (Upper Division)
+  period: 2013 - 2016
+  institute: Faculty of Engineering, University of Peradeniya
+  logo: /assets/images/logos/uop.webp
+
+- title: G.C.E. Advanced Level - Physical Science Stream
+  class: All-Island Merit (Rank 46)
+  period: 2011
+  institute: Ranabima Royal College, Kandy
+  logo: /assets/images/logos/rrc.webp
+
+- title: Certified Kubernetes Application Developer (CKAD)
+  class: "Credential ID: LF-y4h1gk8kof"
+  period: 2022
+  institute: The Linux Foundation
+  logo: /assets/images/logos/ckad.webp

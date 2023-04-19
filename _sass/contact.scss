@@ -5,12 +5,14 @@
 .contact--content {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 2.4rem;
 }
 
 .contact--information {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 2.4rem;
 }
 

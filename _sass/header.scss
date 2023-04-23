@@ -40,6 +40,7 @@
 .main-nav--link {
     font-size: 2.4rem;
     text-decoration: none;
+    text-transform: uppercase;
 }
 
 .active {
@@ -53,7 +54,7 @@
 
 .main-nav--link:hover,
 .main-nav--link:active {
-    color: var(--color-secondary);
+    color: var(--color-green);
 }
 
 /* Mobile Navigation */

@@ -9,7 +9,7 @@
             <ul class="main-nav--list">
                 {% for item in site.data.main-navigation %}
                 <li class="main-nav--item">
-                    <a href="{{ item.url }}" class="main-nav--link {% if page.url == item.url %}active{% endif %}">
+                    <a href="{{ item.url }}" class="main-nav--link smooth-transition {% if page.url == item.url %}active{% endif %}">
                         {{ item.name }}
                     </a>
                 </li>
@@ -22,6 +22,6 @@
         </button>
     </section>
     <section class="container">
-        <p class="header--quote">Lead Engineer | Ballerina | WSO2</p>
+        <p class="header--quote">{{ page.quote }}</p>
     </section>
 </header>

@@ -47,6 +47,10 @@ body::-webkit-scrollbar {
     margin: 0 0 3.2rem 0;
 }
 
+.smooth-transition {
+    transition: all 0.3s;
+}
+
 /* Headings */
 
 h1 {

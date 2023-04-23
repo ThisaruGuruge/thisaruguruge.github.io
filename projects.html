@@ -1,7 +1,17 @@
 ---
 layout: default
-title: "blog"
+title: "Dive into Me"
 permalink: /projects
+quote: "Reality is the Fantasy we Choose to Believe"
 ---
 
-<h1 class="title--primary">Projects</h1>
+<main>
+    <div class="work--sections container">
+        {% for section in site.data.me %}
+        <section class="section">
+            <h1 class="section--header title--primary">{{ section.title }}</h1>
+            {% include work-sections/{{ section.include }} %}
+        </section>
+        {% endfor %}
+    </div>
+</main>

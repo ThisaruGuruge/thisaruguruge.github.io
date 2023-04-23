@@ -1,45 +1,9 @@
 ---
 layout: default
 title: "Home"
+quote: "Journey matters more than the destination"
 ---
 
-<section class="section section--about container">
-    <h1 class="section--title title--primary">About</h1>
-    <p class="text">
-        {% assign currentYear = site.time | date: '%Y' %} {% assign
-        experienceYears = currentYear | minus: 2017 %} I am a Software Engineer
-        based on Colombo, Sri Lanka with over {{ experienceYears }} years of
-        experience in the industry. I am currently working as an Associate
-        Technical Lead at
-        <a href="https://www.wso2.com/" target="_blank" rel="noopener noreferrer" class="text-link">WSO2</a>. I am part
-        of the
-        <a href="https://ballerina.io" target="_blank" rel="noopener noreferrer" class="text-link">Ballerina</a>
-        team where I am leading a development team responsible for developing
-        and maintaining a set of
-        <a href="https://github.com/ballerina-platform/ballerina-standard-library" target="_blank"
-            rel="noopener noreferrer" class="text-link">Ballerina Standard Library</a>
-        packages.
-    </p>
-    <p class="text">
-        My main focus area is
-        <a href="https://graphql.org" target="_blank" rel="noopener noreferrer" class="text-link">GraphQL</a>, where I
-        have designed and developed the
-        <a href="https://github.com/ballerina-platform/module-ballerina-graphql" target="_blank"
-            rel="noopener noreferrer" class="text-link">Ballerina GraphQL package</a>. In addition, my team is also
-        responsible for Auth, OAuth2, SerDes,
-        NATS, and RabbitMQ packages.
-    </p>
-    <p class="text">I am a wildlife conservationist and I do conservation-related work in my leisure time. I am also
-        into wildlife photography, mainly focused on insects and reptiles. I also play guitar, write songs, and sing. I
-        enjoy movies and TV series. I enjoy long talks about philosophy, science, and almost everything. I believe that
-        the journey matters more than the destination.
-    </p>
-</section>
-
-{% include contact.html %}
-
-{% include experiences.html %}
-
-{% include awards.html %}
-
-{% include educations.html %}
+{% for page in site.data.landing-page-sections %}
+    {% include landing-page-sections/{{ page.file-name }} %}
+{% endfor %}

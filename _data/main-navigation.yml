@@ -1,6 +1,9 @@
 - name: Home
   url: /
 
+- name: CV
+  url: /cv
+
 - name: Blog
   url: /blog
 

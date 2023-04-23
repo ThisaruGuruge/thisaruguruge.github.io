@@ -1,12 +1,11 @@
-.profile-image {
-    width: 12.8rem;
-}
-
 .contact--content {
     display: flex;
+    gap: 6.4rem;
     align-items: center;
-    justify-content: center;
-    gap: 2.4rem;
+}
+
+.cv-profile-image {
+    width: 12.8rem;
 }
 
 .contact--information {

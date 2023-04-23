@@ -22,3 +22,8 @@
     text-decoration: none;
     color: var(--color-secondary);
 }
+
+.footer--social-media-link:hover,
+.footer--social-media-link:active {
+    color: var(--color-green);
+}

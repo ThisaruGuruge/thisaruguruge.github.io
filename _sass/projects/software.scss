@@ -1,0 +1,50 @@
+.software--projects {
+    gap: 2.4rem;
+
+    justify-content:space-evenly;
+}
+
+.software--project--item {
+    border: 1px solid var(--color-green);
+    border-radius: 10px;
+
+    padding: 3.2rem 2.4rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.8rem;
+
+    text-align: center;
+}
+
+.software-project--header {
+    display: flex;
+    flex-direction: column;
+}
+
+.software-project--title {
+    height: 4.8rem;
+}
+
+.software-project--tags {
+    margin-top: 1.4rem;
+}
+
+.software-project--tag {
+    display: inline;
+    align-self: flex-start;
+
+    background-color: var(--color-yellow);
+    color: var(--color-black);
+
+    font-size: 1rem;
+
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+}
+
+.software-project--image {
+    width: 100%;
+}

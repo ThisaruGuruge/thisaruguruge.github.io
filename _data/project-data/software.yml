@@ -1,0 +1,53 @@
+- name: Ballerina GraphQL Module
+  repo: https://github.com/ballerina-platform/module-ballerina-graphql
+  description: >-
+      The source code of the Ballerina GraphQL package. I am the main developer of the package. This includes a GraphQL
+      parser written in Ballerina, a GraphQL engine, and a GraphQL client library.
+  tags: [Ballerina, Java]
+  image: /assets/images/logos/ballerina.webp
+  alt: Ballerina Logo
+
+- name: Ballerina Standard Library
+  repo: https://github.com/ballerina-platform/ballerina-standard-library
+  description: >-
+      This is the main repository of the Ballerina Standard Library. I have written and/or mentored
+      he writing of, most of the scripts for release and build pipelines and dashboard generation.
+  tags: [Python, GitOps]
+  image: /assets/images/logos/ballerina.webp
+  alt: Ballerina Logo
+
+- name: Apollo and Ballerina Comparison
+  repo: https://github.com/ThisaruGuruge/apollo-and-ballerina
+  description: >-
+      This is a comparison between the Apollo and Ballerina GraphQL libraries where I implemented a GraphQL server using
+      both Apollo and Ballerina and compared the performance and the developer experience.
+  tags: [Ballerina, JavaScript, GraphQL]
+  image: /assets/images/logos/ballerina.webp
+  alt: Ballerina Logo
+
+- name: Local Kafka Cluster in Java
+  repo: https://github.com/ThisaruGuruge/local-kafka-cluster
+  description: >-
+      A simple Kafka cluster in written in Java that can be used for testing and development purposes in Java. I wrote
+      this as a weekend project to solve a problem I had with testing my Kafka Ballerina module.
+  tags: [Java, Kafka]
+  image: /assets/images/logos/ballerina.webp
+  alt: Ballerina Logo
+
+- name: Ballerina Prettify JSON
+  repo: https://github.com/ThisaruGuruge/prettify
+  description: >-
+      A Ballerina library to prettify JSON content. I wrote this library as a pet project to solve some issues I had
+      with writing JSON content to a file in Ballerina, which happens to be an issue many people have faced.
+  tags: [Ballerina, JSON]
+  image: /assets/images/logos/ballerina.webp
+  alt: Ballerina Logo
+
+- name: Personal Website
+  repo: https://github.com/ThisaruGuruge/thisaruguruge.github.io
+  description: >-
+      The source code of this website. This website is written using plain HTML, CSS, and JavaScript. I have used Jekyll
+      as the static site generator. I did this site as a pet project to learn more about web development.
+  tags: [HTML, CSS, Jekyll, JavaScript]
+  image: /assets/images/logos/ballerina.webp
+  alt: Ballerina Logo

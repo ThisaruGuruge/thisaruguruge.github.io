@@ -4,12 +4,12 @@
   team: Ballerina Standard Library
   start: June, 2021
   end: Present
-  technologies: GraphQL, Ballerina, Java, JavaScript, Apollo, NodeJS, GitOps, Git, CI/CD Pipelines
+  technologies: GraphQL, Ballerina, Java, JavaScript, Python, Apollo, NodeJS, Git, GitHub, GitOps, CI/CD Pipelines
   description: >-
     Lead a small sub-team in the Ballerina Standard Library that developed and maintained multiple Standard Library
     modules including the GraphQL, SerDes, Auth, OAuth2, NATS, and RabbitMQ modules. I am also responsible for Ballerina
     Standard Library build and release pipelines. Apart from these, I have actively involved in evangelist activities
-    including writing articles, hosting community calls, and actively participating in community forums. 
+    including writing articles, hosting community calls, and actively participating in community forums.
 
 - position: Senior Software Engineer
   company: WSO2 LLC.
@@ -17,7 +17,7 @@
   team: Ballerina Standard Library
   start: October, 2019
   end: May, 2021
-  technologies: GraphQL, Ballerina, Java, Kafka, Git, GitOps, Jenkins, CI/CD Pipelines
+  technologies: GraphQL, Ballerina, Java, Kafka, Python, Git, GitHub, GitOps, Jenkins, CI/CD Pipelines
   description: >-
     As a member of the Ballerina Standard Library team, I was responsible for developing and maintaining multiple
     Ballerina Standard Library modules including the GraphQL, Kafka, and Task modules. I also worked on the Ballerina
@@ -31,7 +31,7 @@
   team: Ballerina Standard Library
   start: September, 2019
   end: June, 2018
-  technologies: Ballerina, Java, Kafka, Git, GitOps
+  technologies: Ballerina, Java, Kafka, Schedulers, Jenkins
   description: >-
     As a member of the Ballerina Standard Library team, I was responsible for developing and maintaining multiple
     Ballerina Standard Library modules including the Kafka and Task modules.

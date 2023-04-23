@@ -5,13 +5,12 @@ permalink: /projects
 quote: "Reality is the Fantasy we Choose to Believe"
 ---
 
-<main>
-    <div class="work--sections container">
-        {% for section in site.data.me %}
-        <section class="section">
-            <h1 class="section--header title--primary">{{ section.title }}</h1>
-            {% include work-sections/{{ section.include }} %}
-        </section>
-        {% endfor %}
-    </div>
-</main>
+
+<div class="work--sections container">
+    {% for section in site.data.projects %}
+    <section class="section">
+        <h1 class="section--header title--primary">{{ section.title }}</h1>
+        {% include project-sections/{{ section.include }} %}
+    </section>
+    {% endfor %}
+</div>

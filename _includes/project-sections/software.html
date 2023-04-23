@@ -1,0 +1,21 @@
+<p class="text">
+    These are software projects that I have involved. These include both professional and personal (leisure-time)
+    projects.
+</p>
+<div class="software--projects grid grid--col-3">
+    {% for item in site.data.project-data.software %}
+    <article class="software--project--item">
+        <header class="software-project--header">
+            <h3 class="software-project--title title--secondary">{{ item.name }}</h3>
+            <div class="software-project--tags">
+                {% for tag in item.tags %}
+                <p class="subheading software-project--tag">{{ tag }}</p>
+                {% endfor %}
+            </div>
+        </header>
+        <img src="{{ item.image }}" alt="{{ item.alt }}" class="software-project--image">
+        <p class="text">{{ item.description }}</p>
+        <a href="{{ item.repo }}" class="project--link btn btn--primary">Source Code</a>
+    </article>
+    {% endfor%}
+</div>

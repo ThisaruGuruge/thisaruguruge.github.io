@@ -1,0 +1,16 @@
+.volunteer--projects {
+    display: flex;
+    flex-direction: column;
+    gap: 4.8rem;
+}
+
+.volunteer--project--header {
+    display: flex;
+    gap: 3.2rem;
+    align-items: center;
+}
+
+.volunteer--project--image {
+    width: 7.2rem;
+    background-color: var(--color-white);
+}

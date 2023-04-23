@@ -1,11 +1,16 @@
 <p class="text">
-    These are software projects that I have involved. These include both professional and personal (leisure-time)
-    projects.
+    I do volunteer work in my leisure time. These are some of the projects I've worked on in the past.
 </p>
 <div class="volunteer--projects">
-    {% for item in site.data.project-data.software %}
+    {% for item in site.data.project-data.volunteering %}
     <article class="volunteer--project--item">
-
+        <header class="volunteer--project--header">
+            <img class="volunteer--project--image" src="{{ item.logo }}" alt="{{ item.alt }}">
+            <h2 class="heading heading--primary">{{ item.name }}</h2>
+        </header>
+        <main>
+            <p class="text">{{ item.description }}</p>
+        </main>
     </article>
     {% endfor%}
 </div>

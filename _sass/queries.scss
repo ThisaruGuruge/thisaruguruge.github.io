@@ -4,7 +4,7 @@
         --color-secondary: #fff;
         --color-link: #787474;
         --color-green: #008f11;
-        --color-green-dark: #075915;
+        --color-green-light: #18e13a;
         --color-yellow: #f5f506;
     }
 }
@@ -15,12 +15,12 @@
         --color-secondary: #000;
         --color-link: #8e908e;
         --color-green: #2cc82c;
-        --color-green-dark: #23ec45;
+        --color-green-light: #23ec45;
         --color-yellow: #f5f506;
     }
 }
 
-@media screen and (max-width: 70em) {
+@media screen and (max-width: 63em) {
     html {
         font-size: 55%;
     }
@@ -34,38 +34,13 @@
 
 @media screen and (max-width: 49em) {
     html {
-        font-size: 44%;
-    }
-
-    .contact--content {
-        flex-direction: column;
-    }
-
-    .footer--social-media-items {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .footer--social-media-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        font-size: 45%;
     }
 }
 
-@media screen and (max-width: 39em) {
+@media screen and (max-width: 43em) {
     html {
         font-size: 40%;
-    }
-
-    .awards--items {
-        padding: 0 10%;
-    }
-
-    .grid--col-2,
-    .grid--col-3,
-    .grid--col-4 {
-        grid-template-columns: 1fr;
     }
 
     /* Mobile Navigation */
@@ -109,11 +84,11 @@
         font-size: 4.8rem;
     }
 
-    .ph-x {
+    .icon-mobile-nav-close {
         display: none;
     }
 
-    .nav-open .btn-mobile-nav .ph-x {
+    .nav-open .btn-mobile-nav .icon-mobile-nav-close {
         display: block;
     }
 
@@ -124,7 +99,7 @@
         transform: translateX(0);
     }
 
-    .nav-open .btn-mobile-nav .ph-list {
+    .nav-open .btn-mobile-nav .icon-mobile-nav-menu {
         display: none;
     }
 

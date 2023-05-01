@@ -4,11 +4,11 @@
         {% for award in site.data.awards %}
         <article class="award">
             <header class="awards--header">
-                <h4 class="awards--title">{{ award.title }}</h4>
-                <h6 class="awards--date">{{ award.issuer }}</h6>
+                <h3 class="award--title weight--bold text--center">{{ award.title }}</h3>
+                <h6 class="weight--normal text--center">{{ award.issuer }}</h6>
             </header>
             <div class="awards--content">
-                <p class="ph ph-medal"></p>
+                <ion-icon name="trophy-outline" class="award--icon"></ion-icon>
                 <p class="award--date">{{ award.date }}</p>
                 <p class="award--description">{{ award.description }}</p>
             </div>

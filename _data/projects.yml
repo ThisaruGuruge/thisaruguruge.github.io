@@ -1,8 +1,8 @@
 - title: Software
   include: software.html
 
-- title: Volunteering
-  include: volunteering.html
-
 - title: Arts
   include: arts.html
+
+- title: Volunteering
+  include: volunteering.html

@@ -22,6 +22,7 @@
 .software-project--header {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .software-project--title {
@@ -30,12 +31,14 @@
 
 .software-project--tags {
     margin-top: 1.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    align-self: center;
+    justify-self: center;
 }
 
 .software-project--tag {
-    display: inline;
-    align-self: flex-start;
-
     background-color: var(--color-yellow);
     color: var(--color-black);
 

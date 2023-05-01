@@ -1,1 +1,17 @@
-
+<article>
+    <section class="photography">
+        <h2 class="gallery--heading">Image Gallery</h2>
+        <p class="text">I enjoy photography, especially the wildlife photography. I enjoy observing insects, reptiles
+            and amphibians. I have also involved in some wildlife research work in the past as well. Following is a
+            gallery of images from my photography.
+            <a href="{{ site.data.social-media[5].url }}" class="text-link" target="_blank">Check my Instagram</a>.
+        </p>
+        <div class="gallery--images">
+            {% for item in site.data.gallery %}
+            <figure class="gallery--image-container">
+                <img src="{{ item.url }}" alt="{{ item.alt }}" title="{{ item.title }}" class="gallery--image-img">
+            </figure>
+            {% endfor %}
+        </div>
+    </section>
+</article>

@@ -1,23 +1,31 @@
 - name: LinkedIn
   url: https://www.linkedin.com/in/thisaruguruge/
-  icon: ph ph-linkedin-logo
+  icon: logo-linkedin
 
 - name: Twitter
   url: https://twitter.com/ThisaruGuruge
-  icon: ph ph-twitter-logo
+  icon: logo-twitter
 
 - name: GitHub
   url: https://github.com/ThisaruGuruge
-  icon: ph ph-github-logo
+  icon: logo-github
 
 - name: StackOverflow
   url: https://stackoverflow.com/users/3615862/thisarug
-  icon: ph ph-stack-overflow-logo
+  icon: logo-stackoverflow
 
 - name: Medium
   url: https://thisaru.medium.com
-  icon: ph ph-medium-logo
+  icon: logo-medium
 
 - name: Instagram
   url: https://www.instagram.com/thisarug/
-  icon: ph ph-instagram-logo
+  icon: logo-instagram
+
+- name: Facebook
+  url: https://www.facebook.com/thisarug
+  icon: logo-facebook
+
+- name: YouTube
+  url: https://www.youtube.com/@ThisaruG
+  icon: logo-youtube

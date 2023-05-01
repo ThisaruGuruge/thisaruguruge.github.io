@@ -1,16 +1,39 @@
 - name: Butterfly Conservation Society of Sri Lanka (BCSSL)
+  position: Vice President
+  period: 2015 - Present
   description: >-
-    I have been a member of the Butterfly Conservation Society of Sri Lanka (BCSSL) since 2015. Since joining the
-    society I have held many positions in the committee including the Vice President position. I have been managing the
-    BCSSL social media accounts and website since 2016. I have also been involved in organizing many events and field
-    trips for BCSSL throughout these years.
+      I have been a member of the Butterfly Conservation Society of Sri Lanka (BCSSL) since 2015. Since joining the
+      society I have held many positions in the committee including the Vice President position. I have been managing the
+      BCSSL social media accounts and website since 2016. I have also been involved in organizing many events and field
+      trips for BCSSL throughout these years.
   website: https://bcssl.lk
   logo: /assets/images/logos/bcssl.webp
 
 - name: Youth Exploration Society of Sri Lanka (Y.E.S.)
+  position: President (Educational and Projects)
+  period: 2014 - 2016
   description: >-
-    Youth Exploration Society of Sri Lanka (Y.E.S.) is a non-profit environmental organization based in Peradeniya, Sri
-    Lanka. I have been a member of the Youth Exploration Society of Sri Lanka (Y.E.S.) since 2009. I have held many
-    positions in the committee including the President (Educational and Projects) position.
+      Youth Exploration Society of Sri Lanka (Y.E.S.) is a non-profit environmental organization based in Peradeniya, Sri
+      Lanka. I have been a member of the Youth Exploration Society of Sri Lanka (Y.E.S.) since 2010. I have held many
+      positions in the committee including the President (Educational and Projects) position.
   website: https://yessrilanka.lk/
   logo: /assets/images/logos/yes.webp
+
+- name: Arunella by Engineering Students Union
+  position: Volunteer Teacher
+  period: 2013
+  description: >-
+      Volunteered in “Arunella | අරුණැල්ල" workshops organized by the students' union of faculty of engineering,
+      university of Peradeniya, targeted for G. C. E. (Ordinary Level) students. Participated in teaching Mathematics,
+      Science and English for the students of Mandaramnuwara Vidyalaya, and Kossinna Kanishta Vidyalaya. Our workshops
+      helped the schools to raise their result levels compared to the previous years.
+  logo: /assets/images/logos/arunella.webp
+
+- name: Faculty of Engineering, University of Peradeniya
+  position: Temporary Instructor
+  period: 2016
+  description: >-
+      I have been worked as a temporary instructor for the second year undergraduates at the Department of Computer
+      Engineering, Faculty of Engineering, University of Peradeniya in 2016 while I was a final year undergraduate.
+  website: https://eng.pdn.ac.lk/ce/
+  logo: /assets/images/logos/uop.webp

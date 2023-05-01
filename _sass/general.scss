@@ -3,7 +3,6 @@
     --color-white: #fff;
 }
 
-
 * {
     padding: 0;
     margin: 0;
@@ -81,22 +80,51 @@ h3 {
     margin-bottom: 4.8rem;
 }
 
+/* Font Weights */
+.wight--bold {
+    font-weight: 700;
+}
+
+.weight--semi-bold {
+    font-weight: 600;
+}
+
+.weight--normal {
+    font-weight: 500;
+}
+
+.weight--light {
+    font-weight: 400;
+}
+
+/* Text */
+.text--center {
+    text-align: center;
+}
+
 
 /* Grids */
 .grid {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--min-col-size), 100%), 1fr));
 }
 
 .grid--col-2 {
-    grid-template-columns: repeat(2, 1fr);
+    // Max container width: 120rem
+    // 120 / 3 = 40 rem < Min col width < 120rem / 2 = 60rem
+    --min-col-size: 50rem;
 }
 
 .grid--col-3 {
-    grid-template-columns: repeat(3, 1fr);
+    // Max container width: 120rem
+    // 120 / 4 = 30 rem < Min col width < 120rem / 3 = 40rem
+    --min-col-size: 35rem;
 }
 
 .grid--col-4 {
-    grid-template-columns: repeat(4, 1fr);
+    // Max container width: 120rem
+    // 120 / 5 = 24 rem < Min col width < 120rem / 4 = 30rem
+    --min-col-size: 25rem;
 }
 
 /* Buttons */
@@ -114,7 +142,7 @@ h3 {
 }
 
 .btn--primary {
-    color: var(--color-primary);
+    color: var(--color-white);
     background-color: var(--color-green);
 }
 
@@ -125,5 +153,5 @@ h3 {
 
 .btn:hover,
 .btn:active {
-    background-color: var(--color-green-dark);
+    background-color: var(--color-green-light);
 }

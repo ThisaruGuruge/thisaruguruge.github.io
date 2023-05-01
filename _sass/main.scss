@@ -8,6 +8,7 @@
 .text {
   line-height: 1.6;
   letter-spacing: 0.2rem;
+  color: var(--color-secondary);
 
   &:not(:last-child) {
     margin-bottom: 1.8rem;
@@ -35,5 +36,11 @@
 .text--highlight {
   color: var(--color-green);
   font-weight: 600;
+}
+
+.work--sections {
+  display: flex;
+  flex-direction: column;
+  gap: 6.4rem;
 }
 

@@ -2,17 +2,27 @@
     display: flex;
     gap: 6.4rem;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.contact--image {
+    display: flex;
+    justify-content: center;
+    flex: 1;
 }
 
 .cv-profile-image {
-    width: 12.8rem;
+    width: 25.6rem;
 }
 
 .contact--information {
+    flex: 5;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2.4rem;
+
 }
 
 .contact--email {
@@ -21,9 +31,13 @@
 
 .contact--social-media-icons {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1.8rem;
 }
 
 .contact--icon {
     font-size: 3.2rem;
+
+    flex-shrink: 0;
 }

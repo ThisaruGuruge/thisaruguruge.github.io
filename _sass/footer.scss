@@ -7,14 +7,19 @@
     list-style: none;
 
     display: flex;
-    justify-content: space-between;
-
+    flex-wrap: wrap;
     gap: 3.2rem;
-    margin: auto;
+    justify-content: center;
+}
+
+.footer--social-media-item {
+    display: flex;
+    flex: 1;
+    gap: 1rem;
 }
 
 .footer--social-media-link {
-    font-size: 2.4rem;
+    font-size: 1.8rem;
 }
 
 .footer--social-media-link:link,
@@ -26,4 +31,13 @@
 .footer--social-media-link:hover,
 .footer--social-media-link:active {
     color: var(--color-green);
+}
+
+.copyright-text {
+    margin-top: 8.4rem;
+
+    font-size: 1.4rem;
+    text-align: center;
+    letter-spacing: 0.2rem;
+    word-spacing: 0.4rem;
 }

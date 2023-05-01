@@ -8,9 +8,18 @@
     display: flex;
     gap: 3.2rem;
     align-items: center;
+    justify-items: center;
+
+    margin-bottom: 2.4rem;
 }
 
 .volunteer--project--image {
     width: 7.2rem;
     background-color: var(--color-white);
+}
+
+.volunteer--position {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
 }

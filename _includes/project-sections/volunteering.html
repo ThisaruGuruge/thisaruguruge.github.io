@@ -6,7 +6,10 @@
     <article class="volunteer--project--item">
         <header class="volunteer--project--header">
             <img class="volunteer--project--image" src="{{ item.logo }}" alt="{{ item.alt }}">
-            <h2 class="heading heading--primary">{{ item.name }}</h2>
+            <div class="volunteer--position">
+                <h2 class="heading heading--primary">{{ item.name }}</h2>
+                <p class="text">{{ item.period }}</p>
+            </div>
         </header>
         <main>
             <p class="text">{{ item.description }}</p>

@@ -3,14 +3,14 @@
     <div class="education--items">
         {% for education in site.data.educations %}
         <article class="education--item">
-            <h2 class="education--item-title">{{ education.title }}</h2>
+            <h3 class="education--item-title">{{ education.title }}</h3>
             <div class="education--subheading">
                 <div class="education--institute-logos">
                     <img src="{{ education.logo}}" alt="{{ education.company }} Logo" class="education--institute-logo">
                 </div>
                 <div class="education--institute-details">
-                    <h3 class="education--class">{{ education.class }}</h3>
-                    <h4 class="education--institute-name">{{ education.institute }} </h4>
+                    <h4 class="weight--normal">{{ education.class }}</h4>
+                    <h5 class="weight-light">{{ education.institute }} </h5>
                     <p class="education--time-period">{{ education.period }}</p>
                 </div>
             </div>

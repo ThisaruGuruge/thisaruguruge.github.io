@@ -9,7 +9,7 @@
             <div class="contact--social-media-icons">
                 {% for item in site.data.social-media %}
                 <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer" class="text-link">
-                    <i class="ph ph-{{ item.icon }} contact--icon"></i>
+                    <ion-icon name="{{ item.icon }}" class="contact--icon"></ion-icon>
                 </a>
                 {% endfor%}
             </div>

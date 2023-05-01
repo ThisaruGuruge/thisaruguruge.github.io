@@ -4,20 +4,22 @@
         {% for experience in site.data.experiences %}
         <article class="experience">
             <header class="experience--header">
-                <h2 class="experience--title">{{ experience.position }}</h2>
+                <h2>{{ experience.position }}</h2>
                 <div class="experience--subheading">
                     <div class="experience--company">
                         <img src="{{ experience.logo}}" alt="{{ experience.company }} Logo"
                             class="experience--company-logo">
-                        <h3 class="experience--company-name">{{ experience.company }} | {{
-                            experience.team }}</h3>
+                        <div class="experience--company-details">
+                            <h3 class="experience--company-name">{{ experience.company }}</h3>
+                            <h4>{{ experience.team }}</h4>
+                        </div>
                     </div>
                     <p class="experience--time-period">{{ experience.start }} &mdash; {{ experience.end }}</p>
                 </div>
             </header>
             <main class="experience--content">
-                <p class="experience--description">{{ experience.description }}</p>
-                <p class="experience--technologies">
+                <p class="experience--description weight-light">{{ experience.description }}</p>
+                <p class="experience--technologies weight--semi-bold">
                     <span class="experience--technologies-title">Technologies:</span>
                     {{ experience.technologies }}
                 </p>

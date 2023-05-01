@@ -2,12 +2,12 @@
     <div class="footer--section container">
         <ul class="footer--social-media-items">
             {% for item in site.data.social-media %}
-            <a href="{{ item.url }}" class="footer--social-media-link smooth-transition" target="_blank">
-                <li class="footer--social-media-item">
+            <li class="footer--social-media-item">
+                <a href="{{ item.url }}" class="footer--social-media-link smooth-transition" target="_blank">
                     <ion-icon name="{{ item.icon }}"></ion-icon>
                     {{ item.name }}
-                </li>
-            </a>
+                </a>
+            </li>
             {% endfor %}
         </ul>
         <p class="copyright-text">Developed By Thisaru Guruge &mdash; {{ site.time | date: "%Y" }}</p>

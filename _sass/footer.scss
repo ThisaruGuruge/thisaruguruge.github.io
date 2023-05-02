@@ -12,13 +12,12 @@
     justify-content: center;
 }
 
-.footer--social-media-item {
-    display: flex;
-    gap: 1rem;
-}
-
 .footer--social-media-link {
     font-size: 1.8rem;
+
+    display: flex;
+    gap: 1rem;
+    align-items: center;
 }
 
 .footer--social-media-link:link,

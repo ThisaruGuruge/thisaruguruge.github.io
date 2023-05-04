@@ -4,6 +4,9 @@ title: "Home"
 quote: "Journey matters more than the destination"
 ---
 
-{% for page in site.data.landing-page-sections %}
+
+<main class="container">
+    {% for page in site.data.landing-page-sections %}
     {% include landing-page-sections/{{ page.file-name }} %}
-{% endfor %}
+    {% endfor %}
+</main>

@@ -1,0 +1,29 @@
+.post--page-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    align-items: start;
+
+    max-width: 120rem;
+    margin: 0 auto;
+    padding: 2.4rem;
+}
+
+
+.post--container {
+    flex-basis: 50rem;
+    flex-grow: 100;
+}
+
+.post--related-posts {
+    flex-basis: 30rem;
+    flex-grow: 1;
+}
+
+// .post--header {
+//     margin-bottom: 6.4rem;
+// }
+
+// .post--heading {
+//     font-size: 6.4rem;
+// }

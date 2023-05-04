@@ -5,6 +5,8 @@ permalink: /cv
 quote: "Engineer | Technical Lead | WSO2 | Ballerina"
 ---
 
-{% for section in site.data.cv-sections %}
+<main class="container">
+    {% for section in site.data.cv-sections %}
     {% include cv-sections/{{ section.file-name }} %}
-{% endfor %}
+    {% endfor %}
+</main>

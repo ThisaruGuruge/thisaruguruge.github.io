@@ -8,8 +8,14 @@ quote: "I write sometimes"
 <main class="container">
     <h1 class="title--primary">Blog</h1>
 
-    {% for post in site.posts %}
-    <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-    <p class="text">{{ post.excerpt }}</p>
-    {% endfor %}
+    <ul class="blog--posts">
+        {% for post in site.posts %}
+        <li class="blog--post">
+            <div class="blog--post-heading">
+                <p><a href="{{ post.url }}" class="blog--post-title">{{ post.title }}</a></p>
+            </div>
+            <p class="post--subheading-text">{{ post.subtitle }}</p>
+        </li>
+        {% endfor %}
+    </ul>
 </main>

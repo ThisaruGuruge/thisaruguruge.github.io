@@ -9,21 +9,79 @@
     padding: 2.4rem;
 }
 
-
 .post--container {
     flex-basis: 50rem;
     flex-grow: 100;
 }
 
 .post--related-posts {
-    flex-basis: 30rem;
+    flex-basis: 20rem;
     flex-grow: 1;
 }
 
-// .post--header {
-//     margin-bottom: 6.4rem;
-// }
+.post--image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3.2rem;
+}
 
-// .post--heading {
-//     font-size: 6.4rem;
-// }
+.post--image {
+    max-width: 80%;
+    width: auto;
+    height: auto;
+}
+
+.post--additional-image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 2.4rem;
+}
+
+.post--image-caption {
+    font-size: 1.4rem;
+    text-align: center;
+    font-style: italic;
+}
+
+.post--header {
+    margin-bottom: 6.4rem;
+}
+
+.post--heading {
+    margin-bottom: 1.8rem;
+}
+
+.post--subheading {
+    font-size: 2.4rem;
+    margin-bottom: 1.4rem;
+    color: var(--color-green);
+}
+
+.post--date {
+    font-size: 1.6rem;
+}
+
+.post--content p {
+    margin-bottom: 1.8rem;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+}
+
+.post--content ul {
+    line-height: 1.4;
+    margin: 1.2rem 0;
+}
+
+blockquote {
+    max-width: 90%;
+    margin: auto;
+    font-weight: 500;
+    font-size: 2.4rem;
+    color: var(--color-green);
+}

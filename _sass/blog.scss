@@ -1,0 +1,51 @@
+.blog--posts {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4.8rem;
+}
+
+.blog--post-link:link,
+.blog--post-link:visited {
+    text-decoration: none;
+}
+
+.blog--post-link:hover,
+.blog--post-link:active {
+    text-decoration: none;
+}
+
+.blog--post {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.blog--post-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.blog--post-title:link,
+.blog--post-title:visited {
+    font-size: 4.8rem;
+    text-decoration: none;
+    color: var(--color-link);
+}
+
+.blog--post-title:hover,
+.blog--post-title:active {
+    color: var(--color-green);
+}
+
+.post--subheading-text {
+    font-size: 1.8rem;
+    letter-spacing: 0.2rem;
+}
+
+.post--tags {
+    display: flex;
+    gap: 1.2rem;
+    margin: 1.4rem 0;
+}

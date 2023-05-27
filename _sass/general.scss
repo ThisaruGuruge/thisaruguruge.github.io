@@ -34,12 +34,6 @@ body {
     scrollbar-width: none;  /* Firefox */
 }
 
-@font-face {
-    font-family: 'Roboto', sans-serif;
-    src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
-    unicode-range: U+0D80-0DFF;
-}
-
 body::-webkit-scrollbar {
     display: none;  /* Safari and Chrome */
 }

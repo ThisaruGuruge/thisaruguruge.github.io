@@ -1,0 +1,50 @@
+---
+const navItems = [
+  { href: '/', text: 'Home' },
+  { href: '/projects/', text: 'Projects' },
+  { href: '/off-duty/', text: 'Off Duty' },
+  { href: '/causes/', text: 'What I Care About' },
+  { href: '/thoughts/', text: 'Thoughts' },
+];
+---
+
+<header class="py-6">
+  <nav class="container">
+    <div class="flex items-center justify-between">
+      <a href="/" class="text-xl font-display font-bold text-accent-cyan">
+        Thisaru
+      </a>
+      <ul class="hidden md:flex space-x-8">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-text hover:text-accent-orange transition-colors"
+            >
+              {item.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <button
+        class="md:hidden text-text hover:text-accent-orange transition-colors"
+        aria-label="Toggle menu"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>

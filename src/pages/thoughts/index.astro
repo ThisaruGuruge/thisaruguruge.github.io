@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+let posts = await getCollection('blog');
+posts = posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<Layout title="Thoughts | Thisaru">
+  <Header />
+  <main>
+    <section class="py-20">
+      <div class="container max-w-3xl">
+        <h1 class="heading-1 text-center mb-12">Thoughts</h1>
+        <div class="space-y-12">
+          {posts.map((post) => (
+            <article class="group">
+              <a href={`/thoughts/${post.slug}/`} class="block">
+                <h2 class="heading-3 group-hover:text-accent-cyan transition-colors">
+                  {post.data.title}
+                </h2>
+                <p class="text-gray-300 mt-2">{post.data.description}</p>
+                <div class="flex items-center gap-4 mt-4">
+                  <time
+                    datetime={post.data.pubDate.toISOString()}
+                    class="text-sm text-gray-400"
+                  >
+                    {post.data.pubDate.toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  {post.data.tags && (
+                    <div class="flex gap-2">
+                      {post.data.tags.map((tag) => (
+                        <span class="text-sm text-accent-orange">#{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

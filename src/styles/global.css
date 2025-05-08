@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .heading-1 {
+    @apply font-display text-4xl sm:text-5xl font-bold;
+  }
+
+  .heading-2 {
+    @apply font-display text-3xl sm:text-4xl font-bold;
+  }
+
+  .heading-3 {
+    @apply font-display text-2xl sm:text-3xl font-semibold;
+  }
+
+  .prose {
+    @apply max-w-none;
+  }
+
+  .prose a {
+    @apply text-accent-cyan hover:text-accent-orange transition-colors;
+  }
+
+  .prose a[href^="http"] > img {
+    all: unset;
+    display: inline;
+    vertical-align: middle;
+    max-width: none;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+  }
+}

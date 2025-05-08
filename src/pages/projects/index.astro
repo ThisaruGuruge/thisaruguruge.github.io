@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'Project One',
+    description: 'A full-stack web application built with modern technologies.',
+    image: '/projects/project1.jpg',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    githubUrl: 'https://github.com/thisaru/project1',
+    demoUrl: 'https://project1.demo',
+  },
+  {
+    title: 'Project Two',
+    description: 'An AI-powered tool that helps developers write better code.',
+    image: '/projects/project2.jpg',
+    tags: ['Python', 'TensorFlow', 'FastAPI'],
+    githubUrl: 'https://github.com/thisaru/project2',
+  },
+  {
+    title: 'Project Three',
+    description: 'A mobile app for tracking personal fitness goals.',
+    image: '/projects/project3.jpg',
+    tags: ['React Native', 'Firebase'],
+    githubUrl: 'https://github.com/thisaru/project3',
+    demoUrl: 'https://project3.demo',
+  },
+];
+---
+
+<Layout title="Projects | Thisaru">
+  <Header />
+  <main>
+    <section class="py-20">
+      <div class="container">
+        <h1 class="heading-1 text-center mb-12">My Projects</h1>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <ProjectCard {...project} />
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

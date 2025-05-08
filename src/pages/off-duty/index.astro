@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const hobbies = [
+  {
+    title: 'Wildlife Photography',
+    description: 'Capturing the beauty of nature and wildlife in their natural habitats.',
+    images: [
+      { src: '/hobbies/wildlife1.jpg', alt: 'Wildlife photography 1' },
+      { src: '/hobbies/wildlife2.jpg', alt: 'Wildlife photography 2' },
+      { src: '/hobbies/wildlife3.jpg', alt: 'Wildlife photography 3' },
+    ],
+  },
+  {
+    title: 'Guitar',
+    description: 'Playing and composing music, exploring different genres and techniques.',
+    images: [
+      { src: '/hobbies/guitar1.jpg', alt: 'Guitar playing 1' },
+      { src: '/hobbies/guitar2.jpg', alt: 'Guitar playing 2' },
+    ],
+  },
+  {
+    title: 'Hiking',
+    description: 'Exploring trails and mountains, connecting with nature.',
+    images: [
+      { src: '/hobbies/hiking1.jpg', alt: 'Hiking adventure 1' },
+      { src: '/hobbies/hiking2.jpg', alt: 'Hiking adventure 2' },
+      { src: '/hobbies/hiking3.jpg', alt: 'Hiking adventure 3' },
+    ],
+  },
+];
+---
+
+<Layout title="Off Duty | Thisaru">
+  <Header />
+  <main>
+    <section class="py-20">
+      <div class="container">
+        <h1 class="heading-1 text-center mb-12">Off Duty</h1>
+        <div class="space-y-20">
+          {hobbies.map((hobby) => (
+            <div class="space-y-6">
+              <div class="text-center">
+                <h2 class="heading-2 text-accent-cyan">{hobby.title}</h2>
+                <p class="text-lg text-gray-300 mt-4">{hobby.description}</p>
+              </div>
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {hobby.images.map((image) => (
+                  <div class="aspect-square rounded-xl overflow-hidden">
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      class="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
+                      width="400"
+                      height="400"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

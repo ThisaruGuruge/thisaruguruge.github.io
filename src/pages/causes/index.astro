@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const causes = [
+  {
+    title: 'Environmental Conservation',
+    description: 'Active member of local wildlife conservation groups, participating in beach cleanups and tree planting initiatives.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+  },
+  {
+    title: 'Tech Education',
+    description: 'Volunteer coding instructor at local schools, helping students learn programming and digital skills.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+  },
+  {
+    title: 'Community Development',
+    description: 'Organizing workshops and events to promote sustainable living and community engagement.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  },
+];
+---
+
+<Layout title="What I Care About | Thisaru">
+  <Header />
+  <main>
+    <section class="py-20">
+      <div class="container">
+        <h1 class="heading-1 text-center mb-12">What I Care About</h1>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {causes.map((cause) => (
+            <div class="bg-gray-800 rounded-xl p-8 space-y-4">
+              <div class="text-accent-orange">
+                <Fragment set:html={cause.icon} />
+              </div>
+              <h2 class="heading-3">{cause.title}</h2>
+              <p class="text-gray-300">{cause.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

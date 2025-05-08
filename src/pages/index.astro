@@ -1,16 +1,67 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Thisaru | Personal Portfolio">
+	<Header />
+	<main>
+		<section class="py-20">
+			<div class="container">
+				<div class="grid md:grid-cols-2 gap-12 items-center">
+					<div class="space-y-6">
+						<h1 class="heading-1">
+							Hey, I'm <span class="text-accent-cyan">Thisaru</span>
+						</h1>
+						<p class="text-lg text-gray-300">
+							I'm a software engineer passionate about building beautiful, functional, and user-friendly applications.
+							When I'm not coding, you'll find me exploring wildlife photography, playing guitar, or contributing to causes I care about.
+						</p>
+						<div class="flex space-x-4">
+							<a
+								href="/projects/"
+								class="inline-flex items-center px-6 py-3 rounded-lg bg-accent-cyan text-background font-medium hover:bg-opacity-90 transition-colors"
+							>
+								View Projects
+							</a>
+							<a
+								href="/thoughts/"
+								class="inline-flex items-center px-6 py-3 rounded-lg border border-accent-cyan text-accent-cyan font-medium hover:bg-accent-cyan hover:bg-opacity-10 transition-colors"
+							>
+								Read Blog
+							</a>
+						</div>
+					</div>
+					<div class="relative aspect-square rounded-2xl overflow-hidden">
+						<img
+							src="/profile.jpg"
+							alt="Thisaru's profile photo"
+							class="object-cover w-full h-full"
+							width="500"
+							height="500"
+						/>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="py-20 bg-gray-900">
+			<div class="container">
+				<h2 class="heading-2 text-center mb-12">Featured Projects</h2>
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<!-- Project cards will be added here -->
+				</div>
+				<div class="text-center mt-12">
+					<a
+						href="/projects/"
+						class="inline-flex items-center px-6 py-3 rounded-lg border border-accent-orange text-accent-orange font-medium hover:bg-accent-orange hover:bg-opacity-10 transition-colors"
+					>
+						View All Projects
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>

@@ -1,6 +1,6 @@
 ---
 title: "GraphQL Subscriptions with Apache Kafka in Ballerina"
-description: "Step-by-step guide on implementing a news alert system GraphQL API using Apache Kafka and Ballerina"
+description: "This step-by-step guide explains how to implement a news alert system as a GraphQL API using Apache Kafka and Ballerina. The system leverages the Ballerina GraphQL package to create a GraphQL API and Apache Kafka with Ballerina Kafka connector to handle real-time events."
 author: 'Thisaru'
 tags: ["Tech", "Ballerina", "GraphQL"]
 pubDate: 2023-02-06

@@ -4,7 +4,10 @@
 
 @layer base {
   body {
-    @apply antialiased;
+    @apply bg-background text-text antialiased transition-colors duration-300;
+  }
+  .dark body {
+    @apply bg-[#121212] text-[#f1f1f1];
   }
 }
 
@@ -27,6 +30,9 @@
 
   .prose {
     @apply max-w-none;
+  }
+  .dark .prose {
+    @apply prose-invert;
   }
 
   .prose a {

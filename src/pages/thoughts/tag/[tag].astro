@@ -31,7 +31,7 @@ const posts = (await getCollection('blog')).filter(post => (post.data.tags || []
                   <h2 class="heading-3 group-hover:text-accent-cyan transition-colors">
                     {post.data.title}
                   </h2>
-                  <p class="text-gray-300 mt-2">{post.data.description}</p>
+                  <p class="text-gray-700 dark:text-gray-300 mt-2">{post.data.description}</p>
                   <div class="flex items-center gap-4 mt-4">
                     <time
                       datetime={post.data.pubDate.toISOString()}
@@ -43,6 +43,11 @@ const posts = (await getCollection('blog')).filter(post => (post.data.tags || []
                         day: 'numeric',
                       })}
                     </time>
+                  </div>
+                  <div class="flex flex-wrap gap-x-2 gap-y-2">
+                    {post.data.tags.map((tag) => (
+                      <a href={`/thoughts/tag/${encodeURIComponent(tag)}/`} class="text-sm text-accent-orange underline hover:text-accent-cyan">#{tag}</a>
+                    ))}
                   </div>
                 </a>
               </article>

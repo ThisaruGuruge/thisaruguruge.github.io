@@ -21,7 +21,7 @@ posts = posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
                 <h2 class="heading-3 group-hover:text-accent-cyan transition-colors">
                   {post.data.title}
                 </h2>
-                <p class="text-gray-300 mt-2">{post.data.description}</p>
+                <p class="text-gray-700 dark:text-gray-300 mt-2">{post.data.description}</p>
                 <div class="flex items-center gap-4 mt-4">
                   <time
                     datetime={post.data.pubDate.toISOString()}
@@ -34,7 +34,7 @@ posts = posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
                     })}
                   </time>
                   {post.data.tags && (
-                    <div class="flex gap-2">
+                    <div class="flex flex-wrap gap-x-2 gap-y-2">
                       {post.data.tags.map((tag) => (
                         <a href={`/thoughts/tag/${encodeURIComponent(tag)}/`} class="text-sm text-accent-orange underline hover:text-accent-cyan">#{tag}</a>
                       ))}

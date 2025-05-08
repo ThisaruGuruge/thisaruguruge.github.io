@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
       colors: {
-        background: '#121212',
-        text: '#f1f1f1',
+        // Light theme (default)
+        background: '#ffffff',
+        text: '#1a202c',
+        // Accent colors (shared)
         accent: {
           cyan: '#4ECDC4',
           orange: '#FF6B6B',

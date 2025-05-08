@@ -11,7 +11,7 @@ const navItems = [
 <header class="py-6">
   <nav class="container">
     <div class="flex items-center justify-between">
-      <a href="/" class="text-xl font-display font-bold text-accent-cyan">
+      <a href="/" class="text-xl font-display font-bold text-accent-cyan dark:text-accent-cyan">
         Thisaru
       </a>
       <ul class="hidden md:flex space-x-8">
@@ -19,32 +19,74 @@ const navItems = [
           <li>
             <a
               href={item.href}
-              class="text-text hover:text-accent-orange transition-colors"
+              class="text-text dark:text-[#f1f1f1] hover:text-accent-orange dark:hover:text-accent-orange transition-colors"
             >
               {item.text}
             </a>
           </li>
         ))}
       </ul>
-      <button
-        class="md:hidden text-text hover:text-accent-orange transition-colors"
-        aria-label="Toggle menu"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
+      <div class="flex items-center gap-4">
+        <button
+          id="theme-toggle"
+          class="text-text dark:text-[#f1f1f1] hover:text-accent-cyan dark:hover:text-accent-cyan transition-colors text-2xl focus:outline-none"
+          aria-label="Toggle theme"
+          type="button"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
-        </svg>
-      </button>
+          <span id="theme-toggle-icon">
+            {/* Icon will be set by script */}
+          </span>
+        </button>
+        <button
+          class="md:hidden text-text dark:text-[#f1f1f1] hover:text-accent-orange dark:hover:text-accent-orange transition-colors"
+          aria-label="Toggle menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </nav>
 </header>
+
+<script>
+  // Theme toggle logic
+  const html = document.documentElement;
+  const themeToggle = document.getElementById('theme-toggle');
+  const iconSpan = document.getElementById('theme-toggle-icon');
+  const sun = '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" d="M12 1v2m0 18v2m11-11h-2M3 12H1m16.95 7.07l-1.41-1.41M6.34 6.34L4.93 4.93m12.02 0l-1.41 1.41M6.34 17.66l-1.41 1.41"/></svg>';
+  const moon = '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke="currentColor" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>';
+
+  function setTheme(dark) {
+    if (dark) {
+      html.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      iconSpan.innerHTML = sun;
+    } else {
+      html.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      iconSpan.innerHTML = moon;
+    }
+  }
+
+  // Initial theme
+  const userPref = localStorage.getItem('theme');
+  const systemPref = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(userPref === 'dark' || (!userPref && systemPref));
+
+  themeToggle.addEventListener('click', () => {
+    setTheme(!html.classList.contains('dark'));
+  });
+</script>

@@ -36,7 +36,7 @@ posts = posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
                   {post.data.tags && (
                     <div class="flex gap-2">
                       {post.data.tags.map((tag) => (
-                        <span class="text-sm text-accent-orange">#{tag}</span>
+                        <a href={`/thoughts/tag/${encodeURIComponent(tag)}/`} class="text-sm text-accent-orange underline hover:text-accent-cyan">#{tag}</a>
                       ))}
                     </div>
                   )}

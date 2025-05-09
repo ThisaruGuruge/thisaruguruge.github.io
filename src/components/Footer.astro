@@ -37,7 +37,7 @@ const socialLinks = [
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-text dark:text-[#f1f1f1] hover:text-accent-cyan dark:hover:text-accent-cyan transition-colors"
+            class="text-text hover:text-accent-cyan transition-colors"
             aria-label={link.name}
           >
             <Fragment set:html={link.icon} />
@@ -47,7 +47,7 @@ const socialLinks = [
       <blockquote class="bg-accent-cyan/5 text-accent-cyan px-6 py-3 rounded-md text-lg font-medium mb-2 text-center max-w-xl mx-auto shadow-none">
         Reality is the Fantasy We Choose to Believe!
       </blockquote>
-      <p class="text-sm text-gray-500">
+      <p class="text-sm text-text-muted">
         © {new Date().getFullYear()} Thisaru Guruge. All rights reserved.
       </p>
     </div>

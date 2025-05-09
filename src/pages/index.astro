@@ -16,12 +16,13 @@ const featuredProjects = projects.filter(p => p.data.featured);
 			<div class="container">
 				<div class="grid md:grid-cols-2 gap-12 items-center">
 					<div class="space-y-6">
-						<h1 class="heading-1 text-text dark:text-[#f1f1f1]">
-							Hey, I'm <span class="text-accent-cyan dark:text-accent-cyan"> Thisaru</span>
+						<h1 class="heading-1 text-text">
+							Hey, I'm <span class="text-accent-cyan"> Thisaru</span>
 						</h1>
-						<p class="text-lg text-gray-700 dark:text-gray-300">
-							I'm a software engineer passionate about building beautiful, functional, and user-friendly applications.
-							When I'm not coding, you'll find me exploring wildlife photography, playing guitar, or contributing to causes I care about.
+						<p class="text-lg text-text-muted">
+							I build software that solves real problems — and spend my off-hours chasing light, sound, and meaning.
+							Whether it’s a melody, a meteor shower, or a moment in the forest, I’m here for the things
+							that make us feel small and inspired — and worth building, protecting, and fighting for.
 						</p>
 						<div class="flex space-x-4">
 							<a
@@ -52,12 +53,12 @@ const featuredProjects = projects.filter(p => p.data.featured);
 			</div>
 		</section>
 
-		<section class="py-20 bg-gray-50 dark:bg-gray-900">
+		<section class="py-20 bg-background-section">
 			<div class="container">
 				<h2 class="heading-2 text-center mb-12">Featured Projects</h2>
 				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 					{featuredProjects.length === 0 ? (
-						<p class="col-span-full text-center text-gray-400">No featured projects yet.</p>
+						<p class="col-span-full text-center text-text-muted">No featured projects yet.</p>
 					) : (
 						featuredProjects.map((project) => (
 							<ProjectCard {...project.data} />

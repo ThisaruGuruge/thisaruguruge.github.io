@@ -5,16 +5,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Light theme (default)
-        background: '#ffffff',
-        text: '#1a202c',
-        // Accent colors (shared)
-        accent: {
-          cyan: '#4ECDC4',
-          orange: '#FF6B6B',
-        },
-        'accent-orange': '#ff6b35',
-        'accent-cyan': '#4ecdc4',
+        background: 'var(--color-bg)',
+        'background-card': 'var(--color-bg-card)',
+        'background-section': 'var(--color-bg-section)',
+        'background-accent': 'var(--color-bg-accent)',
+        text: 'var(--color-text)',
+        'text-light': 'var(--color-text-light)',
+        'text-muted': 'var(--color-text-muted)',
+        'text-muted-dark': 'var(--color-text-muted-dark)',
+        'accent-cyan': 'var(--color-accent-cyan)',
+        'accent-orange': 'var(--color-accent-orange)',
+        'border-accent': 'var(--color-border-accent)',
+        'gray-400': 'var(--color-gray-400)',
+        'gray-500': 'var(--color-gray-500)',
+        'gray-700': 'var(--color-gray-700)',
+        'gray-300': 'var(--color-gray-300)',
+        'gray-100': 'var(--color-gray-100)',
+        'gray-50': 'var(--color-gray-50)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -23,11 +30,11 @@ export default {
       typography: {
         DEFAULT: {
           css: {
-            color: '#e2e8f0',
+            color: 'var(--color-text)',
             '.prose a[href^="http"]:not(:has(img)):not(.no-external-icon)': {
-              color: '#4ecdc4',
+              color: 'var(--color-accent-cyan)',
               '&:hover': {
-                color: '#ff6b35',
+                color: 'var(--color-accent-orange)',
               },
               '&::after': {
                 content: '" ↗"',
@@ -36,23 +43,23 @@ export default {
               },
             },
             strong: {
-              color: '#e2e8f0',
+              color: 'var(--color-text)',
             },
             h1: {
-              color: '#e2e8f0',
+              color: 'var(--color-text)',
             },
             h2: {
-              color: '#e2e8f0',
+              color: 'var(--color-text)',
             },
             h3: {
-              color: '#e2e8f0',
+              color: 'var(--color-text)',
             },
             h4: {
-              color: '#e2e8f0',
+              color: 'var(--color-text)',
             },
             code: {
-              color: '#e2e8f0',
-              backgroundColor: '#1e1e1e',
+              color: 'var(--color-text)',
+              backgroundColor: 'var(--color-bg-card)',
               padding: '0.2em 0.4em',
               borderRadius: '0.25em',
               fontWeight: '400',
@@ -64,8 +71,8 @@ export default {
               content: '""',
             },
             pre: {
-              backgroundColor: '#1e1e1e',
-              color: '#e2e8f0',
+              backgroundColor: 'var(--color-bg-card)',
+              color: 'var(--color-text)',
               padding: '1.25em',
               borderRadius: '0.5em',
               overflowX: 'auto',
@@ -74,14 +81,14 @@ export default {
                 height: '0.5em',
               },
               '&::-webkit-scrollbar-track': {
-                backgroundColor: '#2d2d2d',
+                backgroundColor: 'var(--color-bg-section)',
                 borderRadius: '0.25em',
               },
               '&::-webkit-scrollbar-thumb': {
-                backgroundColor: '#4d4d4d',
+                backgroundColor: 'var(--color-gray-500)',
                 borderRadius: '0.25em',
                 '&:hover': {
-                  backgroundColor: '#5d5d5d',
+                  backgroundColor: 'var(--color-gray-400)',
                 },
               },
             },
@@ -93,7 +100,7 @@ export default {
               whiteSpace: 'pre',
             },
             blockquote: {
-              color: '#94a3b8',
+              color: 'var(--color-text-muted)',
             },
           },
         },

@@ -2,12 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Base colors */
+  --color-accent-cyan: #4ecdc4;
+  --color-accent-orange: #ff6b35;
+
+  /* Light theme (default) */
+  --color-bg: #ffffff;
+  --color-bg-card: #f3f4f6;
+  --color-bg-section: #f9fafb;
+  --color-bg-accent: #e0f7fa;
+  --color-text: #1a202c;
+  --color-text-light: #f1f1f1;
+  --color-text-muted: #6b7280;
+  --color-text-muted-dark: #d1d5db;
+  --color-border-accent: #4ecdc466;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-700: #374151;
+  --color-gray-300: #d1d5db;
+  --color-gray-100: #f3f4f6;
+  --color-gray-50: #f9fafb;
+}
+
+/* Dark theme */
+.dark {
+  --color-bg: #121212;
+  --color-bg-card: #23272e;
+  --color-bg-section: #18181b;
+  --color-bg-accent: #23272e;
+  --color-text: #f1f1f1;
+  --color-text-muted: #d1d5db;
+  --color-gray-100: #23272e;
+  --color-gray-50: #18181b;
+}
+
 @layer base {
   body {
-    @apply bg-background text-text antialiased transition-colors duration-300;
-  }
-  .dark body {
-    @apply bg-[#121212] text-[#f1f1f1];
+    @apply bg-background text-text;
   }
 }
 
@@ -17,15 +49,15 @@
   }
 
   .heading-1 {
-    @apply font-display text-4xl sm:text-5xl font-bold;
+    @apply text-4xl md:text-5xl lg:text-6xl font-display font-bold;
   }
 
   .heading-2 {
-    @apply font-display text-3xl sm:text-4xl font-bold;
+    @apply text-3xl md:text-4xl lg:text-5xl font-display font-bold;
   }
 
   .heading-3 {
-    @apply font-display text-2xl sm:text-3xl font-semibold;
+    @apply text-2xl md:text-3xl font-display font-bold;
   }
 
   .prose {

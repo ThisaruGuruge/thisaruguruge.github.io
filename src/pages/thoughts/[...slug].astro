@@ -14,6 +14,12 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+const site = 'https://thisaru.me';
+const imageUrl = post.data.image?.startsWith('http')
+  ? post.data.image
+  : post.data.image
+    ? site + post.data.image
+    : site + '/og-image.jpg';
 
 // Function to process external links
 function processContent(content: string) {
@@ -33,7 +39,7 @@ const relatedPosts = allPosts
 <Layout
   title={`${post.data.title} | Thisaru`}
   description={post.data.description}
-  image={post.data.image}
+  image={imageUrl}
 >
   <Header />
   <main>
@@ -70,7 +76,7 @@ const relatedPosts = allPosts
               {relatedPosts.map((related) => (
                 <a href={`/thoughts/${related.slug}/`} class="block group rounded-lg hover:bg-accent-cyan/10 transition-colors p-3 -mx-3">
                   <h3 class="text-lg font-semibold group-hover:text-accent-cyan transition-colors">{related.data.title}</h3>
-                  <p class="text-gray-400 mt-1">{related.data.description}</p>
+                  <p class="text-gray-700 dark:text-gray-300 mt-1">{related.data.description}</p>
                   <div class="flex items-center gap-4 mt-2">
                     <time class="text-xs text-gray-500" datetime={related.data.pubDate.toISOString()}>
                       {related.data.pubDate.toLocaleDateString('en-US', {

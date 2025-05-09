@@ -2,8 +2,9 @@
 title: "Inception"
 tags: ["movie reviews", "philosophy", "scifi"]
 author: "රස්තියාදුකාරයා"
-description: "Inception චිත්‍රපටය පිළිබඳව විග්‍රහයක්"
+description: "Inception චිත්‍රපටය පිළිබඳව විග්‍රහයක් | An analysis of Christopher Nolan's Inception in Sinhala — dream within a dream, reality, and philosophical themes."
 pubDate: 2019-04-03
+image: "/images/blog/inception/poster.webp"
 ---
 
 ![Inception Movie Poster](/images/blog/inception/poster.webp)

@@ -4,6 +4,7 @@ tags: ["Tech", "Ballerina", "GraphQL"]
 description: "This article series will dive into GraphQL federation with Ballerina and Apollo Studio. In this part, you will learn how to design and implement federated subgraphs using Ballerina and publishing them to Apollo Studio."
 author: 'Thisaru'
 pubDate: 2023-10-02
+image: "/images/blog/graphql-federation-with-ballerina-part-I/graphql-federation.webp"
 ---
 
 > This article was written using Ballerina Swan Lake Update 8 (2201.8.0)

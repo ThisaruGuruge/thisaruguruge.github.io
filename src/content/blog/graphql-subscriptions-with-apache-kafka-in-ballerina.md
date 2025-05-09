@@ -4,6 +4,7 @@ description: "This step-by-step guide explains how to implement a news alert sys
 author: 'Thisaru'
 tags: ["Tech", "Ballerina", "GraphQL"]
 pubDate: 2023-02-06
+image: "/images/blog/graphql-subscriptions-with-apache-kafka-in-ballerina/graphql-subscription-with-kafka-diagram.webp"
 ---
 
 ## Introduction

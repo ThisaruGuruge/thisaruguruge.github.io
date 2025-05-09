@@ -4,6 +4,7 @@ tags: ["Tech", "Ballerina", "GraphQL"]
 description: "This is the part two of the article series on GraphQL federation with Ballerina and Apollo. In this article we discuss how to implement Entity types and ReferenceResolvers in Ballerina."
 author: 'Thisaru'
 pubDate: 2023-10-03
+image: "/images/blog/graphql-federation-with-ballerina-part-I/graphql-federation.webp"
 ---
 
 > This article was written using Ballerina Swan Lake Update 8 (2201.8.0)

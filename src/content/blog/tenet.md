@@ -2,8 +2,9 @@
 title: "Tenet කියවමු"
 tags: ["movie reviews", "science", "scifi"]
 author: "රස්තියාදුකාරයා"
-description: "ක්‍රිස්ටෝපර් නෝලන්ගේ Tenet (ටෙනෙට්) චිත්‍රපටය පිළිබඳ ව සිංහල විචාරයක්. චිත්‍රපටයට අදාල භෞතීය විද්‍යා සංකල්ප සහ දාර්ශනික සංකල්ප සම්බන්ධව කෙරෙන විග්‍රහයකි"
+description: "ක්‍රිස්ටෝපර් නෝලන්ගේ Tenet (ටෙනෙට්) චිත්‍රපටය පිළිබඳ ව සිංහල විචාරයක්. චිත්‍රපටයට අදාල භෞතීය විද්‍යා සංකල්ප සහ දාර්ශනික සංකල්ප සම්බන්ධව කෙරෙන විග්‍රහයකි | An analysis of Christopher Nolan's Tenet in Sinhala — time inversion, entropy, and philosophical themes."
 pubDate: 2020-12-25
+image: "/images/blog/tenet/poster.webp"
 ---
 
 ![Tenet Movie Poster](/images/blog/tenet/poster.webp)

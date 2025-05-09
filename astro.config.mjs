@@ -2,10 +2,22 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
+import { visit } from 'unist-util-visit';
 
-// https://astro.build/config
+// Custom rehype plugin to add loading="lazy" to all images
+function rehypeImgLazy() {
+  return (tree) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'img') {
+        node.properties = node.properties || {};
+        node.properties.loading = 'lazy';
+      }
+    });
+  };
+}
+
 export default defineConfig({
-  site: 'https://thisaru.dev',
+  site: 'https://thisaru.me',
   integrations: [tailwind(), sitemap()],
   output: 'static',
   trailingSlash: 'always',
@@ -18,6 +30,7 @@ export default defineConfig({
     shikiConfig: {
       theme: 'github-dark',
       wrap: true
-    }
+    },
+    rehypePlugins: [rehypeImgLazy]
   }
 });

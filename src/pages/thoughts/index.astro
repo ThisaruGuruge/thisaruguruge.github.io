@@ -8,7 +8,7 @@ let posts = await getCollection('blog');
 posts = posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
-<Layout title="Thoughts | Thisaru">
+<Layout title="Thoughts | Thisaru" description="Blog articles by Thisaru on tech, cinema, philosophy, and more.">
   <Header />
   <main>
     <section class="py-20">

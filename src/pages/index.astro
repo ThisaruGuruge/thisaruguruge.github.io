@@ -2,9 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = await getCollection('projects');
+const featuredProjects = projects.filter(p => p.data.featured);
 ---
 
-<Layout title="Thisaru | Personal Portfolio">
+<Layout title="Home | Thisaru Guruge" description="The personal website of Thisaru — software engineer, musician, wildlife photographer, environmentalist, and writer.">
 	<Header />
 	<main>
 		<section class="py-20">
@@ -12,7 +17,7 @@ import Footer from '../components/Footer.astro';
 				<div class="grid md:grid-cols-2 gap-12 items-center">
 					<div class="space-y-6">
 						<h1 class="heading-1 text-text dark:text-[#f1f1f1]">
-							Hey, I'm <span class="text-accent-cyan dark:text-accent-cyan">Thisaru</span>
+							Hey, I'm <span class="text-accent-cyan dark:text-accent-cyan"> Thisaru</span>
 						</h1>
 						<p class="text-lg text-gray-700 dark:text-gray-300">
 							I'm a software engineer passionate about building beautiful, functional, and user-friendly applications.
@@ -40,17 +45,24 @@ import Footer from '../components/Footer.astro';
 							class="object-cover w-full h-full"
 							width="500"
 							height="500"
+							loading="lazy"
 						/>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<section class="py-20 bg-gray-100 dark:bg-gray-900">
+		<section class="py-20 bg-gray-50 dark:bg-gray-900">
 			<div class="container">
 				<h2 class="heading-2 text-center mb-12">Featured Projects</h2>
 				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-					<!-- Project cards will be added here -->
+					{featuredProjects.length === 0 ? (
+						<p class="col-span-full text-center text-gray-400">No featured projects yet.</p>
+					) : (
+						featuredProjects.map((project) => (
+							<ProjectCard {...project.data} />
+						))
+					)}
 				</div>
 				<div class="text-center mt-12">
 					<a

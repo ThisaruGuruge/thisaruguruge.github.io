@@ -38,8 +38,10 @@ const navItems = [
           </span>
         </button>
         <button
+          id="mobile-menu-open"
           class="md:hidden text-text dark:text-[#f1f1f1] hover:text-accent-orange dark:hover:text-accent-orange transition-colors"
           aria-label="Toggle menu"
+          type="button"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -58,6 +60,33 @@ const navItems = [
         </button>
       </div>
     </div>
+    {/* Mobile menu and backdrop, always rendered but hidden by default */}
+    <div id="mobile-menu-backdrop" class="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden hidden"></div>
+    <aside id="mobile-menu" class="fixed top-0 right-0 z-50 h-full w-64 bg-background dark:bg-[#18181b] shadow-lg flex flex-col p-8 gap-8 transition-transform duration-300 md:hidden translate-x-full">
+      <button
+        id="mobile-menu-close"
+        class="self-end mb-8 text-2xl text-text dark:text-[#f1f1f1] hover:text-accent-orange dark:hover:text-accent-orange focus:outline-none"
+        aria-label="Close menu"
+        type="button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <ul class="flex flex-col gap-6">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-xl font-medium text-text dark:text-[#f1f1f1] hover:text-accent-orange dark:hover:text-accent-orange transition-colors"
+              onclick="document.getElementById('mobile-menu').classList.add('translate-x-full');document.getElementById('mobile-menu-backdrop').classList.add('hidden');"
+            >
+              {item.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
   </nav>
 </header>
 
@@ -88,5 +117,24 @@ const navItems = [
 
   themeToggle.addEventListener('click', () => {
     setTheme(!html.classList.contains('dark'));
+  });
+
+  // Mobile menu logic
+  const menuOpenBtn = document.getElementById('mobile-menu-open');
+  const menuCloseBtn = document.getElementById('mobile-menu-close');
+  const menu = document.getElementById('mobile-menu');
+  const backdrop = document.getElementById('mobile-menu-backdrop');
+
+  menuOpenBtn.addEventListener('click', () => {
+    menu.classList.remove('translate-x-full');
+    backdrop.classList.remove('hidden');
+  });
+  menuCloseBtn.addEventListener('click', () => {
+    menu.classList.add('translate-x-full');
+    backdrop.classList.add('hidden');
+  });
+  backdrop.addEventListener('click', () => {
+    menu.classList.add('translate-x-full');
+    backdrop.classList.add('hidden');
   });
 </script>

@@ -11,8 +11,18 @@ const navItems = [
 <header class="py-6">
   <nav class="container">
     <div class="flex items-center justify-between">
-      <a href="/" class="text-xl font-display font-bold text-accent-cyan">
-        Thisaru
+      <a href="/" class="group flex flex-col items-center">
+        <div class="flex items-center">
+          <span class="text-accent-orange opacity-70 group-hover:opacity-100 transition-opacity text-2xl font-bold">&#10100;</span>
+          <span class="text-2xl font-display font-bold text-accent-cyan mx-1 group-hover:scale-105 transition-transform relative">
+            Thisaru
+            <span class="absolute inset-0 bg-accent-cyan/20 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse"></span>
+          </span>
+          <span class="text-accent-orange opacity-70 group-hover:opacity-100 transition-opacity text-2xl font-bold">&#10101;</span>
+        </div>
+        <span class="text-xs md:text-xs font-serif text-text-muted -mt-1 group-hover:text-accent-orange transition-colors text-center">
+          <span class="inline-block group-hover:animate-pulse">→</span> Software, Sound, and the Stars
+        </span>
       </a>
       <ul class="hidden md:flex space-x-8">
         {navItems.map((item) => (
@@ -138,3 +148,15 @@ const navItems = [
     backdrop.classList.add('hidden');
   });
 </script>
+
+<style>
+  @keyframes gentle-pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+  }
+
+  .animate-pulse {
+    animation: gentle-pulse 2s infinite ease-in-out;
+  }
+</style>

@@ -20,6 +20,11 @@ const canonicalURL = new URL(Astro.url.pathname, site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
@@ -43,12 +48,12 @@ const canonicalURL = new URL(Astro.url.pathname, site);
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, site)} />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, site)} />
+    <!-- X (formerly Twitter) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, site)} />
 
     <title>{title}</title>
   </head>

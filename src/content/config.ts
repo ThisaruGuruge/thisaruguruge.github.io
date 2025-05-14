@@ -25,7 +25,20 @@ const projects = defineCollection({
   }),
 });
 
+const causes = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    position: z.string(),
+    fromYear: z.number(),
+    toYear: z.number().optional(),
+    description: z.string(),
+    icon: z.string(),
+  }),
+});
+
 export const collections = {
   blog,
   projects,
+  causes,
 };

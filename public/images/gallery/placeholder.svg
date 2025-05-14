@@ -1,0 +1,9 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" fill="#2a2a2a"/>
+  <rect x="150" y="250" width="500" height="300" rx="15" fill="none" stroke="#6c6c6c" stroke-width="10" stroke-dasharray="20,10"/>
+  <path d="M300 350 L350 400 L300 450 L250 400 Z" fill="#6c6c6c"/>
+  <circle cx="450" cy="350" r="50" fill="#6c6c6c"/>
+  <path d="M200 500 L600 500 L500 600 L300 600 Z" fill="#6c6c6c"/>
+  <text x="400" y="200" font-family="Arial, sans-serif" font-size="36" text-anchor="middle" fill="#ffffff">Add Your Photo</text>
+  <text x="400" y="650" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#ffffff">800 × 800</text>
+</svg>

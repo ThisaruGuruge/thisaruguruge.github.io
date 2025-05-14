@@ -1,0 +1,113 @@
+---
+interface Image {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  images: Image[];
+  columns?: number;
+}
+
+const { images, columns = 3 } = Astro.props;
+---
+
+<div class="photo-gallery">
+  <div class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${columns} gap-4`}>
+    {images.map((image, index) => (
+      <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+        <div class="aspect-square overflow-hidden">
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="w-full h-full object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
+            data-gallery-item={index}
+            loading="lazy"
+          />
+        </div>
+        {image.caption && (
+          <div class="p-2 text-sm text-center text-gray-300">{image.caption}</div>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
+
+<div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
+  <button id="close-lightbox" class="absolute top-4 right-4 text-white text-3xl">&times;</button>
+  <button id="prev-image" class="absolute left-4 text-white text-4xl">&lt;</button>
+  <button id="next-image" class="absolute right-4 text-white text-4xl">&gt;</button>
+  <div class="max-w-4xl max-h-[80vh]">
+    <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[80vh] object-contain" />
+    <div id="lightbox-caption" class="text-center text-white mt-2"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const galleryItems = document.querySelectorAll('[data-gallery-item]');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closeButton = document.getElementById('close-lightbox');
+    const prevButton = document.getElementById('prev-image');
+    const nextButton = document.getElementById('next-image');
+
+    let currentIndex = 0;
+    const images = Array.from(galleryItems).map((item) => {
+      const img = item.querySelector('img');
+      const index = parseInt(item.getAttribute('data-gallery-item') || '0');
+      const caption = item.parentElement?.querySelector('.text-sm')?.textContent || '';
+      return { src: img?.src || '', alt: img?.alt || '', caption, index };
+    });
+
+    function showImage(index: number) {
+      if (index < 0) index = images.length - 1;
+      if (index >= images.length) index = 0;
+
+      currentIndex = index;
+      const image = images[index];
+      if (lightboxImage) {
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+      }
+
+      if (lightboxCaption) {
+        lightboxCaption.textContent = image.caption;
+      }
+    }
+
+    galleryItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const index = parseInt(item.getAttribute('data-gallery-item') || '0');
+        currentIndex = index;
+        showImage(currentIndex);
+        if (lightbox) lightbox.classList.remove('hidden');
+      });
+    });
+
+    closeButton?.addEventListener('click', () => {
+      if (lightbox) lightbox.classList.add('hidden');
+    });
+
+    prevButton?.addEventListener('click', () => {
+      showImage(currentIndex - 1);
+    });
+
+    nextButton?.addEventListener('click', () => {
+      showImage(currentIndex + 1);
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
+        lightbox.classList.add('hidden');
+      } else if (e.key === 'ArrowLeft') {
+        showImage(currentIndex - 1);
+      } else if (e.key === 'ArrowRight') {
+        showImage(currentIndex + 1);
+      }
+    });
+  });
+</script>

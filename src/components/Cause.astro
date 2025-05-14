@@ -1,0 +1,37 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  position?: string;
+  fromYear?: number;
+  toYear?: number;
+}
+
+const { title, position, fromYear, toYear, description, icon } = Astro.props;
+
+// Determine if the icon is an SVG string or an image path
+const isImagePath = icon.startsWith('/') || icon.startsWith('http');
+
+// Format years display
+let yearsText = '';
+if (fromYear) {
+  yearsText = toYear ? `${fromYear} - ${toYear}` : `${fromYear} - Present`;
+}
+---
+
+<div class="bg-background-card rounded-xl p-8 space-y-4 hover:bg-background-accent transition-colors duration-300 h-full flex flex-col">
+  <div class="text-accent-orange flex items-center justify-center h-16">
+    {isImagePath ? (
+      <img src={icon} alt={`${title} logo`} class="h-12 max-w-full object-contain" />
+    ) : (
+      <Fragment set:html={icon} />
+    )}
+  </div>
+  <h2 class="heading-3 text-accent-cyan">{title}</h2>
+  <div class="-mt-2 space-y-1">
+    {position && <p class="text-accent-orange font-medium">{position}</p>}
+    {yearsText && <p class="text-text-muted text-sm">{yearsText}</p>}
+  </div>
+  <p class="text-text-muted flex-grow">{description}</p>
+</div>

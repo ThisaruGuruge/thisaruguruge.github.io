@@ -3,65 +3,103 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PhotoGallery from '../../components/PhotoGallery.astro';
+import { getCollection } from 'astro:content';
 
-// Helper function to check if an image exists, otherwise use placeholder
-const imagePath = (path: string) => {
-  // In a real implementation, you would check if the file exists
-  // For now, we'll use the placeholder for all images
-  return '/images/gallery/placeholder.svg';
-};
+// Get all photos from the collection and sort them by order
+const photos = await getCollection('photos');
+const sortedPhotos = [...photos].sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 
-const hobbies = [
-  {
-    title: 'Wildlife Photography',
-    description: 'Capturing the beauty of nature and wildlife in their natural habitats.',
-    images: [
-      { src: imagePath('/images/gallery/wildlife1.jpg'), alt: 'Wildlife photography 1', caption: 'Elephant at Yala National Park' },
-      { src: imagePath('/images/gallery/wildlife2.jpg'), alt: 'Wildlife photography 2', caption: 'Leopard sighting at dusk' },
-      { src: imagePath('/images/gallery/wildlife3.jpg'), alt: 'Wildlife photography 3', caption: 'Peacock displaying feathers' },
-      { src: imagePath('/images/gallery/wildlife4.jpg'), alt: 'Wildlife photography 4', caption: 'Birds in flight at Bundala' },
-    ],
-  },
-  {
-    title: 'Guitar',
-    description: 'Playing and composing music, exploring different genres and techniques.',
-    images: [
-      { src: imagePath('/images/gallery/guitar1.jpg'), alt: 'Guitar playing 1', caption: 'Acoustic session' },
-      { src: imagePath('/images/gallery/guitar2.jpg'), alt: 'Guitar playing 2', caption: 'Recording new compositions' },
-    ],
-  },
-  {
-    title: 'Hiking',
-    description: 'Exploring trails and mountains, connecting with nature.',
-    images: [
-      { src: imagePath('/images/gallery/hiking1.jpg'), alt: 'Hiking adventure 1', caption: 'Summit view at Adam\'s Peak' },
-      { src: imagePath('/images/gallery/hiking2.jpg'), alt: 'Hiking adventure 2', caption: 'Horton Plains trail' },
-      { src: imagePath('/images/gallery/hiking3.jpg'), alt: 'Hiking adventure 3', caption: 'Riverstone panorama' },
-      { src: imagePath('/images/gallery/hiking4.jpg'), alt: 'Hiking adventure 4', caption: 'Sunrise at Ella Rock' },
-    ],
-  },
+// Format photos for the gallery component
+const galleryImages = sortedPhotos.map(photo => ({
+  src: photo.data.image,
+  alt: photo.data.title,
+  caption: photo.data.caption,
+  categories: photo.data.categories,
+  featured: photo.data.featured
+}));
+
+// Categories with icons for filtering
+const categories = [
+  { id: 'All', name: 'All Photos', icon: '📷' },
+  { id: 'Wildlife Photography', name: 'Wildlife', icon: '🦁' },
+  { id: 'Music', name: 'Music', icon: '🎸' },
+  { id: 'Hiking', name: 'Hiking', icon: '🥾' }
 ];
 ---
 
 <Layout title="Off Duty | Thisaru" description="Photography, music, and more — what Thisaru explores outside code.">
   <Header />
   <main>
-    <section class="py-20">
+    <section class="py-20 bg-background">
       <div class="container">
-        <h1 class="heading-1 text-center mb-12">Off Duty</h1>
-        <div class="space-y-20">
-          {hobbies.map((hobby) => (
-            <div class="space-y-6">
-              <div class="text-center">
-                <h2 class="heading-2 text-accent-cyan">{hobby.title}</h2>
-                <p class="text-lg text-gray-300 mt-4">{hobby.description}</p>
-              </div>
-              <PhotoGallery images={hobby.images} columns={3} />
-            </div>
+        <div class="text-center mb-12">
+          <h1 class="heading-1 mb-6">Off Duty</h1>
+          <p class="text-lg text-text-muted max-w-2xl mx-auto">
+            When I'm not coding, you'll find me exploring nature through my camera lens, creating music, or hiking through beautiful landscapes.
+          </p>
+        </div>
+
+        <!-- Category filter cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          {categories.map(category => (
+            <button
+              class="category-filter bg-background-card rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 hover:shadow-md hover:-translate-y-1 border-2 border-transparent data-[active=true]:border-accent-cyan"
+              data-category={category.id}
+              data-active={category.id === 'All' ? 'true' : 'false'}>
+              <span class="text-2xl mb-2">{category.icon}</span>
+              <span class="font-medium">{category.name}</span>
+            </button>
           ))}
+        </div>
+
+        <!-- Gallery section with subtle background -->
+        <div class="bg-background-section rounded-2xl p-6 md:p-8 shadow-sm">
+          {galleryImages.length > 0 ? (
+            <PhotoGallery images={galleryImages} columns={3} />
+          ) : (
+            <div class="text-center py-12">
+              <p class="text-lg text-text-muted">No photos found. Add some to the photos collection.</p>
+            </div>
+          )}
         </div>
       </div>
     </section>
   </main>
   <Footer />
 </Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.category-filter');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => {
+          btn.setAttribute('data-active', 'false');
+        });
+
+        // Add active class to clicked button
+        button.setAttribute('data-active', 'true');
+
+        const selectedCategory = button.getAttribute('data-category');
+
+        galleryItems.forEach(item => {
+          if (selectedCategory === 'All') {
+            item.classList.remove('hidden');
+          } else {
+            const categoriesAttr = item.getAttribute('data-categories') || '[]';
+            const itemCategories = JSON.parse(categoriesAttr);
+
+            if (itemCategories.includes(selectedCategory)) {
+              item.classList.remove('hidden');
+            } else {
+              item.classList.add('hidden');
+            }
+          }
+        });
+      });
+    });
+  });
+</script>

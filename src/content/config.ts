@@ -37,8 +37,21 @@ const causes = defineCollection({
   }),
 });
 
+const photos = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    caption: z.string(),
+    image: z.string(),
+    categories: z.array(z.enum(['Wildlife Photography', 'Music', 'Hiking'])),
+    featured: z.boolean().optional().default(false),
+    order: z.number().optional(),
+  }),
+});
+
 export const collections = {
   blog,
   projects,
   causes,
+  photos,
 };

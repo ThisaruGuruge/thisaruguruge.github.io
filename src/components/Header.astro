@@ -8,7 +8,7 @@ const navItems = [
 ];
 ---
 
-<header class="py-6">
+<header id="site-header" class="py-4 sticky top-0 z-40 bg-background shadow-sm">
   <nav class="container">
     <div class="flex items-center justify-between">
       <a href="/" class="group flex flex-col items-center">
@@ -29,7 +29,7 @@ const navItems = [
           <li>
             <a
               href={item.href}
-              class="text-text hover:text-accent-orange transition-colors"
+              class="text-text hover:text-accent-orange transition-colors font-medium header-nav-link relative"
             >
               {item.text}
             </a>
@@ -158,5 +158,21 @@ const navItems = [
 
   .animate-pulse {
     animation: gentle-pulse 2s infinite ease-in-out;
+  }
+
+  /* Add hover underline effect */
+  .header-nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--color-accent-orange);
+    transition: width 0.3s ease;
+  }
+
+  .header-nav-link:hover::after {
+    width: 100%;
   }
 </style>

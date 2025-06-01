@@ -1,4 +1,6 @@
 ---
+import { CSS_CLASSES } from '../constants/ui';
+
 interface Props {
   title: string;
   description: string;
@@ -11,7 +13,7 @@ interface Props {
 const { title, description, image, tags = [], githubUrl, demoUrl } = Astro.props;
 ---
 
-<article class="bg-background-card rounded-xl overflow-hidden hover:transform hover:scale-[1.02] transition-transform">
+<article class={CSS_CLASSES.CARD.INTERACTIVE}>
   <div class="aspect-video relative">
     <img
       src={image}
@@ -22,11 +24,11 @@ const { title, description, image, tags = [], githubUrl, demoUrl } = Astro.props
     />
   </div>
   <div class="p-6 space-y-4">
-    <h3 class="heading-3 text-text">{title}</h3>
+    <h3 class={CSS_CLASSES.HEADING.H3 + ' text-text'}>{title}</h3>
     <p class="text-text-muted">{description}</p>
     <div class="flex flex-wrap gap-2">
       {tags.map((tag) => (
-        <span class="px-3 py-1 text-sm bg-background rounded-full text-accent-cyan">
+        <span class={CSS_CLASSES.TAG.DEFAULT}>
           {tag}
         </span>
       ))}

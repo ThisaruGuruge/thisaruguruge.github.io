@@ -19,18 +19,18 @@ const { images, columns = 3 } = Astro.props;
   <div class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${columns} gap-6`}>
     {images.map((image, index) => (
       <div
-        class="gallery-item bg-background-card rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+        class="gallery-item bg-background-card rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
         data-categories={image.categories ? JSON.stringify(image.categories) : "[]"}
+        data-gallery-item={index}
       >
         <div class="aspect-video overflow-hidden relative group">
           <img
             src={image.src}
             alt={image.alt}
             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            data-gallery-item={index}
             loading="lazy"
           />
-          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 cursor-pointer"></div>
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
           {image.categories && image.categories.length > 0 && (
             <div class="absolute top-3 right-3 flex flex-wrap gap-1 justify-end">
               {image.categories.map(cat => (
@@ -65,9 +65,9 @@ const { images, columns = 3 } = Astro.props;
 </div>
 
 <div id="lightbox" class="fixed inset-0 bg-black/95 z-50 hidden flex items-center justify-center backdrop-blur-sm">
-  <button id="close-lightbox" class="absolute top-4 right-4 text-white text-4xl hover:text-accent-cyan transition-colors">&times;</button>
-  <button id="prev-image" class="absolute left-4 text-white text-5xl hover:text-accent-cyan transition-colors">&lt;</button>
-  <button id="next-image" class="absolute right-4 text-white text-5xl hover:text-accent-cyan transition-colors">&gt;</button>
+  <button id="close-lightbox" class="absolute top-4 right-4 text-white text-4xl hover:text-accent-cyan transition-colors z-10">&times;</button>
+  <button id="prev-image" class="absolute left-4 text-white text-5xl hover:text-accent-cyan transition-colors z-10">&lt;</button>
+  <button id="next-image" class="absolute right-4 text-white text-5xl hover:text-accent-cyan transition-colors z-10">&gt;</button>
   <div class="max-w-5xl max-h-[85vh]">
     <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[70vh] object-contain rounded-lg shadow-2xl" />
     <div class="mt-4 text-center">
@@ -79,7 +79,7 @@ const { images, columns = 3 } = Astro.props;
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const galleryItems = document.querySelectorAll('[data-gallery-item]');
+    const galleryItems = document.querySelectorAll('.gallery-item');
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightbox-image');
     const lightboxCaption = document.getElementById('lightbox-caption');
@@ -92,14 +92,13 @@ const { images, columns = 3 } = Astro.props;
     const images = Array.from(galleryItems).map((item) => {
       const img = item.querySelector('img');
       const index = parseInt(item.getAttribute('data-gallery-item') || '0');
-      const galleryItem = item.closest('.gallery-item');
-      const caption = galleryItem?.querySelector('h3')?.textContent || '';
-      const categoriesAttr = galleryItem?.getAttribute('data-categories') || '[]';
+      const caption = item.querySelector('h3')?.textContent || '';
+      const categoriesAttr = item.getAttribute('data-categories') || '[]';
       const categories = JSON.parse(categoriesAttr);
       return { src: img?.src || '', alt: img?.alt || '', caption, categories, index };
     });
 
-    function showImage(index: number) {
+    function showImage(index) {
       if (index < 0) index = images.length - 1;
       if (index >= images.length) index = 0;
 
@@ -133,6 +132,7 @@ const { images, columns = 3 } = Astro.props;
         showImage(currentIndex);
         if (lightbox) {
           lightbox.classList.remove('hidden');
+          lightbox.classList.add('flex');
           document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
         }
       });
@@ -141,6 +141,7 @@ const { images, columns = 3 } = Astro.props;
     closeButton?.addEventListener('click', () => {
       if (lightbox) {
         lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
         document.body.style.overflow = ''; // Restore scrolling
       }
     });
@@ -157,10 +158,11 @@ const { images, columns = 3 } = Astro.props;
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
         lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
         document.body.style.overflow = ''; // Restore scrolling
-      } else if (e.key === 'ArrowLeft') {
+      } else if (e.key === 'ArrowLeft' && !lightbox?.classList.contains('hidden')) {
         showImage(currentIndex - 1);
-      } else if (e.key === 'ArrowRight') {
+      } else if (e.key === 'ArrowRight' && !lightbox?.classList.contains('hidden')) {
         showImage(currentIndex + 1);
       }
     });
@@ -169,6 +171,7 @@ const { images, columns = 3 } = Astro.props;
     lightbox?.addEventListener('click', (e) => {
       if (e.target === lightbox) {
         lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
         document.body.style.overflow = ''; // Restore scrolling
       }
     });

@@ -4,16 +4,18 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import ProjectCard from '../../components/ProjectCard.astro';
+import { CSS_CLASSES } from '../../constants/ui';
+import { SECTIONS } from '../../constants/site';
 
 const projects = await getCollection('projects');
 ---
 
-<Layout title="Projects | Thisaru" description="A showcase of projects by Thisaru Guruge — from dev tools to GraphQL experiments.">
+<Layout title={SECTIONS.PROJECTS.TITLE} description={SECTIONS.PROJECTS.DESCRIPTION}>
   <Header />
   <main>
     <section class="py-20">
       <div class="container">
-        <h1 class="heading-1 text-center mb-12">Projects</h1>
+        <h1 class={CSS_CLASSES.HEADING.H1 + ' text-center mb-12'}>Projects</h1>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <ProjectCard {...project.data} />

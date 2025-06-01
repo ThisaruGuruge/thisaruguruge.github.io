@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import { PHOTO_CATEGORY_IDS } from '../constants/photoCategories';
 
 const blog = defineCollection({
   type: 'content',
@@ -43,7 +44,7 @@ const photos = defineCollection({
     title: z.string(),
     caption: z.string(),
     image: z.string(),
-    categories: z.array(z.enum(['Wildlife Photography', 'Music', 'Hiking', 'Reptiles'])),
+    categories: z.array(z.enum(PHOTO_CATEGORY_IDS)),
     featured: z.boolean().optional().default(false),
     order: z.number().optional(),
   }),

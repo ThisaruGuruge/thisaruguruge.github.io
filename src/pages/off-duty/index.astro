@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PhotoGallery from '../../components/PhotoGallery.astro';
 import { getCollection } from 'astro:content';
+import { ALL_PHOTO_CATEGORIES } from '../../constants/photoCategories';
 
 // Get all photos from the collection and sort them by order
 const photos = await getCollection('photos');
@@ -19,13 +20,7 @@ const galleryImages = sortedPhotos.map(photo => ({
 }));
 
 // Categories with icons for filtering
-const categories = [
-  { id: 'All', name: 'All Photos', icon: '📷' },
-  { id: 'Wildlife Photography', name: 'Wildlife', icon: '🦁' },
-  { id: 'Music', name: 'Music', icon: '🎸' },
-  { id: 'Hiking', name: 'Hiking', icon: '🥾' },
-  { id: 'Reptiles', name: 'Reptiles', icon: '🐍'}
-];
+const categories = ALL_PHOTO_CATEGORIES;
 ---
 
 <Layout title="Off Duty | Thisaru" description="Photography, music, and more — what Thisaru explores outside code.">

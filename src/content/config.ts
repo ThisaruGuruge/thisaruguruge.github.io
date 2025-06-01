@@ -43,7 +43,7 @@ const photos = defineCollection({
     title: z.string(),
     caption: z.string(),
     image: z.string(),
-    categories: z.array(z.enum(['Wildlife Photography', 'Music', 'Hiking'])),
+    categories: z.array(z.enum(['Wildlife Photography', 'Music', 'Hiking', 'Reptiles'])),
     featured: z.boolean().optional().default(false),
     order: z.number().optional(),
   }),

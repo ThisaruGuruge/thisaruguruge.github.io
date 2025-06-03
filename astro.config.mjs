@@ -17,7 +17,7 @@ function rehypeImgLazy() {
 }
 
 export default defineConfig({
-  site: 'https://thisaruguruge.github.io',
+  site: 'https://thisaru.me',
   integrations: [tailwind(), sitemap()],
   output: 'static',
   trailingSlash: 'always',

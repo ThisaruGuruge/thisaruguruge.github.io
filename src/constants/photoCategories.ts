@@ -8,17 +8,13 @@ export type PhotoCategory = {
 // Define all available photo categories
 export const PHOTO_CATEGORIES: PhotoCategory[] = [
   { id: 'Wildlife Photography', name: 'Wildlife', icon: '🦁' },
-  { id: 'Music', name: 'Music', icon: '🎸' },
-  { id: 'Hiking', name: 'Hiking', icon: '🥾' },
-  { id: 'Reptiles', name: 'Reptiles', icon: '🐍' }
+  { id: 'Travel Photography', name: 'Travel', icon: '🌍' }
 ];
 
 // Define the category IDs as a tuple with at least one element for Zod schema
 export const PHOTO_CATEGORY_IDS = [
   'Wildlife Photography',
-  'Music',
-  'Hiking',
-  'Reptiles'
+  'Travel Photography'
 ] as const;
 
 // Create the "All" category for filtering (not included in content schema)

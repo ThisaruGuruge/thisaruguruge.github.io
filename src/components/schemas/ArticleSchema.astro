@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  author?: string;
+  publishDate: Date;
+  modifiedDate?: Date;
+  url: string;
+  image?: string;
+  keywords?: string[];
+  category?: string;
+  wordCount?: number;
+}
+
+const {
+  title,
+  description,
+  author = "Thisaru Guruge",
+  publishDate,
+  modifiedDate,
+  url,
+  image = "https://thisaru.me/og-image.jpg",
+  keywords = [],
+  category = "Technology",
+  wordCount
+} = Astro.props;
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "image": image,
+  "author": {
+    "@type": "Person",
+    "name": author,
+    "url": "https://thisaru.me"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": author,
+    "url": "https://thisaru.me"
+  },
+  "datePublished": publishDate.toISOString(),
+  "dateModified": modifiedDate ? modifiedDate.toISOString() : publishDate.toISOString(),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": url
+  },
+  "url": url,
+  "keywords": keywords.join(", "),
+  "articleSection": category,
+  ...(wordCount && { "wordCount": wordCount }),
+  "inLanguage": "en-US"
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>

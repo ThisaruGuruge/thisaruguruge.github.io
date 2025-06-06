@@ -1,0 +1,49 @@
+---
+interface Props {
+  name?: string;
+  description?: string;
+  url?: string;
+  author?: string;
+  keywords?: string[];
+}
+
+const {
+  name = "Thisaru Guruge - Personal Website",
+  description = "The personal website of Thisaru — software engineer, musician, wildlife photographer, environmentalist, and writer.",
+  url = "https://thisaru.me",
+  author = "Thisaru Guruge",
+  keywords = [
+    "software engineering",
+    "ballerina",
+    "graphql",
+    "music",
+    "wildlife photography",
+    "environmentalism",
+    "writing",
+    "sri lanka"
+  ]
+} = Astro.props;
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": name,
+  "description": description,
+  "url": url,
+  "author": {
+    "@type": "Person",
+    "name": author
+  },
+  "keywords": keywords.join(", "),
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${url}/thoughts/?search={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>

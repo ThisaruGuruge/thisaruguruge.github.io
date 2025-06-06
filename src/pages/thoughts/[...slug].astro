@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import ArticleSchema from '../../components/schemas/ArticleSchema.astro';
+import BreadcrumbSchema from '../../components/schemas/BreadcrumbSchema.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -15,6 +17,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 const site = 'https://thisaru.me';
+const canonicalURL = new URL(Astro.url.pathname, site);
 const imageUrl = post.data.image?.startsWith('http')
   ? post.data.image
   : post.data.image
@@ -34,6 +37,17 @@ const allPosts = await getCollection('blog');
 const relatedPosts = allPosts
   .filter(p => p.slug !== post.slug && p.data.tags && post.data.tags && p.data.tags.some(tag => post.data.tags.includes(tag)))
   .slice(0, 3);
+
+// Create breadcrumb items
+const breadcrumbItems = [
+  { name: 'Home', url: site },
+  { name: 'Thoughts', url: `${site}/thoughts/` },
+  { name: post.data.title, url: canonicalURL.toString() }
+];
+
+// Estimate word count for better SEO
+const contentText = post.body || '';
+const wordCount = contentText.split(/\s+/).length;
 ---
 
 <Layout
@@ -41,6 +55,21 @@ const relatedPosts = allPosts
   description={post.data.description}
   image={imageUrl}
 >
+  <!-- Blog-specific JSON-LD Schema -->
+  <ArticleSchema
+    title={post.data.title}
+    description={post.data.description}
+    author={post.data.author}
+    publishDate={post.data.pubDate}
+    url={canonicalURL.toString()}
+    image={imageUrl}
+    keywords={post.data.tags}
+    category={post.data.tags?.[0] || "Technology"}
+    wordCount={wordCount}
+    slot="head"
+  />
+  <BreadcrumbSchema items={breadcrumbItems} slot="head" />
+
   <Header />
   <main>
     <article class="py-20">

@@ -1,0 +1,42 @@
+---
+interface Props {
+  name?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+  jobTitle?: string;
+  worksFor?: string;
+  sameAs?: string[];
+}
+
+const {
+  name = "Thisaru Guruge",
+  description = "Software engineer, musician, wildlife photographer, environmentalist, and writer",
+  url = "https://thisaru.me",
+  image = "https://thisaru.me/images/profile/profile.webp",
+  jobTitle = "Technical Lead",
+  worksFor = "WSO2",
+  sameAs = [
+    "https://github.com/thisaruguruge",
+    "https://www.linkedin.com/in/thisaruguruge/",
+    "https://twitter.com/thisaruguruge"
+  ]
+} = Astro.props;
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": name,
+  "description": description,
+  "url": url,
+  "image": image,
+  "jobTitle": jobTitle,
+  "worksFor": {
+    "@type": "Organization",
+    "name": worksFor
+  },
+  "sameAs": sameAs
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)}></script>

@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import PersonSchema from '../components/schemas/PersonSchema.astro';
+import WebsiteSchema from '../components/schemas/WebsiteSchema.astro';
 
 interface Props {
   title: string;
@@ -54,6 +56,13 @@ const canonicalURL = new URL(Astro.url.pathname, site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(image, site)} />
+
+    <!-- JSON-LD Structured Data -->
+    <PersonSchema />
+    <WebsiteSchema />
+
+    <!-- Additional head content from child layouts -->
+    <slot name="head" />
 
     <title>{title}</title>
   </head>

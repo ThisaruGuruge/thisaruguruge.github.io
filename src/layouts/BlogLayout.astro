@@ -2,18 +2,48 @@
 import Layout from './Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ArticleSchema from '../components/schemas/ArticleSchema.astro';
+import BreadcrumbSchema from '../components/schemas/BreadcrumbSchema.astro';
 
 interface Props {
   title: string;
   description?: string;
   pubDate: Date;
   author?: string;
+  image?: string;
+  keywords?: string[];
+  category?: string;
+  wordCount?: number;
 }
 
-const { title, description, pubDate, author = 'Thisaru' } = Astro.props;
+const { title, description, pubDate, author = 'Thisaru', image, keywords, category, wordCount } = Astro.props;
+const site = 'https://thisaru.me';
+const canonicalURL = new URL(Astro.url.pathname, site);
+
+// Create breadcrumb items
+const breadcrumbItems = [
+  { name: 'Home', url: site },
+  { name: 'Thoughts', url: `${site}/thoughts/` },
+  { name: title, url: canonicalURL.toString() }
+];
 ---
 
-<Layout title={`${title} | Thisaru's Blog`} description={description}>
+<Layout title={`${title} | Thisaru's Blog`} description={description} image={image}>
+  <!-- Blog-specific JSON-LD Schema -->
+  <ArticleSchema
+    title={title}
+    description={description || title}
+    author={author}
+    publishDate={pubDate}
+    url={canonicalURL.toString()}
+    image={image}
+    keywords={keywords}
+    category={category}
+    wordCount={wordCount}
+    slot="head"
+  />
+  <BreadcrumbSchema items={breadcrumbItems} slot="head" />
+
   <Header />
   <main>
     <article class="py-20">

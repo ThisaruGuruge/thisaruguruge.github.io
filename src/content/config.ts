@@ -32,7 +32,7 @@ const causes = defineCollection({
     title: z.string(),
     position: z.string(),
     fromYear: z.number(),
-    toYear: z.number().optional(),
+    toYear: z.number().nullable().optional(),
     description: z.string(),
     icon: z.string(),
   }),

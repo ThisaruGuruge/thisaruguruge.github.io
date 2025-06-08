@@ -68,7 +68,7 @@ export default defineConfig({
                     priority = 0.8;
                 } else if (item.url.includes('/projects/')) {
                     priority = 0.7;
-                } else if (item.url.includes('/causes/')) {
+                } else if (item.url.includes('/stand/')) {
                     priority = 0.6;
                 }
 

@@ -1,7 +1,7 @@
 ---
-title: 'SLASSCOM - TechKids'
+title: 'SLASSCOM TechKids'
 position: 'Community Volunteer'
-description: 'TechKids is a program to introduce technology and programming to the students in the rural areas in Sri Lanka.'
+description: 'Introduced programming and technology concepts to students in rural Sri Lankan schools, fostering digital literacy and inspiring the next generation of tech innovators.'
 fromYear: 2019
 toYear: 2021
 icon: '/images/logos/slasscom.webp'

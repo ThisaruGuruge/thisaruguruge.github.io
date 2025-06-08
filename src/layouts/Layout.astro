@@ -26,7 +26,8 @@ const canonicalURL = new URL(Astro.url.pathname, site);
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" media="print" onload="this.setAttribute('media','all')" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"></noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />

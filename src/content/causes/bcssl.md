@@ -1,7 +1,8 @@
 ---
 title: 'Butterfly Conservation Society of Sri Lanka'
-position: Vice President
+position: 'Vice President'
+description: 'Leading conservation efforts to protect Sri Lankan butterflies and native insects through research, habitat preservation, and community engagement.'
 fromYear: 2017
-description: 'The Butterfly Conservation Society of Sri Lanka is a non-profit organization dedicated to the conservation of butterflies and other insects in Sri Lanka.'
+toYear: null
 icon: '/images/logos/bcssl.webp'
 ---

@@ -10,6 +10,10 @@ import { ALL_PHOTO_CATEGORIES } from '../../constants/photoCategories';
 const photos = await getCollection('photos');
 const sortedPhotos = [...photos].sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 
+// Get organizational involvement
+const causes = await getCollection('causes');
+const sortedCauses = [...causes].sort((a, b) => b.data.fromYear - a.data.fromYear);
+
 // Format photos for the gallery component
 const galleryImages = sortedPhotos.map(photo => ({
   src: photo.data.image,
@@ -31,15 +35,61 @@ const categories = ALL_PHOTO_CATEGORIES;
         <div class="text-center mb-12">
           <h1 class="heading-1 mb-6">Off Duty</h1>
           <p class="text-lg text-text-muted max-w-2xl mx-auto">
-            When I'm not coding, you'll find me exploring nature through my camera lens, creating music, or hiking through beautiful landscapes.
+            When I'm not coding, you'll find me exploring nature through my camera lens, contributing to causes I believe in, or hiking through beautiful landscapes.
           </p>
         </div>
 
+        <!-- Organizational Involvement Section -->
+        <section class="mb-20">
+          <div class="text-center mb-12">
+            <h2 class="heading-2 mb-4">Organizations & Involvement</h2>
+            <p class="text-text-muted max-w-2xl mx-auto">
+              Beyond my professional work, I contribute to organizations that align with my values and interests.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sortedCauses.map((cause) => (
+              <div class="bg-background-card rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-700 h-full flex flex-col">
+                <div class="flex items-start gap-4 mb-4">
+                  <div class="flex-shrink-0">
+                    <img
+                      src={cause.data.icon}
+                      alt={`${cause.data.title} logo`}
+                      class="w-12 h-12 rounded-lg object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h3 class="font-semibold text-text mb-2 leading-tight">{cause.data.title}</h3>
+                    <p class="text-sm font-medium text-accent-cyan">{cause.data.position}</p>
+                  </div>
+                </div>
+                <div class="flex-1 flex flex-col">
+                  <p class="text-sm text-text-muted mb-4 leading-relaxed flex-1">{cause.data.description}</p>
+                  <div class="text-xs text-text-muted font-medium mt-auto">
+                    {cause.data.fromYear}{cause.data.toYear ? (cause.data.toYear !== cause.data.fromYear ? ` - ${cause.data.toYear}` : '') : ' - Present'}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Photography Section -->
+        <section>
+          <div class="text-center mb-12">
+            <h2 class="heading-2 mb-4">Photography</h2>
+            <p class="text-text-muted max-w-2xl mx-auto">
+              Capturing moments in nature, from butterflies to landscapes.
+            </p>
+          </div>
+
         <!-- Category filter cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map(category => (
             <button
-              class="category-filter bg-background-card rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 hover:shadow-md hover:-translate-y-1 border-2 border-transparent data-[active=true]:border-accent-cyan"
+              class="category-filter bg-background-card rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 hover:shadow-md hover:-translate-y-1 border-2 border-transparent data-[active=true]:border-accent-cyan min-w-[120px] flex-shrink-0"
               data-category={category.id}
               data-active={category.id === 'All' ? 'true' : 'false'}>
               <span class="text-2xl mb-2">{category.icon}</span>
@@ -58,6 +108,23 @@ const categories = ALL_PHOTO_CATEGORIES;
             </div>
           )}
         </div>
+
+        <!-- Instagram CTA -->
+        <div class="text-center mt-8">
+          <a
+            href="https://instagram.com/thisarug"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 text-white font-medium rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.017 0C8.396 0 7.851.025 6.684.084 5.517.143 4.728.292 4.024.554c-.734.283-1.357.661-1.976 1.28C1.429 2.453 1.051 3.076.768 3.81.506 4.514.357 5.303.298 6.47.239 7.637.214 8.182.214 11.803s.025 4.166.084 5.333c.059 1.167.208 1.956.47 2.66.283.734.661 1.357 1.28 1.976.619.619 1.242.997 1.976 1.28.704.262 1.493.411 2.66.47 1.167.059 1.712.084 5.333.084s4.166-.025 5.333-.084c1.167-.059 1.956-.208 2.66-.47.734-.283 1.357-.661 1.976-1.28.619-.619.997-1.242 1.28-1.976.262-.704.411-1.493.47-2.66.059-1.167.084-1.712.084-5.333s-.025-4.166-.084-5.333c-.059-1.167-.208-1.956-.47-2.66-.283-.734-.661-1.357-1.28-1.976C19.76 1.429 19.137 1.051 18.403.768c-.704-.262-1.493-.411-2.66-.47C14.576.025 14.031 0 10.41 0h1.607zm0 2.195c3.548 0 3.97.015 5.37.072 1.295.059 2.000.273 2.47.454.621.241 1.065.529 1.532.996.467.467.755.911.996 1.532.181.47.395 1.175.454 2.47.057 1.400.072 1.822.072 5.37s-.015 3.97-.072 5.37c-.059 1.295-.273 2.000-.454 2.47-.241.621-.529 1.065-.996 1.532-.467.467-.911.755-1.532.996-.47.181-1.175.395-2.47.454-1.400.057-1.822.072-5.37.072s-3.97-.015-5.37-.072c-1.295-.059-2.000-.273-2.47-.454-.621-.241-1.065-.529-1.532-.996-.467-.467-.755-.911-.996-1.532-.181-.47-.395-1.175-.454-2.47-.057-1.400-.072-1.822-.072-5.37s.015-3.97.072-5.37c.059-1.295.273-2.000.454-2.47.241-.621.529-1.065.996-1.532.467-.467.911-.755 1.532-.996.47-.181 1.175-.395 2.47-.454 1.400-.057 1.822-.072 5.37-.072z" clip-rule="evenodd"/>
+              <path fill-rule="evenodd" d="M12.017 5.854a6.149 6.149 0 100 12.298 6.149 6.149 0 000-12.298zm0 10.144a3.995 3.995 0 110-7.99 3.995 3.995 0 010 7.99zm7.846-10.405a1.437 1.437 0 11-2.874 0 1.437 1.437 0 012.874 0z" clip-rule="evenodd"/>
+            </svg>
+            Follow on Instagram
+          </a>
+        </div>
+        </section>
       </div>
     </section>
   </main>

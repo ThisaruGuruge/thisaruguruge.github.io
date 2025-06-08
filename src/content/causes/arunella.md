@@ -1,8 +1,8 @@
 ---
-title: 'Arunella by Engineering Students '
+title: 'Project Arunella'
 position: 'Volunteer Teacher'
-description: 'Arunella is a volunteering initiative by the Engineering Students Society of the University of Peradeniya, Sri Lanka. It helps G.C.E. O/L students in rural areas to excel in Mathematics and Science subjects by conducting continuous classes and workshops.'
-icon: '/images/logos/arunella.webp'
+description: 'Taught mathematics and science to rural students preparing for G.C.E. O/L examinations, helping bridge educational gaps through dedicated tutoring and workshops.'
 fromYear: 2013
 toYear: 2014
+icon: '/images/logos/arunella.webp'
 ---

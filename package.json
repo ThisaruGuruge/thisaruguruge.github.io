@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build && npm run fix-sitemap",
+    "build": "npm run optimize-images && astro check && astro build && npm run fix-sitemap",
     "preview": "astro preview",
     "astro": "astro",
-    "fix-sitemap": "node scripts/fix-sitemap.js"
+    "fix-sitemap": "node scripts/fix-sitemap.js",
+    "optimize-images": "node scripts/optimize-images.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

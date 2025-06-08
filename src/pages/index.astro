@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import ProjectCard from '../components/ProjectCard.astro';
+import { Image } from 'astro:assets';
 
 const projects = await getCollection('projects');
 const featuredProjects = projects.filter(p => p.data.featured);
@@ -19,11 +20,17 @@ const featuredProjects = projects.filter(p => p.data.featured);
 						<h1 class="heading-1 text-text">
 							Hey, I'm <span class="text-accent-cyan"> Thisaru</span>
 						</h1>
-						<p class="text-lg text-text-muted">
-							I build software that solves real problems — and spend my off-hours chasing light, sound, and meaning.
-							Whether it’s a melody, a meteor shower, or a moment in the forest, I’m here for the things
-							that make us feel small and inspired — and worth building, protecting, and fighting for.
-						</p>
+						<div class="container max-w-3xl space-y-6">
+							<div class="space-y-5 text-lg text-text-muted">
+							<p>
+								I’m a technologist, guitarist, and a curious observer of the natural world — from code and language to butterflies and reptiles.
+								I find meaning in systems, whether they run on silicon or instincts, and I question the ones that claim to be fair.
+							</p>
+							<p>
+								<a href="/about/" class="underline text-accent-cyan hover:text-accent-orange">Read more about me →</a>
+							</p>
+							</div>
+						</div>
 						<div class="flex space-x-4">
 							<a
 								href="/projects/"
@@ -40,13 +47,14 @@ const featuredProjects = projects.filter(p => p.data.featured);
 						</div>
 					</div>
 					<div class="relative aspect-square rounded-2xl overflow-hidden">
-						<img
+						<Image
 							src="/images/profile/profile.webp"
 							alt="Thisaru's profile photo"
 							class="object-cover w-full h-full"
-							width="500"
-							height="500"
-							loading="lazy"
+							width={380}
+							height={380}
+							loading="eager"
+							fetchpriority="high"
 						/>
 					</div>
 				</div>

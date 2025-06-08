@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="About | Thisaru Guruge" description="More about Thisaru — his beliefs, work, and what drives him.">
+  <!-- Critical above-the-fold styles -->
+  <style is:inline>
+    /* Essential above-the-fold styles */
+    body { background-color: var(--color-bg); color: var(--color-text); }
+    .container { max-width: 80rem; margin: 0 auto; padding: 0 1rem; }
+    .heading-1 { font-family: 'Fira Sans', sans-serif; font-size: 2.25rem; font-weight: 700; }
+    .py-20 { padding: 5rem 0; }
+    .flex { display: flex; }
+    .gap-8 { gap: 2rem; }
+    @media (min-width: 768px) { .md\:flex-row { flex-direction: row; } .heading-1 { font-size: 3rem; } }
+  </style>
+
+  <Header />
+  <main>
+    <section class="py-20">
+      <div class="container max-w-3xl space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center gap-8 mb-8">
+          <div class="flex-1">
+            <h1 class="heading-1 text-text mb-6">About Me</h1>
+          </div>
+          <div class="flex-shrink-0">
+            <img
+              src="/images/profile/thisaru.webp"
+              alt="Thisaru Guruge"
+              class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-lg"
+              loading="eager"
+            />
+          </div>
+        </div>
+        <div class="space-y-5 text-lg text-text-muted">
+          <p>
+            I'm Thisaru — a technologist, guitarist, and someone who finds beauty in how things connect.
+            Whether it's a line of code, the color of a butterfly's wing, or a pattern in human behavior,
+            I care about how systems work — and who they work for.
+          </p>
+
+          <p>
+            I work on the Ballerina programming language at WSO2. My focus spans building libraries,
+            refining dev tooling, mentoring, and sometimes challenging assumptions we hold about how things
+            "should" work.
+          </p>
+
+          <p>
+            Language fascinates me. It doesn't just reflect our thoughts — it shapes them.
+            It creates the boxes we think in, and sometimes, if we're careful, the doors to get out.
+            That's why I care about how we name, frame, and describe the world around us.
+          </p>
+
+          <p>
+            I don't believe in meritocracy — at least not the way it's sold. A tea-plucking woman in Sri Lanka,
+            whose labor fuels a huge part of our foreign income, often earns less than Rs. 1000 a day.
+            Meanwhile, billionaires are celebrated for "disrupting" systems they never had to fight to enter.
+            The game is rigged — and it's time we stopped pretending otherwise.
+          </p>
+
+          <p>
+            I care about reptiles, riff pedals, language, photography, philosophy, and good questions.
+            I believe tech should serve people — not shareholders.
+            And I believe that beauty — in code, in nature, in justice — is always worth defending.
+          </p>
+
+          <blockquote class="italic text-sm text-gray-500 border-l-4 border-gray-300 pl-4 mt-6">
+            "If naming something brings it into view, then maybe a better name is where change begins."
+          </blockquote>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

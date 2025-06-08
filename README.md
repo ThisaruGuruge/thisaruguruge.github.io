@@ -116,6 +116,19 @@ npm run build
 npm run preview  # Preview locally before deploying
 ```
 
+### 🔧 Enhanced Hosting (Recommended)
+
+While GitHub Pages works well, the site includes a `_headers` file with cache control headers for optimal performance. For full support of these headers, consider migrating to:
+
+- **[Netlify](https://netlify.com)**: Native `_headers` file support with edge caching
+- **[Cloudflare Pages](https://pages.cloudflare.com)**: Global CDN with custom headers support
+- **[Vercel](https://vercel.com)**: Automatic performance optimizations and header support
+
+These platforms will respect the cache headers defined in `public/_headers`, providing:
+- 1-year browser caching for static assets (`max-age=31536000`)
+- Immutable asset caching for better performance
+- Global CDN distribution for faster loading worldwide
+
 ## 🎨 Customization
 
 ### Theme Colors

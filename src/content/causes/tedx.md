@@ -1,8 +1,8 @@
 ---
-title: 'TedX - Kandy'
+title: 'TEDx Kandy'
 position: 'Volunteer'
 fromYear: 2016
 toYear: 2016
-description: 'Volunteer at Tedx - Kandy, Sri Lanka. Helped in the organization of the event.'
+description: 'Contributed to organizing TEDx Kandy, helping create a platform for sharing innovative ideas and inspiring conversations in the local community.'
 icon: '/images/logos/tedx.webp'
 ---

@@ -4,8 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { wildlifeFacts } from '../constants/wildlifeFacts';
 
-// Select a random wildlife fact for server-side rendering
-const randomFact = wildlifeFacts[Math.floor(Math.random() * wildlifeFacts.length)];
+// Pass the facts array to the client-side script
+const factsJson = JSON.stringify(wildlifeFacts);
 ---
 
 <Layout
@@ -90,7 +90,7 @@ const randomFact = wildlifeFacts[Math.floor(Math.random() * wildlifeFacts.length
 
         <!-- Easter Egg with Wildlife Fact -->
         <p class="text-sm text-gray-600 mt-4 italic text-center">
-          P.S. {randomFact}<br />
+          P.S. <span id="wildlife-fact">Loading...</span><br />
           You earned this fact by being lost.
         </p>
       </div>
@@ -111,13 +111,21 @@ const randomFact = wildlifeFacts[Math.floor(Math.random() * wildlifeFacts.length
   }
 </style>
 
-<script>
-  // Randomly select one of 6 lizard images
+<script define:vars={{ factsJson }}>
+  // Randomly select one of 6 lizard images and a wildlife fact
   document.addEventListener('DOMContentLoaded', () => {
     const lizardImg = document.getElementById('lost-lizard');
     if (lizardImg) {
       const randomNum = Math.floor(Math.random() * 6) + 1;
       lizardImg.src = `/images/lizards/lizard-404-${randomNum}.webp`;
+    }
+
+    // Set random wildlife fact
+    const factElement = document.getElementById('wildlife-fact');
+    if (factElement && factsJson) {
+      const facts = JSON.parse(factsJson);
+      const randomFact = facts[Math.floor(Math.random() * facts.length)];
+      factElement.textContent = randomFact;
     }
   });
 </script>

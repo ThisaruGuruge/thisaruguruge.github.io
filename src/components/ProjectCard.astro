@@ -4,10 +4,11 @@ import { CSS_CLASSES } from '../constants/ui';
 interface Props {
   title: string;
   description: string;
-  image: string;
+  image?: string;
   tags?: string[];
   githubUrl?: string;
   demoUrl?: string;
+  featured?: boolean;
 }
 
 const { title, description, image, tags = [], githubUrl, demoUrl } = Astro.props;
@@ -16,11 +17,12 @@ const { title, description, image, tags = [], githubUrl, demoUrl } = Astro.props
 <article class={CSS_CLASSES.CARD.INTERACTIVE}>
   <div class="aspect-video relative">
     <img
-      src={image}
+      src={image || '/images/placeholder.webp'}
       alt={title}
       class="object-cover w-full h-full"
       width="600"
       height="400"
+      loading="lazy"
     />
   </div>
   <div class="p-6 space-y-4">

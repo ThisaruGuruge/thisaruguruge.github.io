@@ -3,20 +3,24 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev --host 0.0.0.0",
-    "start": "astro dev --host 0.0.0.0",
-    "build": "astro build",
-    "preview": "astro preview --host 0.0.0.0",
-    "astro": "astro"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build && npm run fix-sitemap",
+    "preview": "astro preview",
+    "astro": "astro",
+    "fix-sitemap": "node scripts/fix-sitemap.js"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/sitemap": "^3.4.0",
     "@astrojs/tailwind": "^5.1.0",
     "astro": "^4.4.15",
     "sharp": "^0.33.2",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16"
+    "@tailwindcss/typography": "^0.5.16",
+    "gray-matter": "^4.0.3"
   }
 }

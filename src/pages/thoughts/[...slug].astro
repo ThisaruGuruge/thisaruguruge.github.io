@@ -24,18 +24,11 @@ const imageUrl = post.data.image?.startsWith('http')
     ? site + post.data.image
     : site + '/og-image.jpg';
 
-// Function to process external links
-function processContent(content: string) {
-  return content.replace(
-    /<a href="(https?:\/\/[^"]+)"/g,
-    '<a href="$1" target="_blank" rel="noopener noreferrer"'
-  );
-}
 
 // Find related posts (sharing at least one tag, excluding current post)
 const allPosts = await getCollection('blog');
 const relatedPosts = allPosts
-  .filter(p => p.slug !== post.slug && p.data.tags && post.data.tags && p.data.tags.some(tag => post.data.tags.includes(tag)))
+  .filter(p => p.slug !== post.slug && p.data.tags && post.data.tags && p.data.tags.some(tag => post.data.tags!.includes(tag)))
   .slice(0, 3);
 
 // Create breadcrumb items

@@ -2,44 +2,161 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import Cause from '../../components/Cause.astro';
-import { getCollection } from 'astro:content';
-
-// Get causes and sort by fromYear (most recent first)
-const causes = await getCollection('causes');
-const sortedCauses = [...causes].sort((a, b) => (b.data.fromYear || 0) - (a.data.fromYear || 0));
 ---
 
-<Layout title="What I Care About | Thisaru" description="Causes Thisaru Guruge Supports and Volunteering">
+<Layout title="What I Care About | Thisaru" description="My thoughts on philosophy, politics, environment, technology, music, and science">
   <Header />
   <main>
     <section class="py-20">
-      <div class="container">
+      <div class="container max-w-4xl mx-auto">
         <h1 class="heading-1 text-center mb-12">What I Care About</h1>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {causes.length > 0 ? (
-            sortedCauses.map((cause) => (
-              <Cause
-                title={cause.data.title}
-                position={cause.data.position}
-                fromYear={cause.data.fromYear}
-                toYear={cause.data.toYear}
-                description={cause.data.description}
-                icon={cause.data.icon}
-              />
-            ))
-          ) : (
-            fallbackCauses.map((cause) => (
-              <Cause
-                title={cause.title}
-                description={cause.description}
-                icon={cause.icon}
-              />
-            ))
-          )}
+
+        <div class="prose prose-lg max-w-none space-y-16">
+          <!-- Philosophy -->
+          <section>
+            <h2 class="heading-2">🧠 Philosophy</h2>
+            <p>
+              Life is great — and that greatness comes with responsibilities you can’t run from. There’s no grand meaning out there, but that doesn't stop you from finding meaning in the tiniest, most unexpected things.
+            </p>
+            <p>
+              We know nothing — we just have models. Some are better than others, sure, but none of them are the absolute truth. Human nature? It’s not natural. It’s cultural. Culture shapes the man.
+            </p>
+            <p>
+              And no — “human is bad by nature” is just what capitalism wants you to believe. We’re wired to thrive in communities. Capitalism made us individuals. We can’t fly. We can’t run fast. We can’t even survive a six-foot fall. You know how we dominated the planet? Collectivism. We watched each other’s backs. We shared. We passed down knowledge. That’s what made us human.
+            </p>
+          </section>
+
+          <!-- Language, Thought, and the Frame of Reality -->
+          <section>
+            <h2 class="heading-2">🔤 Language, Thought, and the Frame of Reality</h2>
+            <p>
+              I’m not 100% aligned with the cult of political correctness, but I do believe that language carries power. The words we use don’t just describe things — they <em>shape</em> them. Language builds perception. It creates the categories we think in. The boundaries we see. The possibilities we recognize.
+            </p>
+            <p>
+              Think about color. Cultures across history didn’t have a word for “blue” until surprisingly late. Some couldn’t even <em>see</em> it as separate. That tells a story. Where what you can’t name, you might not even notice.
+            </p>
+            <p>
+              I always bring up <em>Arrival</em> — that movie where the protagonist starts perceiving time differently after learning an alien language. That’s not just sci-fi. That’s linguistic relativity: your language rewires your brain.
+            </p>
+            <p>
+              But there’s a dark side too. Language is abstraction. When I say “a mango,” we all get a mental image. But that mango? It doesn’t exist. It’s a construct. Language compresses experience into neat symbols so we can communicate — and in doing so, it limits nuance, erases complexity, and creates a world we all agree to hallucinate together.
+            </p>
+            <p>
+              Still… can you even imagine a society without language? (That’s rhetorical. You probably can’t — because most people can’t think without it.)
+            </p>
+            <p>
+              Language is one of the most powerful inventions of civilization. We are nothing without it — but we’re also <em>trapped</em> inside it.
+            </p>
+            <p>
+              Yeah, I’ve made people suffer through this rant more than once.
+            </p>
+          </section>
+
+          <!-- Politics & Society -->
+          <section>
+            <h2 class="heading-2">🏛️ Politics & Society</h2>
+            <p>
+              I’m probably a communist. I love some anarchist ideals — they’re beautiful — but I don’t think they scale. I believe in “from each according to their ability, to each according to their needs.” There shouldn't be a world where billionaires exist while people are dying from hunger.
+            </p>
+            <p>
+              Inequality, power concentration, profit-based exploitation of both people and nature — it’s the whole damn system. Power shouldn’t live in one place. A shitty parliamentarian still has to answer to the public. But how do we hold a tech bro or a CEO accountable? We can’t. That’s the problem.
+            </p>
+            <p>
+              Governments? They should serve people, not profit. I don’t give a damn about your economic growth if people are starving. Your country is a pisshole if kids are dying while your GDP graph looks good.
+            </p>
+            <p>
+              Media should be free — but that doesn’t mean they get to run propaganda for cash and call it journalism. Free speech doesn’t mean hate speech.
+            </p>
+            <p>
+              And public institutions? We need them. We need them strong and accountable. Legalize weed, sure — but make sure it’s not marketed to 10-year-olds. Freedom means fairness, not the free pass to exploit others.
+            </p>
+          </section>
+
+          <!-- Environment & Conservation -->
+          <section>
+            <h2 class="heading-2">🌿 Environment & Conservation</h2>
+            <p>
+              I was a tree-hugger. Then I became a conservationist. Now I’m a pissed-off realist. Nature is beautiful, delicate, brutal, and worth every ounce of care we can give. We fucked it up — and we owe it to the planet to unfuck it as much as we can.
+            </p>
+            <p>
+              I awe at a butterfly I’ve never seen before the same way I awe at a snow-capped mountain or a volcano. But awe doesn’t save ecosystems.
+            </p>
+            <p>
+              I use solar. I avoid plastic. I do what I can. But let’s be honest — this won’t reverse shit. Paper straws won’t fix what private jets ruin every weekend. Environmentalism isn’t about good vibes. It’s about policy, justice, and systems. And yes — environmentalism *is* political. If you don’t see that, you’re just cute, not useful.
+            </p>
+            <p>
+              If you can tell a <i>Pseudophilautus asankai</i> from a <i>Pseudophilautus poppiae</i> just by looking at their eye, but can’t trace how colonialism raped our ecosystems, then you’re not that bright — sorry, not sorry.
+            </p>
+          </section>
+
+          <!-- Technology -->
+          <section>
+            <h2 class="heading-2">🛠️ Technology</h2>
+            <p>
+              I love tech — when it actually helps people. Not when it creates new problems just to sell a solution. Not when it centralizes power in the hands of the rich and the opaque.
+            </p>
+            <p>
+              Knowledge should be free. Software should be open. Good tech should be intuitive, honest, and built for people — not shareholders. But now? We have self-declared “visionaries” hoarding data, building black boxes, and pretending they’re gods.
+            </p>
+            <p>
+              You’re not a genius because you can exploit attention. You’re just a smarter colonizer.
+            </p>
+          </section>
+
+          <!-- Music & Art -->
+          <section>
+            <h2 class="heading-2">🎸 Music & Art</h2>
+            <p>
+              Music expresses what words can’t. And I say that as someone obsessed with language. Music is magical. Fucking magical.
+            </p>
+            <p>
+              I listen to everything — from System of a Down to bus සිංදු. Yeah, bus sindu get mocked a lot — but under the noise, there are melodies worth holding on to.
+            </p>
+            <p>
+              Artists like Linkin Park, A. R. Rahman, Hans Zimmer, Victor Rathnayake, Rookantha, Nadeeka Guruge, Kasun Kalhara, and Yanni — they’ve shaped how I feel, think, and breathe music. Not in any particular order, but they all hit different parts of me.
+            </p>
+            <p>
+              And it’s not just music. I love movies. TV shows. Books. Drama. Dancing. All of it — not everything all the time, but everything has a place. A good guitar riff, a well-shot scene, a poetic line, a perfect beat — they all make me pause and go: <em>damn</em>. That’s art.
+            </p>
+            <p>
+              Art doesn’t have to be political. But when it is? It slaps harder. It gets under your skin in ways a speech never could.
+            </p>
+          </section>
+
+
+          <!-- Science & Curiosity -->
+          <section>
+            <h2 class="heading-2">🔬 Science & Curiosity</h2>
+            <p>
+              I’m not a physicist. But I’m obsessed. The models we build — quantum fields, spacetime, entanglement — they’re poetry. They help us *try* to understand this mess of a universe.
+            </p>
+            <p>
+              Knowledge should be accessible. But understanding? That’s the real flex. You can be a Nobel Prize winner and still not see how academia and capitalism hold hands to keep truth locked behind paywalls and prestige. That’s not intelligence — that’s being housebroken by the system. That’s not intelligence. That’s blindness.
+            </p>
+          </section>
+
+          <!-- Closing -->
+          <div class="text-center pt-10 border-t border-accent-cyan/20">
+            <blockquote class="text-text-muted italic">
+              These aren’t final answers. Just signals. Ask me again in a few years.
+            </blockquote>
+          </div>
+
         </div>
       </div>
     </section>
   </main>
   <Footer />
 </Layout>
+
+<style>
+  .prose h2 {
+    @apply mb-4;
+  }
+  .prose p {
+    @apply leading-relaxed;
+  }
+  .prose {
+    @apply text-text;
+  }
+</style>

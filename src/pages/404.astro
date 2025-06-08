@@ -42,6 +42,7 @@ const factsJson = JSON.stringify(wildlifeFacts);
               class="w-80 opacity-70"
               width="320"
               height="320"
+              loading="lazy"
             />
           </div>
           <p class="text-sm text-text-muted italic">
@@ -111,7 +112,7 @@ const factsJson = JSON.stringify(wildlifeFacts);
   }
 </style>
 
-<script define:vars={{ factsJson }}>
+<script define:vars={{ factsJson }} is:inline>
   // Randomly select one of 6 lizard images and a wildlife fact
   document.addEventListener('DOMContentLoaded', () => {
     const lizardImg = document.getElementById('lost-lizard');

@@ -28,7 +28,7 @@ const breadcrumbItems = [
 ];
 ---
 
-<Layout title={`${title} | Thisaru's Blog`} description={description} image={image}>
+<Layout title={`${title} | Thisaru's Blog`} description={description || title} image={image}>
   <!-- Blog-specific JSON-LD Schema -->
   <ArticleSchema
     title={title}

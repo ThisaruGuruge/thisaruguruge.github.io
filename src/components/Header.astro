@@ -108,15 +108,15 @@ const navItems = [
   const sun = '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" d="M12 1v2m0 18v2m11-11h-2M3 12H1m16.95 7.07l-1.41-1.41M6.34 6.34L4.93 4.93m12.02 0l-1.41 1.41M6.34 17.66l-1.41 1.41"/></svg>';
   const moon = '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke="currentColor" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>';
 
-  function setTheme(dark) {
+  function setTheme(dark: boolean) {
     if (dark) {
       html.classList.add('dark');
       localStorage.setItem('theme', 'dark');
-      iconSpan.innerHTML = sun;
+      if (iconSpan) iconSpan.innerHTML = sun;
     } else {
       html.classList.remove('dark');
       localStorage.setItem('theme', 'light');
-      iconSpan.innerHTML = moon;
+      if (iconSpan) iconSpan.innerHTML = moon;
     }
   }
 
@@ -125,7 +125,7 @@ const navItems = [
   const systemPref = window.matchMedia('(prefers-color-scheme: dark)').matches;
   setTheme(userPref === 'dark' || (!userPref && systemPref));
 
-  themeToggle.addEventListener('click', () => {
+  themeToggle?.addEventListener('click', () => {
     setTheme(!html.classList.contains('dark'));
   });
 
@@ -135,17 +135,17 @@ const navItems = [
   const menu = document.getElementById('mobile-menu');
   const backdrop = document.getElementById('mobile-menu-backdrop');
 
-  menuOpenBtn.addEventListener('click', () => {
-    menu.classList.remove('translate-x-full');
-    backdrop.classList.remove('hidden');
+  menuOpenBtn?.addEventListener('click', () => {
+    menu?.classList.remove('translate-x-full');
+    backdrop?.classList.remove('hidden');
   });
-  menuCloseBtn.addEventListener('click', () => {
-    menu.classList.add('translate-x-full');
-    backdrop.classList.add('hidden');
+  menuCloseBtn?.addEventListener('click', () => {
+    menu?.classList.add('translate-x-full');
+    backdrop?.classList.add('hidden');
   });
-  backdrop.addEventListener('click', () => {
-    menu.classList.add('translate-x-full');
-    backdrop.classList.add('hidden');
+  backdrop?.addEventListener('click', () => {
+    menu?.classList.add('translate-x-full');
+    backdrop?.classList.add('hidden');
   });
 </script>
 

@@ -5,10 +5,11 @@ import WebsiteSchema from '../components/schemas/WebsiteSchema.astro';
 
 interface Props {
   title: string;
-  description: string;
+  description?: string;
   image?: string;
 }
 
+// Extract title and description from props (can come from page frontmatter)
 const { title, description, image = '/og-image.jpg' } = Astro.props;
 const site = 'https://thisaru.me';
 const canonicalURL = new URL(Astro.url.pathname, site);
@@ -19,7 +20,7 @@ const canonicalURL = new URL(Astro.url.pathname, site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
+    {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Google Fonts -->
@@ -47,14 +48,14 @@ const canonicalURL = new URL(Astro.url.pathname, site);
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    {description && <meta property="og:description" content={description} />}
     <meta property="og:image" content={new URL(image, site)} />
 
     <!-- X (formerly Twitter) -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={new URL(image, site)} />
 
     <!-- JSON-LD Structured Data -->

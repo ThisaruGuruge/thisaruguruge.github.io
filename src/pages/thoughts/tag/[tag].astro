@@ -14,7 +14,7 @@ const { tag } = Astro.params;
 const posts = (await getCollection('blog')).filter(post => (post.data.tags || []).includes(tag));
 ---
 
-<Layout title={`Posts tagged '${tag}' | Thisaru`}>
+<Layout title={`Posts tagged '${tag}' | Thisaru`} description={`Explore all posts tagged with '${tag}' on Thisaru's blog.`}>
   <Header />
   <main>
     <section class="py-20">
@@ -45,7 +45,7 @@ const posts = (await getCollection('blog')).filter(post => (post.data.tags || []
                     </time>
                   </div>
                   <div class="flex flex-wrap gap-x-2 gap-y-2">
-                    {post.data.tags.map((tag) => (
+                    {post.data.tags?.map((tag) => (
                       <a href={`/thoughts/tag/${encodeURIComponent(tag)}/`} class="text-sm text-accent-orange underline hover:text-accent-cyan">#{tag}</a>
                     ))}
                   </div>

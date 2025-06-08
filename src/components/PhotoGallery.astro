@@ -149,14 +149,14 @@ const { images, columns = 3 } = Astro.props;
       });
     }
 
-    function showImage(index) {
+    function showImage(index: number) {
       if (index < 0) index = images.length - 1;
       if (index >= images.length) index = 0;
 
       currentIndex = index;
       const image = images[index];
 
-      if (lightboxImage) {
+      if (lightboxImage && lightboxImage instanceof HTMLImageElement) {
         lightboxImage.src = image.src;
         lightboxImage.alt = image.alt;
       }
@@ -167,7 +167,7 @@ const { images, columns = 3 } = Astro.props;
 
       if (lightboxCategories && image.categories) {
         lightboxCategories.innerHTML = '';
-        image.categories.forEach(category => {
+        image.categories.forEach((category: string) => {
           const badge = document.createElement('span');
           badge.className = 'px-2 py-1 rounded-full bg-accent-cyan text-black text-xs';
           badge.textContent = category;
@@ -195,11 +195,11 @@ const { images, columns = 3 } = Astro.props;
     }
 
     // Touch swipe handling
-    function handleTouchStart(e) {
+    function handleTouchStart(e: TouchEvent) {
       touchStartX = e.changedTouches[0].screenX;
     }
 
-    function handleTouchEnd(e) {
+    function handleTouchEnd(e: TouchEvent) {
       touchEndX = e.changedTouches[0].screenX;
       handleSwipe();
     }

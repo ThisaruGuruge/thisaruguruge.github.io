@@ -2,13 +2,25 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import BreadcrumbSchema from '../../components/schemas/BreadcrumbSchema.astro';
 import { getCollection } from 'astro:content';
 
 let posts = await getCollection('blog');
 posts = posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const site = 'https://thisaru.me';
+const canonicalURL = new URL(Astro.url.pathname, site);
+
+// Create breadcrumb items
+const breadcrumbItems = [
+  { name: 'Home', url: site },
+  { name: 'Thoughts', url: canonicalURL.toString() }
+];
 ---
 
 <Layout title="Thoughts | Thisaru" description="Blog articles by Thisaru on tech, cinema, philosophy, and more.">
+  <BreadcrumbSchema items={breadcrumbItems} slot="head" />
+
   <Header />
   <main>
     <section class="py-20">

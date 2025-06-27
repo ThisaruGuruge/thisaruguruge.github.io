@@ -10,14 +10,21 @@ interface Props {
 
 const { items } = Astro.props;
 
+// Ensure all URLs are absolute
+const breadcrumbItems = items.map(item => ({
+  ...item,
+  url: item.url.startsWith('http') ? item.url : new URL(item.url, 'https://thisaru.me').toString()
+}));
+
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": items.map((item, index) => ({
+  "itemListElement": breadcrumbItems.map((item, index) => ({
     "@type": "ListItem",
     "position": index + 1,
     "name": item.name,
-    "item": item.url
+    "item": item.url,
+    "@id": item.url
   }))
 };
 ---

@@ -75,6 +75,61 @@ try {
   }
 }
 
+// Function to get image dimensions using identify (ImageMagick) or webpinfo
+function getImageDimensions(filePath) {
+  try {
+    // Try using webpinfo first (part of WebP tools)
+    const output = execSync(`webpinfo "${filePath}"`, { encoding: 'utf8', stdio: 'pipe' });
+    const widthMatch = output.match(/Width:\s+(\d+)/);
+    const heightMatch = output.match(/Height:\s+(\d+)/);
+
+    if (widthMatch && heightMatch) {
+      return {
+        width: parseInt(widthMatch[1]),
+        height: parseInt(heightMatch[1])
+      };
+    }
+  } catch (error) {
+    // webpinfo failed, try identify (ImageMagick)
+    try {
+      const output = execSync(`identify -format "%wx%h" "${filePath}"`, { encoding: 'utf8', stdio: 'pipe' });
+      const [width, height] = output.trim().split('x').map(Number);
+      return { width, height };
+    } catch (identifyError) {
+      // Neither tool available, return null
+      return null;
+    }
+  }
+  return null;
+}
+
+// Function to check if image is already optimized for target dimensions
+function isAlreadyOptimized(filePath, targetMaxWidth, targetQuality) {
+  const dimensions = getImageDimensions(filePath);
+  if (!dimensions) {
+    // Can't determine dimensions, assume it needs optimization
+    return false;
+  }
+
+  // Check if image is already at or below target width
+  if (dimensions.width <= targetMaxWidth) {
+    // Check if file size suggests it's already optimized
+    const stats = statSync(filePath);
+    const fileSizeKB = stats.size / 1024;
+
+    // Rough heuristic: if file is small relative to dimensions, it's likely already optimized
+    const pixels = dimensions.width * dimensions.height;
+    const bytesPerPixel = stats.size / pixels;
+
+    // If bytes per pixel is low, it's likely already optimized
+    if (bytesPerPixel < 0.5) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 // Function to optimize images in a directory
 function optimizeImages(dir, maxWidth, quality) {
   if (!existsSync(dir)) {
@@ -94,10 +149,18 @@ function optimizeImages(dir, maxWidth, quality) {
 
   let totalSavings = 0;
   let processedCount = 0;
+  let skippedCount = 0;
 
   for (const file of files) {
     const filePath = path.join(dir, file);
     const tempPath = path.join(dir, `temp_${file}`);
+
+    // Check if image is already optimized
+    if (isAlreadyOptimized(filePath, maxWidth, quality)) {
+      console.log(`   ⏭️  Skipping ${file} (already optimized)`);
+      skippedCount++;
+      continue;
+    }
 
     try {
       console.log(`   🔧 Optimizing ${file}...`);
@@ -136,6 +199,10 @@ function optimizeImages(dir, maxWidth, quality) {
   if (processedCount > 0) {
     console.log(`   📊 Total savings in ${dir}: ${formatBytes(totalSavings)} (${processedCount} files optimized)`);
   }
+
+  if (skippedCount > 0) {
+    console.log(`   ⏭️  Skipped ${skippedCount} already optimized files`);
+  }
 }
 
 // Helper function to format bytes
@@ -171,7 +238,7 @@ try {
   const duration = ((endTime - startTime) / 1000).toFixed(2);
 
   console.log(`🎉 Image optimization complete! (${duration}s)`);
-  console.log('💡 Tip: Run this script whenever you add new images to maintain optimal performance.');
+  console.log('💡 Tip: Images are now checked for existing optimization to prevent quality loss.');
 
 } catch (error) {
   console.error('❌ Optimization failed:', error.message);

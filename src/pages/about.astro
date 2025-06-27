@@ -2,9 +2,21 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import BreadcrumbSchema from '../components/schemas/BreadcrumbSchema.astro';
+
+const site = 'https://thisaru.me';
+const canonicalURL = new URL(Astro.url.pathname, site);
+
+// Create breadcrumb items
+const breadcrumbItems = [
+  { name: 'Home', url: site },
+  { name: 'About', url: canonicalURL.toString() }
+];
 ---
 
 <Layout title="About | Thisaru Guruge" description="More about Thisaru — his beliefs, work, and what drives him.">
+  <BreadcrumbSchema items={breadcrumbItems} slot="head" />
+
   <!-- Critical above-the-fold styles -->
   <style is:inline>
     /* Essential above-the-fold styles */

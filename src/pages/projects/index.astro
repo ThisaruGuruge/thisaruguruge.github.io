@@ -4,13 +4,25 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import ProjectCard from '../../components/ProjectCard.astro';
+import BreadcrumbSchema from '../../components/schemas/BreadcrumbSchema.astro';
 import { CSS_CLASSES } from '../../constants/ui';
 import { SECTIONS } from '../../constants/site';
 
 const projects = await getCollection('projects');
+
+const site = 'https://thisaru.me';
+const canonicalURL = new URL(Astro.url.pathname, site);
+
+// Create breadcrumb items
+const breadcrumbItems = [
+  { name: 'Home', url: site },
+  { name: 'Projects', url: canonicalURL.toString() }
+];
 ---
 
 <Layout title={SECTIONS.PROJECTS.TITLE} description={SECTIONS.PROJECTS.DESCRIPTION}>
+  <BreadcrumbSchema items={breadcrumbItems} slot="head" />
+
   <Header />
   <main>
     <section class="py-20">

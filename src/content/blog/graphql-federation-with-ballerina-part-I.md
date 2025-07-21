@@ -9,8 +9,6 @@ image: "/images/blog/graphql-federation-with-ballerina-part-I/graphql-federation
 
 > This article was written using Ballerina Swan Lake Update 8 (2201.8.0)
 
-![GraphQL Federation with Ballerina and Apollo](/images/blog/graphql-federation-with-ballerina-part-I/graphql-federation.webp)
-
 ## Introduction
 
 ### GraphQL: Striking a Balance Between Advantages and Limitations

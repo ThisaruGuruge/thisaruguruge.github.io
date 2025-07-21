@@ -87,6 +87,18 @@ const wordCount = contentText.split(/\s+/).length;
               ))}
             </div>
           )}
+
+          {/* Featured Image */}
+          {post.data.image && (
+            <div class="mt-8">
+              <img
+                src={post.data.image}
+                alt={`Featured image for ${post.data.title}`}
+                class="w-full h-auto rounded-lg shadow-lg object-cover"
+                loading="eager"
+              />
+            </div>
+          )}
         </header>
         <div class="prose prose-invert prose-lg max-w-none">
           <Content />

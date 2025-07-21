@@ -7,8 +7,6 @@ pubDate: 2020-12-25
 image: "/images/blog/tenet/poster.webp"
 ---
 
-![Tenet Movie Poster](/images/blog/tenet/poster.webp)
-
 ක්‍රිස්ටෝෆර් නෝලන් කියන්නේ “අමුතු” ජාතියේ “වැඩ” කරන අධ්‍යක්ෂ්‍යකවරයෙක් බව සිනමා රසිකයන්ට අළුත් දෙයක් නෙවෙයි. නෝලන්ගේ
 අළුත් ම “වැඩේ” තමයි TENET.
 

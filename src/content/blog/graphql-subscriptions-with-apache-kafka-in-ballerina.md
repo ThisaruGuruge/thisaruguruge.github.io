@@ -5,6 +5,7 @@ author: 'Thisaru'
 tags: ["Tech", "Ballerina", "GraphQL"]
 pubDate: 2023-02-06
 image: "/images/blog/graphql-subscriptions-with-apache-kafka-in-ballerina/graphql-subscription-with-kafka-diagram.webp"
+imageAltText: "GraphQL Subscriptions with Apache Kafka in Ballerina"
 ---
 
 ## Introduction

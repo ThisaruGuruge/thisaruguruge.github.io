@@ -4,6 +4,8 @@ tags: ["criticism", "environmentalism", "politics"]
 author: "රස්තියාදුකාරයා"
 description: "භූතානයේ පිස්සු රජවරු සහ ලංකාවේ සුපිරි රජවරු පිළිබඳව කටු සටහනක් | A sarcastic comparison between Bhutan and Sri Lankan environment policies"
 pubDate: 2018-05-29
+image: "/images/blog/wangchucks/wangchucks.webp"
+imageAltText: "Happy people from Bhutan"
 ---
 
 වන්ග්චුක්ලා ට පිස්සු !

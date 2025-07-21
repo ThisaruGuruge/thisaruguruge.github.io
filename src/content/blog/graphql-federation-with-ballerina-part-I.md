@@ -5,11 +5,10 @@ description: "This article series will dive into GraphQL federation with Balleri
 author: 'Thisaru'
 pubDate: 2023-10-02
 image: "/images/blog/graphql-federation-with-ballerina-part-I/graphql-federation.webp"
+imageAltText: "GraphQL Federation with Ballerina and Apollo"
 ---
 
 > This article was written using Ballerina Swan Lake Update 8 (2201.8.0)
-
-![GraphQL Federation with Ballerina and Apollo](/images/blog/graphql-federation-with-ballerina-part-I/graphql-federation.webp)
 
 ## Introduction
 

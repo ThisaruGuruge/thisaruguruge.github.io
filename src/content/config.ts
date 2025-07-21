@@ -9,6 +9,7 @@ const blog = defineCollection({
     pubDate: z.date(),
     author: z.string().default('Thisaru'),
     image: z.string().optional(),
+    imageAltText: z.string().optional(),
     tags: z.array(z.string()).optional(),
   }),
 });

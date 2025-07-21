@@ -1,9 +1,9 @@
 ---
 title: "Inception"
-tags: ["cinema", "philosophy", "criticism"]
-description: "Inception කියන්නේ සාමාන්‍යයෙන් හොලිවුඩ් චිත්‍රපට බලන අය ඕනෙම කෙනෙක් බලලා තියෙන ෆිල්ම් එකක්."
-author: 'Thisaru'
-pubDate: 2023-12-25
+tags: ["movie reviews", "philosophy", "scifi"]
+author: "රස්තියාදුකාරයා"
+description: "Inception චිත්‍රපටය පිළිබඳව විග්‍රහයක් | An analysis of Christopher Nolan's Inception in Sinhala — dream within a dream, reality, and philosophical themes."
+pubDate: 2019-04-03
 image: "/images/blog/inception/poster.webp"
 imageAltText: "Inception movie poster featuring Leonardo DiCaprio"
 ---

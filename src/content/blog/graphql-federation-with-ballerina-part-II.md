@@ -5,6 +5,7 @@ description: "This is the part two of the article series on GraphQL federation w
 author: 'Thisaru'
 pubDate: 2023-10-03
 image: "/images/blog/graphql-federation-with-ballerina-part-I/graphql-federation.webp"
+imageAltText: "GraphQL Federation with Ballerina and Apollo"
 ---
 
 > This article was written using Ballerina Swan Lake Update 8 (2201.8.0)

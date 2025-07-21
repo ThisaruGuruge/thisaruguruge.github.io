@@ -5,6 +5,7 @@ description: "නූතන අධිපරිභෝජනවාදය සහ ප
 author: 'රස්තියාදුකාරයා'
 pubDate: 2025-07-08
 image: "/images/blog/environmentalism-consumerism-and-back-to-stone-age/environmentalism-consumerism-and-back-to-stone-age.webp"
+imageAltText: "Stone age poster from stock images"
 ---
 
 පාරිසරික ගැටළු යනු අප ශිෂ්ඨාචාරයක් ලෙස අද මුහුණ දෙන ප්‍රධානත ම ප්‍රශ්නය නොවේ නම්, ප්‍රධානත ම ප්‍රශ්න වලින් එකකි. අද වන විට අප මුහුණ දෙමින් සිටින දේශගුණික විපර්යාස නුදුරු අනාගතයේදී මීටත් වඩා දරුණු ලෙස මුහුණ දීමට අපිට ලෝකයක් ලෙස සිදුවනු ඇත.

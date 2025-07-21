@@ -93,7 +93,7 @@ const wordCount = contentText.split(/\s+/).length;
             <div class="mt-8">
               <img
                 src={post.data.image}
-                alt={`Featured image for ${post.data.title}`}
+                alt={post.data.imageAltText || `Featured image for ${post.data.title}`}
                 class="w-full h-auto rounded-lg shadow-lg object-cover"
                 loading="eager"
               />

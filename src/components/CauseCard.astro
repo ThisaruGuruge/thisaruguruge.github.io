@@ -1,0 +1,85 @@
+---
+interface Props {
+  title: string;
+  position: string;
+  description: string;
+  icon: string;
+  fromYear: number;
+  toYear?: number | null;
+  variant?: 'compact' | 'full';
+  class?: string;
+  style?: string;
+}
+
+const {
+  title,
+  position,
+  description,
+  icon,
+  fromYear,
+  toYear,
+  variant = 'full',
+  class: className = '',
+  style = ''
+} = Astro.props;
+
+const yearDisplay = toYear && toYear !== fromYear 
+  ? `${fromYear} - ${toYear}` 
+  : toYear === null ? `${fromYear} - Present` : fromYear.toString();
+
+const cardClasses = variant === 'compact' 
+  ? 'group bg-background-card rounded-xl p-6 hover:shadow-xl transition-all duration-300 border border-gray-200/20 hover:border-accent-cyan/30 scroll-fade-in-up'
+  : 'bg-background-card rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-700 h-full flex flex-col';
+---
+
+<div class={`${cardClasses} ${className}`} style={style}>
+  {variant === 'compact' ? (
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 bg-accent-cyan/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent-cyan/20 transition-colors overflow-hidden">
+        <img
+          src={icon}
+          alt={`${title} logo`}
+          class="w-8 h-8 object-contain"
+          loading="lazy"
+        />
+      </div>
+      <div class="flex-grow">
+        <h3 class="text-lg font-bold text-text group-hover:text-accent-cyan transition-colors mb-2">
+          {title}
+        </h3>
+        <p class="text-accent-orange font-medium text-sm mb-2">
+          {position}
+        </p>
+        <p class="text-text-muted text-sm mb-3">
+          {yearDisplay}
+        </p>
+        <p class="text-text-muted text-sm leading-relaxed">
+          {description}
+        </p>
+      </div>
+    </div>
+  ) : (
+    <>
+      <div class="flex items-start gap-4 mb-4">
+        <div class="flex-shrink-0">
+          <img
+            src={icon}
+            alt={`${title} logo`}
+            class="w-12 h-12 rounded-lg object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-text mb-2 leading-tight">{title}</h3>
+          <p class="text-sm font-medium text-accent-cyan">{position}</p>
+        </div>
+      </div>
+      <div class="flex-1 flex flex-col">
+        <p class="text-sm text-text-muted mb-4 leading-relaxed flex-1">{description}</p>
+        <div class="text-xs text-text-muted font-medium mt-auto">
+          {yearDisplay}
+        </div>
+      </div>
+    </>
+  )}
+</div>

@@ -3,25 +3,16 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PhotoGallery from '../../components/PhotoGallery.astro';
-import { getCollection } from 'astro:content';
+import CauseCard from '../../components/CauseCard.astro';
 import { ALL_PHOTO_CATEGORIES } from '../../constants/photoCategories';
+import { getAllPhotos, getSortedCauses, transformPhotosForGallery } from '../../utils/collections';
 
-// Get all photos from the collection and sort them by order
-const photos = await getCollection('photos');
-const sortedPhotos = [...photos].sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
-
-// Get organizational involvement
-const causes = await getCollection('causes');
-const sortedCauses = [...causes].sort((a, b) => b.data.fromYear - a.data.fromYear);
+// Get all photos and organizational involvement
+const sortedPhotos = await getAllPhotos();
+const sortedCauses = await getSortedCauses();
 
 // Format photos for the gallery component
-const galleryImages = sortedPhotos.map(photo => ({
-  src: photo.data.image,
-  alt: photo.data.title,
-  caption: photo.data.caption,
-  categories: photo.data.categories,
-  featured: photo.data.featured
-}));
+const galleryImages = transformPhotosForGallery(sortedPhotos);
 
 // Categories with icons for filtering
 const categories = ALL_PHOTO_CATEGORIES;
@@ -50,34 +41,21 @@ const categories = ALL_PHOTO_CATEGORIES;
 
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sortedCauses.map((cause) => (
-              <div class="bg-background-card rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-700 h-full flex flex-col">
-                <div class="flex items-start gap-4 mb-4">
-                  <div class="flex-shrink-0">
-                    <img
-                      src={cause.data.icon}
-                      alt={`${cause.data.title} logo`}
-                      class="w-12 h-12 rounded-lg object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <h3 class="font-semibold text-text mb-2 leading-tight">{cause.data.title}</h3>
-                    <p class="text-sm font-medium text-accent-cyan">{cause.data.position}</p>
-                  </div>
-                </div>
-                <div class="flex-1 flex flex-col">
-                  <p class="text-sm text-text-muted mb-4 leading-relaxed flex-1">{cause.data.description}</p>
-                  <div class="text-xs text-text-muted font-medium mt-auto">
-                    {cause.data.fromYear}{cause.data.toYear ? (cause.data.toYear !== cause.data.fromYear ? ` - ${cause.data.toYear}` : '') : ' - Present'}
-                  </div>
-                </div>
-              </div>
+              <CauseCard
+                title={cause.data.title}
+                position={cause.data.position}
+                description={cause.data.description}
+                icon={cause.data.icon}
+                fromYear={cause.data.fromYear}
+                toYear={cause.data.toYear}
+                variant="full"
+              />
             ))}
           </div>
         </section>
 
         <!-- Photography Section -->
-        <section>
+        <section id="photography">
           <div class="text-center mb-12">
             <h2 class="heading-2 mb-4">Photography</h2>
             <p class="text-text-muted max-w-2xl mx-auto">

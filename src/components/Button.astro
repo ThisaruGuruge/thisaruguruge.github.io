@@ -1,0 +1,105 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  target?: string;
+  rel?: string;
+  class?: string;
+  icon?: 'none' | 'arrow-right' | 'external' | 'lightbulb' | 'github' | 'camera';
+  iconPosition?: 'left' | 'right';
+  ariaLabel?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  target,
+  rel,
+  class: className = '',
+  icon = 'none',
+  iconPosition = 'right',
+  ariaLabel,
+  ...props
+} = Astro.props;
+
+const baseClasses = 'group inline-flex items-center justify-center font-semibold rounded-2xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+
+const variantClasses = {
+  primary: 'relative text-background bg-accent-cyan rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-accent-cyan/25 hover:scale-105 hover:ring-2 hover:ring-accent-cyan/50 hover:ring-offset-2 hover:ring-offset-background focus-visible:ring-accent-cyan',
+  secondary: 'text-text border-2 border-text/20 hover:border-accent-orange hover:text-accent-orange hover:shadow-lg hover:scale-105 focus-visible:ring-accent-orange',
+  outline: 'border border-accent-cyan text-accent-cyan hover:bg-accent-cyan dark:hover:text-white hover:text-black hover:scale-105 hover:shadow-lg focus-visible:ring-accent-cyan',
+  ghost: 'text-text/60 hover:text-accent-cyan hover:scale-110 transform focus-visible:ring-accent-cyan'
+};
+
+const sizeClasses = {
+  sm: 'px-4 py-2 text-sm gap-2',
+  md: 'px-6 py-3 text-base gap-2',
+  lg: 'px-8 py-4 text-lg gap-3'
+};
+
+const iconSvgs = {
+  'arrow-right': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>',
+  'external': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>',
+  'lightbulb': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>',
+  'github': '<path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>',
+  'camera': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>'
+};
+
+const iconHoverClasses = {
+  'arrow-right': 'group-hover:translate-x-1',
+  'external': 'group-hover:translate-x-1',
+  'lightbulb': 'group-hover:rotate-12',
+  'github': '',
+  'camera': ''
+};
+
+const finalClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+
+const Element = href ? 'a' : 'button';
+const linkProps = href ? { href, target, rel } : {};
+---
+
+<Element 
+  class={finalClasses}
+  aria-label={ariaLabel}
+  {...linkProps}
+  {...props}
+>
+  {variant === 'primary' && (
+    <span class="relative z-10 flex items-center gap-2">
+      {icon !== 'none' && iconPosition === 'left' && (
+        <svg class={`w-5 h-5 transition-transform ${iconHoverClasses[icon]}`} fill={icon === 'github' ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+          <Fragment set:html={iconSvgs[icon]} />
+        </svg>
+      )}
+      <slot />
+      {icon !== 'none' && iconPosition === 'right' && (
+        <svg class={`w-5 h-5 transition-transform ${iconHoverClasses[icon]}`} fill={icon === 'github' ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+          <Fragment set:html={iconSvgs[icon]} />
+        </svg>
+      )}
+    </span>
+  )}
+  
+  {variant !== 'primary' && (
+    <span class="flex items-center gap-2">
+      {icon !== 'none' && iconPosition === 'left' && (
+        <svg class={`w-5 h-5 transition-transform ${iconHoverClasses[icon]}`} fill={icon === 'github' ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+          <Fragment set:html={iconSvgs[icon]} />
+        </svg>
+      )}
+      <slot />
+      {icon !== 'none' && iconPosition === 'right' && (
+        <svg class={`w-5 h-5 transition-transform ${iconHoverClasses[icon]}`} fill={icon === 'github' ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+          <Fragment set:html={iconSvgs[icon]} />
+        </svg>
+      )}
+    </span>
+  )}
+  
+  {variant === 'primary' && (
+    <div class="absolute inset-0 bg-gradient-to-r from-accent-cyan to-accent-cyan/90 group-hover:from-accent-cyan/90 group-hover:to-accent-cyan transition-all duration-300"></div>
+  )}
+</Element>

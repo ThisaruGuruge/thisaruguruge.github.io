@@ -45,14 +45,14 @@ const breadcrumbItems = [
   <BreadcrumbSchema items={breadcrumbItems} slot="head" />
 
   <Header />
-  <main>
-    <article class="py-20">
+  <main id="main-content" role="main" aria-label="Blog post">
+    <article class="py-20 section-fade-in">
       <div class="container max-w-3xl">
-        <header class="mb-12">
-          <h1 class="heading-1 mb-4">{title}</h1>
-          <div class="flex items-center text-gray-400 space-x-4">
-            <span>{author}</span>
-            <span>•</span>
+        <header class="mb-12 scroll-fade-in">
+          <h1 class="heading-1 mb-4 text-text" id="article-title">{title}</h1>
+          <div class="flex items-center text-text-muted space-x-4 text-sm">
+            <span class="font-medium">By {author}</span>
+            <span aria-hidden="true">•</span>
             <time datetime={pubDate.toISOString()}>
               {pubDate.toLocaleDateString('en-US', {
                 year: 'numeric',
@@ -60,11 +60,48 @@ const breadcrumbItems = [
                 day: 'numeric',
               })}
             </time>
+            {wordCount && (
+              <>
+                <span aria-hidden="true">•</span>
+                <span>{Math.ceil(wordCount / 200)} min read</span>
+              </>
+            )}
           </div>
+          {description && (
+            <p class="text-text-muted text-lg mt-4 leading-relaxed">{description}</p>
+          )}
         </header>
-        <div class="prose prose-invert">
+        <div class="prose prose-invert max-w-none scroll-fade-in-up" style="animation-delay: 0.2s;">
           <slot />
         </div>
+        
+        <!-- Article navigation -->
+        <footer class="mt-16 pt-8 border-t border-gray-200/20 scroll-fade-in-up" style="animation-delay: 0.4s;">
+          <div class="flex justify-between items-center">
+            <a 
+              href="/thoughts/" 
+              class="text-accent-cyan hover:text-accent-orange transition-all duration-300 hover:scale-105 focus-ring inline-flex items-center space-x-2"
+              aria-label="Back to all blog posts"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              <span>Back to all posts</span>
+            </a>
+            <div class="flex space-x-4">
+              <button
+                onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+                class="text-text-muted hover:text-accent-cyan transition-all duration-300 hover:scale-105 focus-ring p-2 rounded-lg"
+                aria-label="Scroll to top"
+                title="Scroll to top"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </footer>
       </div>
     </article>
   </main>

@@ -13,19 +13,19 @@ const factsJson = JSON.stringify(wildlifeFacts);
   description="The page you're looking for doesn't exist. Explore other sections of Thisaru's website."
 >
   <Header />
-  <main class="min-h-screen flex items-center justify-center py-20">
+  <main id="main-content" role="main" aria-label="404 - Page not found" class="min-h-screen flex items-center justify-center py-20">
     <div class="container text-center">
       <div class="max-w-2xl mx-auto space-y-8">
         <!-- 404 Animation/Visual -->
-        <div class="relative">
-          <h1 class="text-9xl font-bold text-accent-cyan/20 select-none">404</h1>
+        <div class="relative error-404-container">
+          <h1 class="text-9xl font-bold text-accent-cyan/20 select-none error-404-text">404</h1>
           <div class="absolute inset-0 flex items-center justify-center">
-            <div class="text-6xl animate-pulse">🌌</div>
+            <div class="text-6xl motion-safe-bounce">🌌</div>
           </div>
         </div>
 
         <!-- Error Message -->
-        <div class="space-y-4">
+        <div class="space-y-4 scroll-fade-in" style="animation-delay: 0.2s;">
           <h2 class="heading-2 text-text">You've wandered into the void.</h2>
           <p class="text-lg text-text-muted max-w-lg mx-auto">
             This page doesn't exist. Or maybe it transcended. Either way, not even a misplaced semicolon remains.
@@ -51,49 +51,57 @@ const factsJson = JSON.stringify(wildlifeFacts);
         </div>
 
         <!-- Navigation Options -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+        <nav aria-label="Quick navigation" class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           <a
             href="/"
-            class="group bg-background-card hover:bg-accent-cyan/10 border border-accent-cyan/20 hover:border-accent-cyan/40 rounded-xl p-6 transition-all duration-300 hover:transform hover:scale-105"
+            class="group bg-background-card hover:bg-accent-cyan/10 border border-accent-cyan/20 hover:border-accent-cyan/40 rounded-xl p-6 transition-all duration-300 hover:transform hover:scale-105 focus-ring scroll-fade-in-up"
+            style="animation-delay: 0.4s;"
+            aria-label="Navigate to home page"
           >
-            <div class="text-3xl mb-3 group-hover:animate-bounce">🏠</div>
+            <div class="text-3xl mb-3 motion-safe-bounce">🏠</div>
             <h3 class="font-semibold text-text group-hover:text-accent-cyan transition-colors">Home</h3>
             <p class="text-sm text-text-muted mt-1">Back to the beginning</p>
           </a>
 
           <a
             href="/projects/"
-            class="group bg-background-card hover:bg-accent-orange/10 border border-accent-orange/20 hover:border-accent-orange/40 rounded-xl p-6 transition-all duration-300 hover:transform hover:scale-105"
+            class="group bg-background-card hover:bg-accent-orange/10 border border-accent-orange/20 hover:border-accent-orange/40 rounded-xl p-6 transition-all duration-300 hover:transform hover:scale-105 focus-ring scroll-fade-in-up"
+            style="animation-delay: 0.5s;"
+            aria-label="Navigate to projects page"
           >
-            <div class="text-3xl mb-3 group-hover:animate-bounce">🚀</div>
+            <div class="text-3xl mb-3 motion-safe-bounce">🚀</div>
             <h3 class="font-semibold text-text group-hover:text-accent-orange transition-colors">Projects</h3>
             <p class="text-sm text-text-muted mt-1">See what I've built</p>
           </a>
 
           <a
             href="/thoughts/"
-            class="group bg-background-card hover:bg-accent-cyan/10 border border-accent-cyan/20 hover:border-accent-cyan/40 rounded-xl p-6 transition-all duration-300 hover:transform hover:scale-105"
+            class="group bg-background-card hover:bg-accent-cyan/10 border border-accent-cyan/20 hover:border-accent-cyan/40 rounded-xl p-6 transition-all duration-300 hover:transform hover:scale-105 focus-ring scroll-fade-in-up"
+            style="animation-delay: 0.6s;"
+            aria-label="Navigate to blog posts"
           >
-            <div class="text-3xl mb-3 group-hover:animate-bounce">💭</div>
+            <div class="text-3xl mb-3 motion-safe-bounce">💭</div>
             <h3 class="font-semibold text-text group-hover:text-accent-cyan transition-colors">Thoughts</h3>
             <p class="text-sm text-text-muted mt-1">Read my writing</p>
           </a>
 
           <a
             href="/off-duty/"
-            class="group bg-background-card hover:bg-accent-orange/10 border border-accent-orange/20 hover:border-accent-orange/40 rounded-xl p-6 transition-all duration-300 hover:transform hover:scale-105"
+            class="group bg-background-card hover:bg-accent-orange/10 border border-accent-orange/20 hover:border-accent-orange/40 rounded-xl p-6 transition-all duration-300 hover:transform hover:scale-105 focus-ring scroll-fade-in-up"
+            style="animation-delay: 0.7s;"
+            aria-label="Navigate to photography portfolio"
           >
-            <div class="text-3xl mb-3 group-hover:animate-bounce">📸</div>
+            <div class="text-3xl mb-3 motion-safe-bounce">📸</div>
             <h3 class="font-semibold text-text group-hover:text-accent-orange transition-colors">Off Duty</h3>
             <p class="text-sm text-text-muted mt-1">Photography & more</p>
           </a>
-        </div>
+        </nav>
 
         <!-- Easter Egg with Wildlife Fact -->
-        <p class="text-sm text-gray-600 mt-4 italic text-center">
-          P.S. <span id="wildlife-fact">Loading...</span><br />
+        <aside class="text-sm text-text-muted mt-4 italic text-center scroll-fade-in" style="animation-delay: 0.8s;" aria-label="Random wildlife fact">
+          P.S. <span id="wildlife-fact" class="text-accent-cyan">Loading...</span><br />
           You earned this fact by being lost.
-        </p>
+        </aside>
       </div>
     </div>
   </main>

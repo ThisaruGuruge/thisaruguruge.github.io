@@ -9,7 +9,7 @@ const navItems = [
 ];
 ---
 
-<header id="site-header" class="py-4 sticky top-0 z-40 bg-background shadow-sm">
+<header id="site-header" class="py-4 sticky top-0 z-40 bg-background/90 backdrop-blur-md shadow-sm border-b border-gray-200/20 header-slide-down">
   <nav class="container">
     <div class="flex items-center justify-between">
       <a href="/" class="group flex flex-col items-center">
@@ -26,11 +26,11 @@ const navItems = [
         </span>
       </a>
       <ul class="hidden md:flex space-x-8">
-        {navItems.map((item) => (
-          <li>
+        {navItems.map((item, index) => (
+          <li class="nav-item-fade-in" style={`animation-delay: ${index * 0.1}s;`}>
             <a
               href={item.href}
-              class="text-text hover:text-accent-orange transition-colors font-medium header-nav-link relative"
+              class="text-text hover:text-accent-orange transition-all duration-300 font-medium header-nav-link relative hover:scale-105 focus-ring px-2 py-1 rounded"
             >
               {item.text}
             </a>
@@ -40,8 +40,9 @@ const navItems = [
       <div class="flex items-center gap-4">
         <button
           id="theme-toggle"
-          class="text-text hover:text-accent-cyan transition-colors text-2xl focus:outline-none"
-          aria-label="Toggle theme"
+          class="text-text hover:text-accent-cyan transition-all duration-300 text-2xl focus-ring hover:scale-110 hover:rotate-12 header-button-fade-in p-2 rounded-lg"
+          style="animation-delay: 0.6s;"
+          aria-label="Toggle dark/light theme"
           type="button"
         >
           <span id="theme-toggle-icon">
@@ -50,8 +51,9 @@ const navItems = [
         </button>
         <button
           id="mobile-menu-open"
-          class="md:hidden text-text hover:text-accent-orange transition-colors"
-          aria-label="Toggle menu"
+          class="md:hidden text-text hover:text-accent-orange transition-all duration-300 hover:scale-110 header-button-fade-in focus-ring p-2 rounded-lg"
+          style="animation-delay: 0.7s;"
+          aria-label="Open navigation menu"
           type="button"
         >
           <svg
@@ -89,8 +91,7 @@ const navItems = [
           <li>
             <a
               href={item.href}
-              class="text-xl font-medium text-text hover:text-accent-orange transition-colors"
-              onclick="document.getElementById('mobile-menu').classList.add('translate-x-full');document.getElementById('mobile-menu-backdrop').classList.add('hidden');"
+              class="mobile-nav-link text-xl font-medium text-text hover:text-accent-orange transition-colors"
             >
               {item.text}
             </a>
@@ -139,14 +140,35 @@ const navItems = [
   menuOpenBtn?.addEventListener('click', () => {
     menu?.classList.remove('translate-x-full');
     backdrop?.classList.remove('hidden');
+    // Focus first menu link for accessibility
+    const firstLink = menu?.querySelector('.mobile-nav-link');
+    if (firstLink instanceof HTMLElement) {
+      firstLink.focus();
+    }
   });
-  menuCloseBtn?.addEventListener('click', () => {
+  function closeMobileMenu() {
     menu?.classList.add('translate-x-full');
     backdrop?.classList.add('hidden');
+    // Return focus to menu button for accessibility
+    if (menuOpenBtn instanceof HTMLElement) {
+      menuOpenBtn.focus();
+    }
+  }
+
+  menuCloseBtn?.addEventListener('click', closeMobileMenu);
+  backdrop?.addEventListener('click', closeMobileMenu);
+
+  // Close mobile menu when clicking nav links
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
   });
-  backdrop?.addEventListener('click', () => {
-    menu?.classList.add('translate-x-full');
-    backdrop?.classList.add('hidden');
+
+  // Keyboard navigation for mobile menu
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !menu?.classList.contains('translate-x-full')) {
+      closeMobileMenu();
+    }
   });
 </script>
 
@@ -155,6 +177,42 @@ const navItems = [
     0% { opacity: 0.7; }
     50% { opacity: 1; }
     100% { opacity: 0.7; }
+  }
+
+  @keyframes headerSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes navItemFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .header-slide-down {
+    animation: headerSlideDown 0.6s ease-out;
+  }
+
+  .nav-item-fade-in {
+    animation: navItemFadeIn 0.4s ease-out forwards;
+    opacity: 0;
+  }
+
+  .header-button-fade-in {
+    animation: navItemFadeIn 0.4s ease-out forwards;
+    opacity: 0;
   }
 
   .animate-pulse {
@@ -171,9 +229,21 @@ const navItems = [
     left: 0;
     background-color: var(--color-accent-orange);
     transition: width 0.3s ease;
+    border-radius: 2px;
   }
 
   .header-nav-link:hover::after {
     width: 100%;
+  }
+
+  /* Accessibility: respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .header-slide-down,
+    .nav-item-fade-in,
+    .header-button-fade-in {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
   }
 </style>

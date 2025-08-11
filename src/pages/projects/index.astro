@@ -2,13 +2,13 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { getCollection } from 'astro:content';
 import ProjectCard from '../../components/ProjectCard.astro';
+import Button from '../../components/Button.astro';
 import BreadcrumbSchema from '../../components/schemas/BreadcrumbSchema.astro';
-import { CSS_CLASSES } from '../../constants/ui';
 import { SECTIONS } from '../../constants/site';
+import { getAllProjects } from '../../utils/collections';
 
-const projects = await getCollection('projects');
+const projects = await getAllProjects();
 
 const site = 'https://thisaru.me';
 const canonicalURL = new URL(Astro.url.pathname, site);
@@ -24,13 +24,34 @@ const breadcrumbItems = [
   <BreadcrumbSchema items={breadcrumbItems} slot="head" />
 
   <Header />
-  <main>
-    <section class="py-20">
+  <main id="main-content" role="main" aria-label="Projects page">
+    <section class="py-20 section-fade-in" aria-labelledby="projects-heading">
       <div class="container">
-        <h1 class={CSS_CLASSES.HEADING.H1 + ' text-center mb-12'}>Projects</h1>
+        <h1 id="projects-heading" class="heading-1 text-center mb-4 text-text">Projects</h1>
+        <p class="text-center text-text-muted mb-8 text-lg max-w-2xl mx-auto">
+          A collection of projects I've worked on, from GraphQL tools to experimental libraries.
+        </p>
+        
+        <div class="text-center mb-12">
+          <Button 
+            variant="ghost" 
+            size="lg" 
+            href="https://github.com/ThisaruGuruge" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            icon="github" 
+            iconPosition="left"
+            class="bg-background-card border-2 border-text/20 rounded-xl hover:border-accent-cyan hover:text-accent-cyan hover:shadow-lg"
+          >
+            View All on GitHub
+          </Button>
+        </div>
+
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <ProjectCard {...project.data} />
+          {projects.map((project, index) => (
+            <div class="scroll-fade-in-up" style={`animation-delay: ${index * 0.1}s;`}>
+              <ProjectCard {...project.data} />
+            </div>
           ))}
         </div>
       </div>

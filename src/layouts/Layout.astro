@@ -10,7 +10,7 @@ interface Props {
 }
 
 // Extract title and description from props (can come from page frontmatter)
-const { title, description, image = '/og-image.jpg' } = Astro.props;
+const { title, description, image = '/images/profile/profile.webp' } = Astro.props;
 const site = 'https://thisaru.me';
 const canonicalURL = new URL(Astro.url.pathname, site);
 ---
@@ -20,7 +20,18 @@ const canonicalURL = new URL(Astro.url.pathname, site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Enhanced SEO Meta Tags -->
     {description && <meta name="description" content={description} />}
+    <meta name="author" content="Thisaru Guruge" />
+    <meta name="keywords" content="software engineer, ballerina, graphql, open source, wildlife photography, technology" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    
+    <!-- Enhanced Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Google Fonts -->
@@ -68,7 +79,71 @@ const canonicalURL = new URL(Astro.url.pathname, site);
 
     <title>{title}</title>
   </head>
-  <body>
+  <body class="page-fade-in">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link focus-ring">Skip to main content</a>
+    
     <slot />
+
+    <!-- Enhanced accessibility script -->
+    <script>
+      // Intersection Observer for section animations
+      function initSectionAnimations() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.section-fade-in, .scroll-fade-in, .scroll-fade-in-up').forEach((el) => observer.observe(el));
+      }
+
+      // Initialize on page load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSectionAnimations);
+      } else {
+        initSectionAnimations();
+      }
+
+      // For Astro's client-side routing
+      document.addEventListener('astro:page-load', initSectionAnimations);
+
+      // Announce page changes to screen readers
+      document.addEventListener('astro:page-load', () => {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = `Page loaded: ${document.title}`;
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+          document.body.removeChild(announcement);
+        }, 1000);
+      });
+    </script>
+
+    <!-- Screen reader only class -->
+    <style>
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
   </body>
 </html>

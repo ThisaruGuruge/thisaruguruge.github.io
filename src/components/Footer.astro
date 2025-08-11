@@ -28,28 +28,81 @@ const socialLinks = [
 ];
 ---
 
-<footer class="py-12 mt-12 border-t border-gray-800">
+<footer class="py-12 mt-12 border-t border-gray-200/20 bg-gradient-to-t from-background-section/30 to-background">
   <div class="container">
     <div class="flex flex-col items-center space-y-6">
-      <div class="flex space-x-6">
-        {socialLinks.map((link) => (
+      <div class="flex space-x-6 footer-social-links">
+        {socialLinks.map((link, index) => (
           <a
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-text hover:text-accent-cyan transition-colors"
-            aria-label={link.name}
+            class="text-text hover:text-accent-cyan transition-all duration-300 hover:scale-125 hover:-translate-y-1 footer-social-icon"
+            style={`animation-delay: ${index * 0.1}s;`}
+            aria-label={`Follow Thisaru on ${link.name}`}
           >
             <Fragment set:html={link.icon} />
           </a>
         ))}
       </div>
-      <blockquote class="bg-accent-cyan/5 text-accent-cyan px-6 py-3 rounded-md text-lg font-medium mb-2 text-center max-w-xl mx-auto shadow-none">
+      <blockquote class="bg-accent-cyan/5 text-accent-cyan px-6 py-3 rounded-lg text-lg font-medium mb-2 text-center max-w-xl mx-auto shadow-lg border border-accent-cyan/20 footer-quote hover:shadow-xl hover:scale-105 transition-all duration-300">
         Reality is the Fantasy We Choose to Believe!
       </blockquote>
-      <p class="text-sm text-text-muted">
+      <p class="text-sm text-text-muted footer-copyright">
         © {new Date().getFullYear()} Thisaru Guruge. All rights reserved.
       </p>
     </div>
   </div>
 </footer>
+
+<style>
+  @keyframes footerFadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes floatGentle {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  .footer-social-icon {
+    animation: footerFadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .footer-quote {
+    animation: footerFadeInUp 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+  }
+
+  .footer-copyright {
+    animation: footerFadeInUp 0.6s ease-out 0.6s forwards;
+    opacity: 0;
+  }
+
+  .footer-social-icon:hover {
+    animation: footerFadeInUp 0.6s ease-out forwards, floatGentle 2s ease-in-out infinite;
+  }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .footer-social-icon,
+    .footer-quote,
+    .footer-copyright {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

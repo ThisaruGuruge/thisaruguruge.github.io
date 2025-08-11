@@ -22,22 +22,29 @@ const breadcrumbItems = [
   <BreadcrumbSchema items={breadcrumbItems} slot="head" />
 
   <Header />
-  <main>
-    <section class="py-20">
+  <main id="main-content" role="main" aria-label="Blog posts">
+    <section class="py-20 section-fade-in" aria-labelledby="thoughts-heading">
       <div class="container max-w-3xl">
-        <h1 class="heading-1 text-center mb-12">Thoughts</h1>
+        <h1 id="thoughts-heading" class="heading-1 text-center mb-4 text-text">Thoughts</h1>
+        <p class="text-center text-text-muted mb-12 text-lg">
+          Exploring technology, cinema, philosophy, and the spaces in between.
+        </p>
         <div class="space-y-12">
-          {posts.map((post) => (
-            <article class="group">
-              <a href={`/thoughts/${post.slug}/`} class="block">
-                <h2 class="heading-3 group-hover:text-accent-cyan transition-colors">
+          {posts.map((post, index) => (
+            <article class="group scroll-fade-in-up border-b border-gray-200/20 pb-8 last:border-b-0" style={`animation-delay: ${index * 0.1}s;`}>
+              <a 
+                href={`/thoughts/${post.slug}/`} 
+                class="block focus-ring rounded-lg p-4 -m-4 hover:bg-background-card/50 transition-all duration-300"
+                aria-label={`Read article: ${post.data.title}`}
+              >
+                <h2 class="heading-3 group-hover:text-accent-cyan transition-colors duration-300 mb-3">
                   {post.data.title}
                 </h2>
-                <p class="text-gray-700 dark:text-gray-300 mt-2">{post.data.description}</p>
-                <div class="flex items-center gap-4 mt-4">
+                <p class="text-text-muted mt-2 leading-relaxed">{post.data.description}</p>
+                <div class="flex flex-wrap items-center gap-4 mt-4">
                   <time
                     datetime={post.data.pubDate.toISOString()}
-                    class="text-sm text-gray-400"
+                    class="text-sm text-text-muted font-medium"
                   >
                     {post.data.pubDate.toLocaleDateString('en-US', {
                       year: 'numeric',
@@ -46,9 +53,14 @@ const breadcrumbItems = [
                     })}
                   </time>
                   {post.data.tags && (
-                    <div class="flex flex-wrap gap-x-2 gap-y-2">
+                    <div class="flex flex-wrap gap-2">
                       {post.data.tags.map((tag) => (
-                        <a href={`/thoughts/tag/${encodeURIComponent(tag)}/`} class="text-sm text-accent-orange underline hover:text-accent-cyan">#{tag}</a>
+                        <a 
+                          href={`/thoughts/tag/${encodeURIComponent(tag)}/`} 
+                          class="text-xs px-2 py-1 bg-accent-orange/10 text-accent-orange rounded-full hover:bg-accent-orange/20 hover:scale-105 transition-all duration-300 focus-ring"
+                        >
+                          #{tag}
+                        </a>
                       ))}
                     </div>
                   )}
@@ -57,6 +69,11 @@ const breadcrumbItems = [
             </article>
           ))}
         </div>
+        {posts.length === 0 && (
+          <div class="text-center py-16">
+            <p class="text-text-muted text-lg">No posts yet. Check back soon!</p>
+          </div>
+        )}
       </div>
     </section>
   </main>

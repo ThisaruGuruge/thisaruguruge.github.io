@@ -32,7 +32,7 @@ function enforceLazyImages() {
             }
         });
 
-        if (imageCount > 0) {
+        if (imageCount > 0 && process.env.NODE_ENV !== 'production') {
             console.log(`🖼️  Applied lazy loading to ${imageCount} images`);
         }
     };
@@ -50,10 +50,12 @@ export default defineConfig({
                     page.startsWith(pattern)
                 );
 
-                if (!shouldExclude) {
-                    console.log(`✅ Including in sitemap: ${page}`);
-                } else {
-                    console.log(`❌ Excluding from sitemap: ${page}`);
+                if (process.env.NODE_ENV !== 'production') {
+                    if (!shouldExclude) {
+                        console.log(`✅ Including in sitemap: ${page}`);
+                    } else {
+                        console.log(`❌ Excluding from sitemap: ${page}`);
+                    }
                 }
 
                 return !shouldExclude;

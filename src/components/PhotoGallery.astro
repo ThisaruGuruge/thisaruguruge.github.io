@@ -17,9 +17,9 @@ const { images, columns = 3 } = Astro.props;
 
 <div class="photo-gallery">
   <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 ${
-    columns === 2 ? 'lg:grid-cols-2' : 
-    columns === 3 ? 'lg:grid-cols-3' : 
-    columns === 4 ? 'lg:grid-cols-4' : 
+    columns === 2 ? 'lg:grid-cols-2' :
+    columns === 3 ? 'lg:grid-cols-3' :
+    columns === 4 ? 'lg:grid-cols-4' :
     'lg:grid-cols-3'
   }`}>
     {images.map((image, index) => (
@@ -154,7 +154,7 @@ const { images, columns = 3 } = Astro.props;
       });
     }
 
-    function showImage(index) {
+    function showImage(index : number) {
       if (index < 0) index = images.length - 1;
       if (index >= images.length) index = 0;
 
@@ -172,7 +172,7 @@ const { images, columns = 3 } = Astro.props;
 
       if (lightboxCategories && image.categories) {
         lightboxCategories.innerHTML = '';
-        image.categories.forEach((category) => {
+        image.categories.forEach((category : string) => {
           const badge = document.createElement('span');
           badge.className = 'px-2 py-1 rounded-full bg-accent-cyan text-black text-xs';
           badge.textContent = category;

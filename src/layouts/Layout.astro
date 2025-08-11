@@ -34,10 +34,14 @@ const canonicalURL = new URL(Astro.url.pathname, site);
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Google Fonts -->
+    <!-- Resource Hints -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Google Fonts - Optimized Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" media="print" onload="this.setAttribute('media','all')" />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" media="print" onload="this.setAttribute('media','all');this.onload=null;" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"></noscript>
 
     <!-- Favicon -->

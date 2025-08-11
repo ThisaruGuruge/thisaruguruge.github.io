@@ -3,8 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import Button from '../components/Button.astro';
 import CauseCard from '../components/CauseCard.astro';
+import Button from '../components/Button.astro';
 import { Image } from 'astro:assets';
 import { getFeaturedProjects, getRecentBlogPosts, getFeaturedPhotos, getRecentCauses } from '../utils/collections';
 
@@ -58,30 +58,25 @@ const recentCauses = await getRecentCauses(3);
 
 						<!-- Call to Action Buttons -->
 						<div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start hero-cta">
-							<a
+							<Button
 								href="/thoughts/"
-								class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-background bg-accent-cyan rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-accent-cyan/25 hover:scale-105 hover:ring-2 hover:ring-accent-cyan/50 hover:ring-offset-2 hover:ring-offset-background hero-btn-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+								variant="primary"
+								size="lg"
+								icon="lightbulb"
+								class="hero-btn-primary"
 							>
-								<span class="relative z-10 flex items-center gap-2">
-									<span>Read My Thoughts</span>
-									<svg class="w-5 h-5 transition-transform group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-									</svg>
-								</span>
-								<div class="absolute inset-0 bg-gradient-to-r from-accent-cyan to-accent-cyan/90 group-hover:from-accent-cyan/90 group-hover:to-accent-cyan transition-all duration-300"></div>
-							</a>
+								Read My Thoughts
+							</Button>
 
-							<a
+							<Button
 								href="/projects/"
-								class="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-text border-2 border-text/20 rounded-2xl transition-all duration-300 hover:border-accent-orange hover:text-accent-orange hover:shadow-lg hero-btn-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+								variant="secondary"
+								size="lg"
+								icon="arrow-right"
+								class="hero-btn-secondary"
 							>
-								<span class="flex items-center gap-2">
-									<span>View My Work</span>
-									<svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-									</svg>
-								</span>
-							</a>
+								View My Work
+							</Button>
 						</div>
 
 						<!-- Quick Links -->
@@ -117,7 +112,7 @@ const recentCauses = await getRecentCauses(3);
 								<div class="relative z-10 w-full h-full rounded-3xl overflow-hidden hero-image-container border border-gray-200/20">
 									<Image
 										src="/images/profile/profile.webp"
-										alt="Thisaru Guruge - Thinker"
+										alt="Thisaru Guruge - From Code and Chords to Conservation"
 										class="object-cover w-full h-full hero-image"
 										width={400}
 										height={400}
@@ -160,12 +155,15 @@ const recentCauses = await getRecentCauses(3);
 					)}
 				</div>
 				<div class="text-center mt-12">
-					<a
+					<Button
 						href="/projects/"
-						class="inline-flex items-center px-6 py-3 rounded-lg border border-accent-orange text-accent-orange font-medium hover:bg-accent-orange hover:text-background transition-all duration-300 hover:scale-105 hover:shadow-lg scroll-fade-in"
+						variant="secondary"
+						size="md"
+						icon="arrow-right"
+						class="scroll-fade-in"
 					>
 						View All Projects
-					</a>
+					</Button>
 				</div>
 			</div>
 		</section>

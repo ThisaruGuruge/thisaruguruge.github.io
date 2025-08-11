@@ -1,7 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  content: [
+    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+    './public/**/*.html'
+  ],
+  safelist: [
+    // Gallery grid columns
+    'lg:grid-cols-2',
+    'lg:grid-cols-3', 
+    'lg:grid-cols-4',
+    // Mobile menu classes
+    'translate-x-full',
+    'backdrop-blur-sm',
+    'bg-black/40'
+  ],
   theme: {
     extend: {
       colors: {
@@ -108,5 +121,9 @@ export default {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/typography')({
+      modifiers: [], // Remove extra modifiers like prose-lg, prose-xl etc.
+    }),
+  ],
 };

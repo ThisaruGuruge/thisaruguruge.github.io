@@ -20,13 +20,13 @@ const canonicalURL = new URL(Astro.url.pathname, site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- Enhanced SEO Meta Tags -->
     {description && <meta name="description" content={description} />}
     <meta name="author" content="Thisaru Guruge" />
     <meta name="keywords" content="software engineer, ballerina, graphql, open source, wildlife photography, technology" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    
+
     <!-- Enhanced Security -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-Frame-Options" content="DENY" />
@@ -41,11 +41,11 @@ const canonicalURL = new URL(Astro.url.pathname, site);
     <!-- Google Fonts - Optimized Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link 
-      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" 
-      rel="stylesheet" 
-      media="print" 
-      onload="this.media='all'" 
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"></noscript>
 
@@ -88,13 +88,21 @@ const canonicalURL = new URL(Astro.url.pathname, site);
 
     <title>{title}</title>
   </head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-705DD2YMCW"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-705DD2YMCW');
+  </script>
   <body class="page-fade-in">
     <!-- Skip link for accessibility -->
     <a href="#main-content" class="skip-link focus-ring">Skip to main content</a>
-    
+
     <!-- Reading progress component for content pages -->
     <div id="reading-progress-root"></div>
-    
+
     <slot />
 
     <!-- Enhanced accessibility script -->
@@ -132,12 +140,12 @@ const canonicalURL = new URL(Astro.url.pathname, site);
       function initReadingProgress() {
         const progressRoot = document.getElementById('reading-progress-root');
         if (!progressRoot) return;
-        
+
         // Only add reading progress on pages with substantial content
-        const hasContent = document.querySelector('article') || 
-                          document.querySelector('.prose') || 
+        const hasContent = document.querySelector('article') ||
+                          document.querySelector('.prose') ||
                           (document.querySelector('main') && document.body.scrollHeight > window.innerHeight * 1.5);
-        
+
         if (hasContent) {
           progressRoot.innerHTML = `
             <div class="reading-progress">
@@ -160,53 +168,53 @@ const canonicalURL = new URL(Astro.url.pathname, site);
               </button>
             </div>
           `;
-          
+
           // Initialize reading progress functionality
           const progressBar = document.querySelector('.reading-progress-bar') as HTMLElement;
           const timeIndicator = document.querySelector('.reading-time-indicator') as HTMLElement;
           const timeText = document.querySelector('.reading-time-text') as HTMLElement;
           const scrollToTopBtn = document.querySelector('.scroll-to-top-btn') as HTMLElement;
           const article = document.querySelector('article') || document.querySelector('main') || document.querySelector('.prose');
-          
+
           if (progressBar && article) {
             let totalWords = 0;
             let isVisible = false;
             const wordsPerMinute = 200;
-            
+
             // Calculate reading time
             const text = article.textContent || '';
             totalWords = text.trim().split(/\s+/).length;
             const minutes = Math.ceil(totalWords / wordsPerMinute);
             if (timeText) timeText.textContent = `${minutes} min read`;
-            
+
             function updateProgress() {
               if (!article) return;
-              
+
               const articleRect = article.getBoundingClientRect();
               const articleTop = articleRect.top + window.scrollY;
               const articleHeight = articleRect.height;
               const windowHeight = window.innerHeight;
               const scrollTop = window.scrollY;
-              
+
               const startReading = articleTop - windowHeight * 0.3;
               const endReading = articleTop + articleHeight - windowHeight * 0.7;
               const totalReadingDistance = endReading - startReading;
-              
+
               let progress = 0;
               if (scrollTop > startReading) {
                 progress = Math.min(100, ((scrollTop - startReading) / totalReadingDistance) * 100);
               }
-              
+
               if (progressBar) {
                 progressBar.style.width = `${Math.max(0, progress)}%`;
               }
-              
+
               // Update reading time
               if (timeText) {
                 const wordsRead = Math.floor((progress / 100) * totalWords);
                 const wordsRemaining = totalWords - wordsRead;
                 const minutesRemaining = Math.ceil(wordsRemaining / wordsPerMinute);
-                
+
                 if (progress < 5) {
                   timeText.textContent = `${minutes} min read`;
                 } else if (progress >= 95) {
@@ -216,7 +224,7 @@ const canonicalURL = new URL(Astro.url.pathname, site);
                 }
               }
             }
-            
+
             function toggleVisibility() {
               const shouldShow = window.scrollY > 200;
               if (shouldShow !== isVisible) {
@@ -231,33 +239,33 @@ const canonicalURL = new URL(Astro.url.pathname, site);
                 }
               }
             }
-            
+
             function handleScroll() {
               updateProgress();
               toggleVisibility();
             }
-            
+
             window.addEventListener('scroll', handleScroll, { passive: true });
-            
+
             if (scrollToTopBtn) {
               scrollToTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 if (navigator.vibrate) navigator.vibrate(10);
               });
             }
-            
+
             updateProgress();
           }
         }
       }
-      
+
       // Initialize reading progress
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initReadingProgress);
       } else {
         initReadingProgress();
       }
-      
+
       document.addEventListener('astro:page-load', initReadingProgress);
 
       // Announce page changes to screen readers
@@ -268,7 +276,7 @@ const canonicalURL = new URL(Astro.url.pathname, site);
         announcement.className = 'sr-only';
         announcement.textContent = `Page loaded: ${document.title}`;
         document.body.appendChild(announcement);
-        
+
         setTimeout(() => {
           document.body.removeChild(announcement);
         }, 1000);

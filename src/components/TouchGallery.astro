@@ -1,0 +1,402 @@
+---
+interface Props {
+  photos: Array<{
+    image: string;
+    title: string;
+    caption?: string;
+  }>;
+  class?: string;
+}
+
+const { photos, class: className = '' } = Astro.props;
+---
+
+<div class={`touch-gallery ${className}`} data-photos={JSON.stringify(photos)}>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 touch-gallery-grid">
+    {photos.map((photo, index) => (
+      <div 
+        class="group relative aspect-square rounded-xl overflow-hidden scroll-fade-in-up touch-gallery-item cursor-pointer" 
+        style={`animation-delay: ${index * 0.1}s;`}
+        data-index={index}
+      >
+        <img
+          src={photo.image}
+          alt={photo.title}
+          class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="absolute bottom-4 left-4 text-white">
+            <h3 class="font-semibold text-sm">{photo.title}</h3>
+            {photo.caption && (
+              <p class="text-xs text-white/80 mt-1">{photo.caption}</p>
+            )}
+          </div>
+        </div>
+        <!-- Touch indicators -->
+        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <svg class="w-5 h-5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Touch gesture overlay -->
+  <div class="touch-gesture-overlay fixed inset-0 bg-black/90 backdrop-blur-sm z-50 hidden" role="dialog" aria-modal="true" aria-label="Photo gallery">
+    <div class="absolute top-4 right-4 z-60">
+      <button 
+        class="close-gallery p-2 text-white hover:text-accent-cyan transition-colors duration-200 rounded-lg hover:bg-white/10"
+        aria-label="Close gallery"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="gallery-container h-full flex items-center justify-center p-4">
+      <div class="gallery-image-container relative max-w-4xl max-h-full">
+        <img 
+          class="gallery-current-image max-w-full max-h-full object-contain rounded-lg"
+          alt=""
+        />
+        
+        <!-- Navigation arrows -->
+        <button 
+          class="gallery-prev absolute left-4 top-1/2 -translate-y-1/2 p-3 text-white hover:text-accent-cyan transition-all duration-200 rounded-full hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label="Previous image"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        
+        <button 
+          class="gallery-next absolute right-4 top-1/2 -translate-y-1/2 p-3 text-white hover:text-accent-cyan transition-all duration-200 rounded-full hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label="Next image"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Image info -->
+    <div class="absolute bottom-4 left-4 right-4 text-center">
+      <h3 class="gallery-image-title text-white text-lg font-semibold mb-2"></h3>
+      <p class="gallery-image-caption text-white/80 text-sm"></p>
+      <div class="gallery-counter text-white/60 text-xs mt-2"></div>
+    </div>
+    
+    <!-- Touch indicator -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/40 text-sm pointer-events-none touch-hint opacity-0">
+      Swipe to navigate
+    </div>
+  </div>
+</div>
+
+<script>
+  class TouchGallery {
+    private gallery: HTMLElement;
+    private overlay: HTMLElement;
+    private currentImage: HTMLImageElement;
+    private photos: Array<{ image: string; title: string; caption?: string }>;
+    private currentIndex: number = 0;
+    private startX: number = 0;
+    private startY: number = 0;
+    private isDragging: boolean = false;
+    private threshold: number = 50;
+
+    constructor(galleryElement: HTMLElement) {
+      this.gallery = galleryElement;
+      this.overlay = this.gallery.querySelector('.touch-gesture-overlay') as HTMLElement;
+      this.currentImage = this.overlay.querySelector('.gallery-current-image') as HTMLImageElement;
+      this.photos = JSON.parse(this.gallery.dataset.photos || '[]');
+      
+      this.init();
+    }
+
+    private init() {
+      // Add click listeners to gallery items
+      const items = this.gallery.querySelectorAll('.touch-gallery-item');
+      items.forEach((item, index) => {
+        item.addEventListener('click', () => this.openGallery(index));
+      });
+
+      // Close button
+      const closeBtn = this.overlay.querySelector('.close-gallery');
+      closeBtn?.addEventListener('click', () => this.closeGallery());
+
+      // Navigation buttons
+      const prevBtn = this.overlay.querySelector('.gallery-prev');
+      const nextBtn = this.overlay.querySelector('.gallery-next');
+      prevBtn?.addEventListener('click', () => this.previousImage());
+      nextBtn?.addEventListener('click', () => this.nextImage());
+
+      // Touch events for swipe navigation
+      this.overlay.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
+      this.overlay.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+      this.overlay.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false });
+
+      // Mouse events for desktop drag
+      this.overlay.addEventListener('mousedown', this.handleMouseDown.bind(this));
+      this.overlay.addEventListener('mousemove', this.handleMouseMove.bind(this));
+      this.overlay.addEventListener('mouseup', this.handleMouseUp.bind(this));
+
+      // Keyboard navigation
+      document.addEventListener('keydown', this.handleKeyDown.bind(this));
+
+      // Close on overlay click (but not on image)
+      this.overlay.addEventListener('click', (e) => {
+        if (e.target === this.overlay) {
+          this.closeGallery();
+        }
+      });
+    }
+
+    private openGallery(index: number) {
+      this.currentIndex = index;
+      this.updateImage();
+      this.overlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      
+      // Show touch hint briefly
+      const hint = this.overlay.querySelector('.touch-hint') as HTMLElement;
+      if (hint) {
+        hint.style.opacity = '1';
+        setTimeout(() => {
+          hint.style.opacity = '0';
+        }, 2000);
+      }
+
+      // Add haptic feedback simulation
+      this.simulateHapticFeedback();
+    }
+
+    private closeGallery() {
+      this.overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+      this.simulateHapticFeedback();
+    }
+
+    private updateImage() {
+      const photo = this.photos[this.currentIndex];
+      if (!photo) return;
+
+      this.currentImage.src = photo.image;
+      this.currentImage.alt = photo.title;
+      
+      const title = this.overlay.querySelector('.gallery-image-title') as HTMLElement;
+      const caption = this.overlay.querySelector('.gallery-image-caption') as HTMLElement;
+      const counter = this.overlay.querySelector('.gallery-counter') as HTMLElement;
+
+      if (title) title.textContent = photo.title;
+      if (caption) caption.textContent = photo.caption || '';
+      if (counter) counter.textContent = `${this.currentIndex + 1} of ${this.photos.length}`;
+
+      // Update navigation buttons
+      const prevBtn = this.overlay.querySelector('.gallery-prev') as HTMLButtonElement;
+      const nextBtn = this.overlay.querySelector('.gallery-next') as HTMLButtonElement;
+      
+      if (prevBtn) prevBtn.disabled = this.currentIndex === 0;
+      if (nextBtn) nextBtn.disabled = this.currentIndex === this.photos.length - 1;
+    }
+
+    private previousImage() {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+        this.updateImage();
+        this.simulateHapticFeedback();
+      }
+    }
+
+    private nextImage() {
+      if (this.currentIndex < this.photos.length - 1) {
+        this.currentIndex++;
+        this.updateImage();
+        this.simulateHapticFeedback();
+      }
+    }
+
+    private handleTouchStart(e: TouchEvent) {
+      if (e.target === this.currentImage || e.target === this.overlay.querySelector('.gallery-container')) {
+        this.startX = e.touches[0].clientX;
+        this.startY = e.touches[0].clientY;
+        this.isDragging = true;
+      }
+    }
+
+    private handleTouchMove(e: TouchEvent) {
+      if (!this.isDragging) return;
+      e.preventDefault();
+    }
+
+    private handleTouchEnd(e: TouchEvent) {
+      if (!this.isDragging) return;
+      
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const deltaX = endX - this.startX;
+      const deltaY = endY - this.startY;
+
+      // Check if horizontal swipe is more significant than vertical
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > this.threshold) {
+        if (deltaX > 0) {
+          this.previousImage();
+        } else {
+          this.nextImage();
+        }
+      }
+
+      this.isDragging = false;
+    }
+
+    private handleMouseDown(e: MouseEvent) {
+      if (e.target === this.currentImage || e.target === this.overlay.querySelector('.gallery-container')) {
+        this.startX = e.clientX;
+        this.startY = e.clientY;
+        this.isDragging = true;
+        e.preventDefault();
+      }
+    }
+
+    private handleMouseMove(e: MouseEvent) {
+      if (!this.isDragging) return;
+      e.preventDefault();
+    }
+
+    private handleMouseUp(e: MouseEvent) {
+      if (!this.isDragging) return;
+      
+      const deltaX = e.clientX - this.startX;
+      const deltaY = e.clientY - this.startY;
+
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > this.threshold) {
+        if (deltaX > 0) {
+          this.previousImage();
+        } else {
+          this.nextImage();
+        }
+      }
+
+      this.isDragging = false;
+    }
+
+    private handleKeyDown(e: KeyboardEvent) {
+      if (this.overlay.classList.contains('hidden')) return;
+
+      switch (e.key) {
+        case 'Escape':
+          this.closeGallery();
+          break;
+        case 'ArrowLeft':
+          this.previousImage();
+          break;
+        case 'ArrowRight':
+          this.nextImage();
+          break;
+      }
+    }
+
+    private simulateHapticFeedback() {
+      // Simulate haptic feedback with a subtle visual cue
+      if (navigator.vibrate) {
+        navigator.vibrate(10);
+      } else {
+        // Visual feedback alternative
+        const feedback = document.createElement('div');
+        feedback.className = 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-accent-cyan rounded-full opacity-0 pointer-events-none z-50';
+        document.body.appendChild(feedback);
+        
+        feedback.style.opacity = '1';
+        feedback.style.transform = 'translate(-50%, -50%) scale(0)';
+        
+        setTimeout(() => {
+          feedback.style.transform = 'translate(-50%, -50%) scale(20)';
+          feedback.style.opacity = '0';
+          setTimeout(() => feedback.remove(), 200);
+        }, 10);
+      }
+    }
+  }
+
+  // Initialize all touch galleries on the page
+  document.addEventListener('DOMContentLoaded', () => {
+    const galleries = document.querySelectorAll('.touch-gallery');
+    galleries.forEach(gallery => {
+      new TouchGallery(gallery as HTMLElement);
+    });
+  });
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener('astro:page-load', () => {
+    const galleries = document.querySelectorAll('.touch-gallery');
+    galleries.forEach(gallery => {
+      new TouchGallery(gallery as HTMLElement);
+    });
+  });
+</script>
+
+<style>
+  .touch-gallery-item {
+    position: relative;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .touch-gallery-overlay {
+    touch-action: pan-x;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .gallery-current-image {
+    touch-action: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+
+  .touch-hint {
+    transition: opacity 0.5s ease;
+  }
+
+  /* Touch feedback */
+  .touch-gallery-item:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  @media (hover: hover) {
+    .touch-gallery-item:active {
+      transform: none;
+    }
+  }
+
+  /* Loading animation for images */
+  .gallery-current-image {
+    transition: opacity 0.3s ease;
+  }
+
+  /* Smooth transitions */
+  .touch-gesture-overlay {
+    transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+  }
+
+  .touch-gesture-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    .touch-gallery-item,
+    .gallery-current-image,
+    .touch-gesture-overlay {
+      transition: none;
+    }
+  }
+</style>

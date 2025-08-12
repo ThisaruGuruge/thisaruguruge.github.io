@@ -6,6 +6,8 @@ import Section from '../components/Section.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CauseCard from '../components/CauseCard.astro';
 import Button from '../components/Button.astro';
+import SkeletonLoader from '../components/SkeletonLoader.astro';
+import TouchGallery from '../components/TouchGallery.astro';
 import { Image } from 'astro:assets';
 import { getFeaturedProjects, getRecentBlogPosts, getFeaturedPhotos, getRecentCauses } from '../utils/collections';
 
@@ -16,9 +18,37 @@ const recentCauses = await getRecentCauses(3);
 ---
 
 <Layout title="Home | Thisaru Guruge" description="The personal website of Thisaru — software engineer, musician, wildlife photographer, environmentalist, and writer.">
+	<!-- Critical CSS for hero section -->
+	<style slot="head">
+		.hero-section {
+			background: var(--color-bg);
+			position: relative;
+			min-height: 100vh;
+			min-height: 100dvh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+		}
+		.hero-bg-base {
+			background: radial-gradient(ellipse at top, rgba(var(--color-accent-cyan-rgb), 0.05) 0%, transparent 50%),
+						radial-gradient(ellipse at bottom, rgba(var(--color-accent-orange-rgb), 0.05) 0%, transparent 50%);
+		}
+		.hero-text-content, .hero-greeting, .hero-name, .hero-subtitle, .hero-description, .hero-cta, .hero-links, .hero-visual {
+			opacity: 0;
+			transform: translate3d(0, 30px, 0);
+			animation: heroFadeInUp 0.8s ease-out forwards;
+		}
+		@keyframes heroFadeInUp {
+			to {
+				opacity: 1;
+				transform: translate3d(0, 0, 0);
+			}
+		}
+	</style>
 	<Header />
 	<main id="main-content" role="main" aria-label="Main content">
-		<section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+		<section class="hero-section relative overflow-hidden">
 			<!-- Background Elements -->
 			<div class="absolute inset-0 hero-bg-base"></div>
 			<div class="absolute inset-0 hero-bg-overlay"></div>
@@ -151,7 +181,18 @@ const recentCauses = await getRecentCauses(3);
 		>
 			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 scroll-fade-in-stagger">
 				{featuredProjects.length === 0 ? (
-					<p class="col-span-full text-center text-text-muted">No featured projects yet.</p>
+					<>
+						<!-- Skeleton loaders for projects -->
+						<div class="scroll-fade-in-up" style="animation-delay: 0s;">
+							<SkeletonLoader variant="card" class="project-skeleton" />
+						</div>
+						<div class="scroll-fade-in-up" style="animation-delay: 0.1s;">
+							<SkeletonLoader variant="card" class="project-skeleton" />
+						</div>
+						<div class="scroll-fade-in-up" style="animation-delay: 0.2s;">
+							<SkeletonLoader variant="card" class="project-skeleton" />
+						</div>
+					</>
 				) : (
 					featuredProjects.map((project, index) => (
 						<div class="scroll-fade-in-up" style={`animation-delay: ${index * 0.1}s;`}>
@@ -246,23 +287,14 @@ const recentCauses = await getRecentCauses(3);
 				subtitle="Capturing the beauty of Sri Lankan wildlife and landscapes through my lens"
 				headingId="photography-heading"
 			>
-				<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-					{featuredPhotos.map((photo, index) => (
-						<div class="group relative aspect-square rounded-xl overflow-hidden scroll-fade-in-up" style={`animation-delay: ${index * 0.1}s;`}>
-							<img
-								src={photo.data.image}
-								alt={photo.data.title}
-								class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
-							/>
-							<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-								<div class="absolute bottom-4 left-4 text-white">
-									<h3 class="font-semibold text-sm">{photo.data.title}</h3>
-									<p class="text-xs text-white/80 mt-1">{photo.data.caption}</p>
-								</div>
-							</div>
-						</div>
-					))}
-				</div>
+				<TouchGallery 
+					photos={featuredPhotos.map(photo => ({
+						image: photo.data.image,
+						title: photo.data.title,
+						caption: photo.data.caption
+					}))}
+					class="mb-12"
+				/>
 
 				<div class="text-center">
 					<Button

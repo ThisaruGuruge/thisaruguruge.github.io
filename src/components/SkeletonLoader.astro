@@ -1,0 +1,126 @@
+---
+interface Props {
+  variant?: 'card' | 'text' | 'avatar' | 'image' | 'button';
+  width?: string;
+  height?: string;
+  class?: string;
+  animate?: boolean;
+}
+
+const {
+  variant = 'card',
+  width,
+  height,
+  class: className = '',
+  animate = true,
+} = Astro.props;
+
+const baseClasses = 'bg-gray-200/60 dark:bg-gray-700/60 rounded-lg';
+const animateClasses = animate ? 'loading-shimmer' : '';
+
+const variants = {
+  card: 'w-full h-64',
+  text: 'w-full h-4',
+  avatar: 'w-16 h-16 rounded-full',
+  image: 'w-full aspect-square',
+  button: 'w-32 h-10 rounded-xl'
+};
+
+const variantClasses = variants[variant];
+const sizeStyles = width || height ? `width: ${width || 'auto'}; height: ${height || 'auto'};` : '';
+---
+
+<div 
+  class={`${baseClasses} ${variantClasses} ${animateClasses} ${className}`}
+  style={sizeStyles}
+  aria-hidden="true"
+  role="presentation"
+>
+  {variant === 'card' && (
+    <div class="p-6 space-y-4">
+      <div class="bg-gray-300/60 dark:bg-gray-600/60 h-4 rounded w-3/4"></div>
+      <div class="space-y-2">
+        <div class="bg-gray-300/60 dark:bg-gray-600/60 h-3 rounded"></div>
+        <div class="bg-gray-300/60 dark:bg-gray-600/60 h-3 rounded w-5/6"></div>
+        <div class="bg-gray-300/60 dark:bg-gray-600/60 h-3 rounded w-4/6"></div>
+      </div>
+      <div class="flex space-x-2 pt-2">
+        <div class="bg-gray-300/60 dark:bg-gray-600/60 h-8 w-20 rounded-lg"></div>
+        <div class="bg-gray-300/60 dark:bg-gray-600/60 h-8 w-16 rounded-lg"></div>
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  /* Enhanced shimmer animation */
+  .loading-shimmer {
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(var(--color-accent-cyan-rgb), 0.08), 
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .loading-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(var(--color-accent-cyan-rgb), 0.15), 
+      transparent
+    );
+    animation: shimmer-wave 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes shimmer-wave {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* Pulse animation for skeleton cards */
+  .loading-shimmer.animate-pulse {
+    animation: shimmer 2s infinite, skeleton-pulse 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes skeleton-pulse {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.7;
+    }
+  }
+
+  /* Reduce motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .loading-shimmer {
+      animation: skeleton-pulse 2s ease-in-out infinite alternate;
+    }
+    
+    .loading-shimmer::before {
+      display: none;
+    }
+  }
+</style>

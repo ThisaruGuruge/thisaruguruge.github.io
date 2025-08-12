@@ -1,0 +1,292 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`reading-progress ${className}`}>
+  <!-- Progress bar -->
+  <div class="fixed top-0 left-0 right-0 z-50 h-1 bg-gray-200/50 dark:bg-gray-700/50 reading-progress-container">
+    <div class="h-full bg-gradient-to-r from-accent-cyan to-accent-orange transition-all duration-150 ease-out reading-progress-bar" style="width: 0%"></div>
+  </div>
+  
+  <!-- Reading time estimate -->
+  <div class="fixed bottom-6 right-6 bg-background-card/80 backdrop-blur-sm border border-gray-200/20 rounded-full px-4 py-2 text-sm text-text-muted reading-time-indicator opacity-0 transition-all duration-300 z-40">
+    <div class="flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span class="reading-time-text">5 min read</span>
+    </div>
+  </div>
+  
+  <!-- Scroll to top button -->
+  <button 
+    class="fixed bottom-6 left-6 w-12 h-12 bg-accent-cyan hover:bg-accent-cyan/90 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 scroll-to-top-btn z-40 group"
+    aria-label="Scroll to top"
+    title="Scroll to top"
+  >
+    <svg class="w-5 h-5 mx-auto group-hover:-translate-y-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  class ReadingProgressTracker {
+    private progressBar: HTMLElement;
+    private timeIndicator: HTMLElement;
+    private timeText: HTMLElement;
+    private scrollToTopBtn: HTMLElement;
+    private article: HTMLElement | null;
+    private totalWords: number = 0;
+    private wordsPerMinute: number = 200; // Average reading speed
+    private isVisible: boolean = false;
+
+    constructor() {
+      this.progressBar = document.querySelector('.reading-progress-bar') as HTMLElement;
+      this.timeIndicator = document.querySelector('.reading-time-indicator') as HTMLElement;
+      this.timeText = document.querySelector('.reading-time-text') as HTMLElement;
+      this.scrollToTopBtn = document.querySelector('.scroll-to-top-btn') as HTMLElement;
+      this.article = document.querySelector('article') || document.querySelector('main') || document.querySelector('.prose');
+      
+      this.init();
+    }
+
+    private init() {
+      if (!this.progressBar || !this.article) return;
+
+      // Calculate reading time
+      this.calculateReadingTime();
+      
+      // Set up scroll listener
+      window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
+      
+      // Set up scroll to top button
+      this.scrollToTopBtn?.addEventListener('click', this.scrollToTop.bind(this));
+      
+      // Initial progress calculation
+      this.updateProgress();
+    }
+
+    private calculateReadingTime() {
+      if (!this.article) return;
+
+      const text = this.article.textContent || '';
+      this.totalWords = text.trim().split(/\s+/).length;
+      const minutes = Math.ceil(this.totalWords / this.wordsPerMinute);
+      
+      if (this.timeText) {
+        this.timeText.textContent = `${minutes} min read`;
+      }
+    }
+
+    private handleScroll() {
+      this.updateProgress();
+      this.toggleVisibility();
+    }
+
+    private updateProgress() {
+      if (!this.article || !this.progressBar) return;
+
+      const articleRect = this.article.getBoundingClientRect();
+      const articleTop = articleRect.top + window.scrollY;
+      const articleHeight = articleRect.height;
+      const windowHeight = window.innerHeight;
+      const scrollTop = window.scrollY;
+
+      // Calculate progress based on article position
+      const startReading = articleTop - windowHeight * 0.3;
+      const endReading = articleTop + articleHeight - windowHeight * 0.7;
+      const totalReadingDistance = endReading - startReading;
+
+      let progress = 0;
+      if (scrollTop > startReading) {
+        progress = Math.min(100, ((scrollTop - startReading) / totalReadingDistance) * 100);
+      }
+
+      this.progressBar.style.width = `${Math.max(0, progress)}%`;
+
+      // Update reading time based on progress
+      this.updateRemainingTime(progress);
+    }
+
+    private updateRemainingTime(progress: number) {
+      if (!this.timeText) return;
+
+      const wordsRead = Math.floor((progress / 100) * this.totalWords);
+      const wordsRemaining = this.totalWords - wordsRead;
+      const minutesRemaining = Math.ceil(wordsRemaining / this.wordsPerMinute);
+      
+      if (progress < 5) {
+        const totalMinutes = Math.ceil(this.totalWords / this.wordsPerMinute);
+        this.timeText.textContent = `${totalMinutes} min read`;
+      } else if (progress >= 95) {
+        this.timeText.textContent = 'Finished!';
+      } else {
+        this.timeText.textContent = `${minutesRemaining} min left`;
+      }
+    }
+
+    private toggleVisibility() {
+      const scrollThreshold = 200;
+      const shouldShow = window.scrollY > scrollThreshold;
+
+      if (shouldShow !== this.isVisible) {
+        this.isVisible = shouldShow;
+        
+        if (this.timeIndicator) {
+          this.timeIndicator.style.opacity = shouldShow ? '1' : '0';
+          this.timeIndicator.style.transform = shouldShow ? 'translateY(0)' : 'translateY(20px)';
+        }
+        
+        if (this.scrollToTopBtn) {
+          this.scrollToTopBtn.style.opacity = shouldShow ? '1' : '0';
+          this.scrollToTopBtn.style.transform = shouldShow ? 'translateY(0)' : 'translateY(20px)';
+        }
+      }
+    }
+
+    private scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+      // Add haptic feedback
+      if (navigator.vibrate) {
+        navigator.vibrate(10);
+      }
+    }
+  }
+
+  // Initialize reading progress tracker
+  function initReadingProgress() {
+    // Only initialize on pages with substantial content
+    const hasContent = document.querySelector('article') || 
+                      document.querySelector('.prose') || 
+                      document.querySelector('main');
+    
+    if (hasContent && document.body.scrollHeight > window.innerHeight * 1.5) {
+      new ReadingProgressTracker();
+    }
+  }
+
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReadingProgress);
+  } else {
+    initReadingProgress();
+  }
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener('astro:page-load', initReadingProgress);
+</script>
+
+<style>
+  .reading-progress-container {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .reading-progress-bar {
+    transform-origin: left center;
+    will-change: width;
+  }
+
+  .reading-time-indicator {
+    will-change: opacity, transform;
+  }
+
+  .scroll-to-top-btn {
+    will-change: opacity, transform;
+  }
+
+  /* Smooth animations */
+  .scroll-to-top-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .scroll-to-top-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Enhanced visual feedback */
+  .reading-progress-bar::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--color-accent-orange);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(var(--color-accent-orange-rgb), 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .reading-progress-bar[style*="width: 0%"]::after {
+    opacity: 0;
+  }
+
+  .reading-progress-bar:not([style*="width: 0%"])::after {
+    opacity: 1;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    .reading-time-indicator {
+      bottom: 5rem;
+      right: 1rem;
+      font-size: 0.8rem;
+      padding: 0.5rem 0.75rem;
+    }
+    
+    .scroll-to-top-btn {
+      bottom: 5rem;
+      left: 1rem;
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .reading-progress-bar {
+      background: currentColor;
+    }
+    
+    .reading-time-indicator,
+    .scroll-to-top-btn {
+      border: 2px solid currentColor;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .reading-progress-bar,
+    .reading-time-indicator,
+    .scroll-to-top-btn {
+      transition: none;
+    }
+    
+    .scroll-to-top-btn svg {
+      transition: none;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .reading-progress,
+    .reading-progress-container,
+    .reading-time-indicator,
+    .scroll-to-top-btn {
+      display: none !important;
+    }
+  }
+</style>

@@ -45,7 +45,7 @@ const canonicalURL = new URL(Astro.url.pathname, site);
       href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" 
       rel="stylesheet" 
       media="print" 
-      onload="this.media='all'; this.onload=null;" 
+      onload="this.media='all'" 
     />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"></noscript>
 
@@ -92,6 +92,9 @@ const canonicalURL = new URL(Astro.url.pathname, site);
     <!-- Skip link for accessibility -->
     <a href="#main-content" class="skip-link focus-ring">Skip to main content</a>
     
+    <!-- Reading progress component for content pages -->
+    <div id="reading-progress-root"></div>
+    
     <slot />
 
     <!-- Enhanced accessibility script -->
@@ -124,6 +127,138 @@ const canonicalURL = new URL(Astro.url.pathname, site);
 
       // For Astro's client-side routing
       document.addEventListener('astro:page-load', initSectionAnimations);
+
+      // Initialize reading progress for content pages
+      function initReadingProgress() {
+        const progressRoot = document.getElementById('reading-progress-root');
+        if (!progressRoot) return;
+        
+        // Only add reading progress on pages with substantial content
+        const hasContent = document.querySelector('article') || 
+                          document.querySelector('.prose') || 
+                          (document.querySelector('main') && document.body.scrollHeight > window.innerHeight * 1.5);
+        
+        if (hasContent) {
+          progressRoot.innerHTML = `
+            <div class="reading-progress">
+              <div class="fixed top-0 left-0 right-0 z-50 h-1 bg-gray-200/50 dark:bg-gray-700/50 reading-progress-container">
+                <div class="h-full bg-gradient-to-r from-accent-cyan to-accent-orange transition-all duration-150 ease-out reading-progress-bar" style="width: 0%"></div>
+              </div>
+              <div class="fixed bottom-6 right-6 bg-background-card/80 backdrop-blur-sm border border-gray-200/20 rounded-full px-4 py-2 text-sm text-text-muted reading-time-indicator opacity-0 transition-all duration-300 z-40">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <span class="reading-time-text">5 min read</span>
+                </div>
+              </div>
+              <button class="fixed bottom-6 left-6 w-12 h-12 bg-accent-cyan hover:bg-accent-cyan/90 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 scroll-to-top-btn z-40 group" aria-label="Scroll to top">
+                <svg class="w-5 h-5 mx-auto group-hover:-translate-y-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+                </svg>
+              </button>
+            </div>
+          `;
+          
+          // Initialize reading progress functionality
+          const progressBar = document.querySelector('.reading-progress-bar') as HTMLElement;
+          const timeIndicator = document.querySelector('.reading-time-indicator') as HTMLElement;
+          const timeText = document.querySelector('.reading-time-text') as HTMLElement;
+          const scrollToTopBtn = document.querySelector('.scroll-to-top-btn') as HTMLElement;
+          const article = document.querySelector('article') || document.querySelector('main') || document.querySelector('.prose');
+          
+          if (progressBar && article) {
+            let totalWords = 0;
+            let isVisible = false;
+            const wordsPerMinute = 200;
+            
+            // Calculate reading time
+            const text = article.textContent || '';
+            totalWords = text.trim().split(/\s+/).length;
+            const minutes = Math.ceil(totalWords / wordsPerMinute);
+            if (timeText) timeText.textContent = `${minutes} min read`;
+            
+            function updateProgress() {
+              if (!article) return;
+              
+              const articleRect = article.getBoundingClientRect();
+              const articleTop = articleRect.top + window.scrollY;
+              const articleHeight = articleRect.height;
+              const windowHeight = window.innerHeight;
+              const scrollTop = window.scrollY;
+              
+              const startReading = articleTop - windowHeight * 0.3;
+              const endReading = articleTop + articleHeight - windowHeight * 0.7;
+              const totalReadingDistance = endReading - startReading;
+              
+              let progress = 0;
+              if (scrollTop > startReading) {
+                progress = Math.min(100, ((scrollTop - startReading) / totalReadingDistance) * 100);
+              }
+              
+              if (progressBar) {
+                progressBar.style.width = `${Math.max(0, progress)}%`;
+              }
+              
+              // Update reading time
+              if (timeText) {
+                const wordsRead = Math.floor((progress / 100) * totalWords);
+                const wordsRemaining = totalWords - wordsRead;
+                const minutesRemaining = Math.ceil(wordsRemaining / wordsPerMinute);
+                
+                if (progress < 5) {
+                  timeText.textContent = `${minutes} min read`;
+                } else if (progress >= 95) {
+                  timeText.textContent = 'Finished!';
+                } else {
+                  timeText.textContent = `${minutesRemaining} min left`;
+                }
+              }
+            }
+            
+            function toggleVisibility() {
+              const shouldShow = window.scrollY > 200;
+              if (shouldShow !== isVisible) {
+                isVisible = shouldShow;
+                if (timeIndicator) {
+                  timeIndicator.style.opacity = shouldShow ? '1' : '0';
+                  timeIndicator.style.transform = shouldShow ? 'translateY(0)' : 'translateY(20px)';
+                }
+                if (scrollToTopBtn) {
+                  scrollToTopBtn.style.opacity = shouldShow ? '1' : '0';
+                  scrollToTopBtn.style.transform = shouldShow ? 'translateY(0)' : 'translateY(20px)';
+                }
+              }
+            }
+            
+            function handleScroll() {
+              updateProgress();
+              toggleVisibility();
+            }
+            
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            if (scrollToTopBtn) {
+              scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (navigator.vibrate) navigator.vibrate(10);
+              });
+            }
+            
+            updateProgress();
+          }
+        }
+      }
+      
+      // Initialize reading progress
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initReadingProgress);
+      } else {
+        initReadingProgress();
+      }
+      
+      document.addEventListener('astro:page-load', initReadingProgress);
 
       // Announce page changes to screen readers
       document.addEventListener('astro:page-load', () => {

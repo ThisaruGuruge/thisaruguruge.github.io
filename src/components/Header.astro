@@ -1,186 +1,431 @@
 ---
 const navItems = [
-  { href: '/', text: 'Home' },
-  { href: '/about/', text: 'About' },
-  { href: '/projects/', text: 'Projects' },
-  { href: '/off-duty/', text: 'Off Duty' },
-  { href: '/stand/', text: 'What I Stand For' },
-  { href: '/thoughts/', text: 'Thoughts' },
+  { href: '/', text: 'Home', id: 'nav-home' },
+  { href: '/about/', text: 'About', id: 'nav-about' },
+  { href: '/projects/', text: 'Projects', id: 'nav-projects' },
+  { href: '/off-duty/', text: 'Off Duty', id: 'nav-off-duty' },
+  { href: '/stand/', text: 'What I Stand For', id: 'nav-stand' },
+  { href: '/thoughts/', text: 'Thoughts', id: 'nav-thoughts' },
 ];
+
+// Get current page path for active states
+const currentPath = Astro.url.pathname;
 ---
 
-<header id="site-header" class="py-4 sticky top-0 z-40 bg-background/90 backdrop-blur-md shadow-sm border-b border-gray-200/20 header-slide-down">
-  <nav class="container">
-    <div class="flex items-center justify-between">
-      <a href="/" class="group flex flex-col items-center">
-        <div class="flex items-center">
-          <span class="text-accent-orange opacity-70 group-hover:opacity-100 transition-opacity text-2xl font-bold">&#10100;</span>
-          <span class="text-2xl font-display font-bold text-accent-cyan mx-1 group-hover:scale-105 transition-transform relative">
-            Thisaru
-            <span class="absolute inset-0 bg-accent-cyan/20 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse"></span>
-          </span>
-          <span class="text-accent-orange opacity-70 group-hover:opacity-100 transition-opacity text-2xl font-bold">&#10101;</span>
-        </div>
-        <span class="text-xs md:text-xs font-serif text-text-muted -mt-1 group-hover:text-accent-orange transition-colors text-center">
-          <span class="inline-block group-hover:animate-pulse">→</span> Software, Sound, and the Stars
-        </span>
-      </a>
-      <ul class="hidden md:flex space-x-8">
-        {navItems.map((item, index) => (
-          <li class="nav-item-fade-in" style={`animation-delay: ${index * 0.1}s;`}>
-            <a
-              href={item.href}
-              class="text-text hover:text-accent-orange transition-all duration-300 font-medium header-nav-link relative hover:scale-105 focus-ring px-2 py-1 rounded"
+<header 
+  id="site-header" 
+  class="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-lg border-b border-gray-200/20 supports-[backdrop-filter]:bg-background/75 transition-all duration-300"
+  role="banner"
+>
+  <nav 
+    class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" 
+    role="navigation"
+    aria-label="Main navigation"
+  >
+    <div class="flex h-16 items-center justify-between">
+      <!-- Logo/Brand -->
+      <div class="flex items-center">
+        <a 
+          href="/" 
+          class="group flex items-center space-x-2 focus-ring rounded-lg p-2 -m-2"
+          aria-label="Go to homepage"
+        >
+          <div class="flex items-center logo-text">
+            <span 
+              class="text-accent-orange text-2xl font-bold transition-all duration-300 group-hover:scale-110"
+              aria-hidden="true"
             >
-              {item.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-      <div class="flex items-center gap-4">
+              &#10100;
+            </span>
+            <span class="mx-1 text-2xl font-bold text-accent-cyan transition-all duration-300 group-hover:scale-105 relative">
+              Thisaru
+              <span class="absolute inset-0 bg-accent-cyan/20 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+            </span>
+            <span 
+              class="text-accent-orange text-2xl font-bold transition-all duration-300 group-hover:scale-110"
+              aria-hidden="true"
+            >
+              &#10101;
+            </span>
+          </div>
+          <div class="hidden sm:block">
+            <span class="text-xs text-text-muted font-serif group-hover:text-accent-orange transition-colors">
+              <span class="inline-block group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
+              Software, Sound, and the Stars
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:block">
+        <ul class="flex items-center space-x-1" role="menubar">
+          {navItems.map((item, index) => {
+            const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+            return (
+              <li role="none">
+                <a
+                  href={item.href}
+                  id={item.id}
+                  class={`nav-link px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 relative focus-ring ${
+                    isActive 
+                      ? 'text-accent-orange bg-accent-orange/10' 
+                      : 'text-text hover:text-accent-orange hover:bg-background-card'
+                  }`}
+                  role="menuitem"
+                  aria-current={isActive ? 'page' : undefined}
+                  style={`animation-delay: ${(index + 1) * 100}ms;`}
+                >
+                  {item.text}
+                  {isActive && (
+                    <span 
+                      class="absolute bottom-0 left-1/2 h-0.5 w-8 bg-accent-orange rounded-full transform -translate-x-1/2 translate-y-1"
+                      aria-hidden="true"
+                    ></span>
+                  )}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <!-- Right side controls -->
+      <div class="flex items-center space-x-2">
+        <!-- Theme Toggle -->
         <button
           id="theme-toggle"
-          class="text-text hover:text-accent-cyan transition-all duration-300 text-2xl focus-ring hover:scale-110 hover:rotate-12 header-button-fade-in p-2 rounded-lg"
-          style="animation-delay: 0.6s;"
-          aria-label="Toggle dark/light theme"
+          class="p-2 text-text hover:text-accent-cyan hover:bg-background-card rounded-lg transition-all duration-200 focus-ring"
+          aria-label="Toggle theme"
           type="button"
         >
-          <span id="theme-toggle-icon">
-            {/* Icon will be set by script */}
+          <span id="theme-toggle-icon" class="block w-5 h-5">
+            <!-- Icon will be set by script -->
           </span>
         </button>
+
+        <!-- Mobile menu button -->
         <button
-          id="mobile-menu-open"
-          class="md:hidden text-text hover:text-accent-orange transition-all duration-300 hover:scale-110 header-button-fade-in focus-ring p-2 rounded-lg"
-          style="animation-delay: 0.7s;"
-          aria-label="Open navigation menu"
+          id="mobile-menu-toggle"
+          class="lg:hidden p-2 text-text hover:text-accent-orange hover:bg-background-card rounded-lg transition-all duration-200 focus-ring"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
           type="button"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
+          <span class="sr-only">Open main menu</span>
+          <!-- Hamburger icon -->
+          <svg 
+            id="menu-icon-open" 
+            class="block w-6 h-6 transition-transform duration-200" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke-width="1.5" 
             stroke="currentColor"
-            class="w-6 h-6"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+          <!-- Close icon -->
+          <svg 
+            id="menu-icon-close" 
+            class="hidden w-6 h-6 transition-transform duration-200" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke-width="1.5" 
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
     </div>
-    {/* Mobile menu and backdrop, always rendered but hidden by default */}
-    <div id="mobile-menu-backdrop" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-md md:hidden hidden"></div>
-    <aside id="mobile-menu" class="fixed top-0 right-0 z-50 h-full w-64 bg-background backdrop-blur-lg border-l border-gray-200/20 shadow-2xl flex flex-col p-8 gap-8 transition-transform duration-300 md:hidden translate-x-full">
-      <button
-        id="mobile-menu-close"
-        class="self-end mb-8 text-2xl text-text hover:text-accent-orange focus:outline-none focus:ring-2 focus:ring-accent-orange focus:ring-offset-2 focus:ring-offset-background p-2 rounded-lg transition-all duration-300"
-        aria-label="Close menu"
-        type="button"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-      <ul class="flex flex-col gap-6">
-        {navItems.map((item) => (
-          <li>
+
+    <!-- Mobile Navigation Menu -->
+    <div 
+      id="mobile-menu" 
+      class="lg:hidden absolute left-0 right-0 top-full bg-background/95 backdrop-blur-lg border-b border-gray-200/20 shadow-lg transform transition-all duration-300 ease-in-out origin-top scale-y-0 opacity-0"
+      role="menu"
+      aria-labelledby="mobile-menu-toggle"
+    >
+      <div class="px-4 py-6 space-y-1">
+        {navItems.map((item, index) => {
+          const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+          return (
             <a
               href={item.href}
-              class="mobile-nav-link text-xl font-medium text-text hover:text-accent-orange transition-all duration-300 py-2 px-3 rounded-lg hover:bg-accent-cyan/10 focus:bg-accent-cyan/10 focus:outline-none focus:ring-2 focus:ring-accent-cyan focus:ring-offset-2 focus:ring-offset-background"
+              class={`mobile-nav-link block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 focus-ring ${
+                isActive 
+                  ? 'text-accent-orange bg-accent-orange/10 border-l-4 border-accent-orange' 
+                  : 'text-text hover:text-accent-orange hover:bg-background-card'
+              }`}
+              role="menuitem"
+              aria-current={isActive ? 'page' : undefined}
+              style={`animation-delay: ${(index + 1) * 50}ms;`}
             >
-              {item.text}
+              <span class="flex items-center justify-between">
+                {item.text}
+                {isActive && (
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                  </svg>
+                )}
+              </span>
             </a>
-          </li>
-        ))}
-      </ul>
-    </aside>
+          );
+        })}
+      </div>
+    </div>
   </nav>
+
+  <!-- Mobile menu backdrop -->
+  <div 
+    id="mobile-backdrop" 
+    class="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none"
+    aria-hidden="true"
+  ></div>
 </header>
 
 <script>
-  // Theme toggle logic
+  // Enhanced Theme Toggle with improved accessibility
   const html = document.documentElement;
   const themeToggle = document.getElementById('theme-toggle');
-  const iconSpan = document.getElementById('theme-toggle-icon');
-  const sun = '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" d="M12 1v2m0 18v2m11-11h-2M3 12H1m16.95 7.07l-1.41-1.41M6.34 6.34L4.93 4.93m12.02 0l-1.41 1.41M6.34 17.66l-1.41 1.41"/></svg>';
-  const moon = '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke="currentColor" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>';
+  const themeIcon = document.getElementById('theme-toggle-icon');
+  
+  const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="5"/>
+    <path d="m12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+  </svg>`;
+  
+  const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>`;
 
-  // @ts-ignore - Parameter type inference in client scripts
-  function setTheme(dark) {
-    if (dark) {
-      html.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      if (iconSpan) iconSpan.innerHTML = sun;
-    } else {
-      html.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-      if (iconSpan) iconSpan.innerHTML = moon;
+  function setTheme(isDark: boolean) {
+    const theme = isDark ? 'dark' : 'light';
+    
+    html.classList.toggle('dark', isDark);
+    localStorage.setItem('theme', theme);
+    
+    if (themeIcon) {
+      themeIcon.innerHTML = isDark ? sunIcon : moonIcon;
+    }
+    
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} theme`);
     }
   }
 
-  // Initial theme
-  const userPref = localStorage.getItem('theme');
-  const systemPref = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  setTheme(userPref === 'dark' || (!userPref && systemPref));
+  // Initialize theme
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+  
+  setTheme(isDark);
 
+  // Theme toggle event
   themeToggle?.addEventListener('click', () => {
     setTheme(!html.classList.contains('dark'));
   });
 
-  // Mobile menu logic
-  const menuOpenBtn = document.getElementById('mobile-menu-open');
-  const menuCloseBtn = document.getElementById('mobile-menu-close');
-  const menu = document.getElementById('mobile-menu');
-  const backdrop = document.getElementById('mobile-menu-backdrop');
+  // Enhanced Mobile Menu with improved accessibility
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileBackdrop = document.getElementById('mobile-backdrop');
+  const menuIconOpen = document.getElementById('menu-icon-open');
+  const menuIconClose = document.getElementById('menu-icon-close');
+  
+  let isMenuOpen = false;
 
-  menuOpenBtn?.addEventListener('click', () => {
-    menu?.classList.remove('translate-x-full');
-    backdrop?.classList.remove('hidden');
-    // Focus first menu link for accessibility
-    const firstLink = menu?.querySelector('.mobile-nav-link');
-    if (firstLink instanceof HTMLElement) {
-      firstLink.focus();
-    }
-  });
-  function closeMobileMenu() {
-    menu?.classList.add('translate-x-full');
-    backdrop?.classList.add('hidden');
-    // Return focus to menu button for accessibility
-    if (menuOpenBtn instanceof HTMLElement) {
-      menuOpenBtn.focus();
+  function toggleMobileMenu() {
+    isMenuOpen = !isMenuOpen;
+    
+    // Update ARIA attributes
+    mobileMenuToggle?.setAttribute('aria-expanded', isMenuOpen.toString());
+    
+    if (isMenuOpen) {
+      // Show menu
+      mobileMenu?.classList.remove('scale-y-0', 'opacity-0');
+      mobileMenu?.classList.add('scale-y-100', 'opacity-100');
+      mobileBackdrop?.classList.remove('opacity-0', 'pointer-events-none');
+      mobileBackdrop?.classList.add('opacity-100');
+      
+      // Update icons
+      menuIconOpen?.classList.add('hidden');
+      menuIconClose?.classList.remove('hidden');
+      
+      // Focus first menu item for accessibility
+      const firstMenuItem = mobileMenu?.querySelector('.mobile-nav-link');
+      if (firstMenuItem instanceof HTMLElement) {
+        setTimeout(() => firstMenuItem.focus(), 100);
+      }
+      
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Hide menu
+      mobileMenu?.classList.add('scale-y-0', 'opacity-0');
+      mobileMenu?.classList.remove('scale-y-100', 'opacity-100');
+      mobileBackdrop?.classList.add('opacity-0', 'pointer-events-none');
+      mobileBackdrop?.classList.remove('opacity-100');
+      
+      // Update icons
+      menuIconOpen?.classList.remove('hidden');
+      menuIconClose?.classList.add('hidden');
+      
+      // Restore body scroll
+      document.body.style.overflow = '';
+      
+      // Return focus to toggle button
+      mobileMenuToggle?.focus();
     }
   }
 
-  menuCloseBtn?.addEventListener('click', closeMobileMenu);
-  backdrop?.addEventListener('click', closeMobileMenu);
-
-  // Close mobile menu when clicking nav links
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-  mobileNavLinks.forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
+  // Mobile menu toggle event
+  mobileMenuToggle?.addEventListener('click', toggleMobileMenu);
+  
+  // Close menu when clicking backdrop
+  mobileBackdrop?.addEventListener('click', () => {
+    if (isMenuOpen) toggleMobileMenu();
   });
 
-  // Keyboard navigation for mobile menu
+  // Close menu when clicking navigation links
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (isMenuOpen) toggleMobileMenu();
+    });
+  });
+
+  // Enhanced keyboard navigation
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !menu?.classList.contains('translate-x-full')) {
-      closeMobileMenu();
+    if (e.key === 'Escape' && isMenuOpen) {
+      toggleMobileMenu();
+    }
+    
+    // Trap focus within mobile menu when open
+    if (isMenuOpen && e.key === 'Tab') {
+      const focusableElements = mobileMenu?.querySelectorAll('a[href], button:not([disabled])');
+      if (focusableElements && focusableElements.length > 0) {
+        const firstElement = focusableElements[0] as HTMLElement;
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+        
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
+    }
+  });
+
+  // Close mobile menu on resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024 && isMenuOpen) {
+      toggleMobileMenu();
+    }
+  });
+
+  // Enhanced scroll behavior for header
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  const header = document.getElementById('site-header');
+  
+  // Check user preference for navigation behavior
+  const preferAlwaysSticky = localStorage.getItem('nav-always-sticky') === 'true';
+  
+  function updateHeader() {
+    const currentScrollY = window.scrollY;
+    
+    if (header) {
+      // Always show header at top of page
+      if (currentScrollY < 10) {
+        header.style.transform = 'translateY(0)';
+        header.classList.remove('header-scrolled');
+      } 
+      // If user prefers always sticky, don't hide on scroll
+      else if (preferAlwaysSticky) {
+        header.style.transform = 'translateY(0)';
+        if (currentScrollY > 50) {
+          header.classList.add('header-scrolled');
+        }
+      }
+      // Default behavior: Hide on scroll down, show on scroll up
+      else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down - hide header
+        header.style.transform = 'translateY(-100%)';
+        header.classList.add('header-scrolled');
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up - show header
+        header.style.transform = 'translateY(0)';
+        header.classList.add('header-scrolled');
+      }
+      
+      // Add subtle background when scrolled
+      if (currentScrollY > 50) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    }
+    
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+  
+  function requestTick() {
+    if (!ticking) {
+      requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }
+  
+  window.addEventListener('scroll', requestTick, { passive: true });
+  
+  // Add double-click on logo to toggle sticky preference
+  const logo = document.querySelector('a[aria-label="Go to homepage"]');
+  let logoClickCount = 0;
+  let logoClickTimer: number;
+  
+  logo?.addEventListener('click', (e) => {
+    logoClickCount++;
+    
+    if (logoClickCount === 1) {
+      logoClickTimer = setTimeout(() => {
+        logoClickCount = 0;
+      }, 300);
+    } else if (logoClickCount === 2) {
+      clearTimeout(logoClickTimer);
+      logoClickCount = 0;
+      
+      // Don't navigate on double-click
+      e.preventDefault();
+      
+      // Toggle sticky preference
+      const newPreference = !preferAlwaysSticky;
+      localStorage.setItem('nav-always-sticky', newPreference.toString());
+      
+      // Show brief feedback
+      const feedback = document.createElement('div');
+      feedback.textContent = newPreference ? 'Navigation always visible' : 'Navigation auto-hides';
+      feedback.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-accent-cyan text-white px-4 py-2 rounded-lg text-sm z-50 transition-opacity';
+      document.body.appendChild(feedback);
+      
+      setTimeout(() => {
+        feedback.style.opacity = '0';
+        setTimeout(() => feedback.remove(), 300);
+      }, 2000);
+      
+      // Reload to apply new preference
+      setTimeout(() => location.reload(), 2500);
     }
   });
 </script>
 
 <style>
-  @keyframes gentle-pulse {
-    0% { opacity: 0.7; }
-    50% { opacity: 1; }
-    100% { opacity: 0.7; }
-  }
-
-  @keyframes headerSlideDown {
+  /* Modern navbar animations and effects */
+  @keyframes slideDown {
     from {
       opacity: 0;
       transform: translateY(-20px);
@@ -191,10 +436,10 @@ const navItems = [
     }
   }
 
-  @keyframes navItemFadeIn {
+  @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translateY(10px);
     }
     to {
       opacity: 1;
@@ -202,89 +447,242 @@ const navItems = [
     }
   }
 
-  .header-slide-down {
-    animation: headerSlideDown 0.6s ease-out;
-  }
-
-  .nav-item-fade-in {
-    animation: navItemFadeIn 0.4s ease-out forwards;
-    opacity: 0;
-  }
-
-  .header-button-fade-in {
-    animation: navItemFadeIn 0.4s ease-out forwards;
-    opacity: 0;
-  }
-
-  .animate-pulse {
-    animation: gentle-pulse 2s infinite ease-in-out;
-  }
-
-  /* Add hover underline effect */
-  .header-nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -4px;
-    left: 0;
-    background-color: var(--color-accent-orange);
-    transition: width 0.3s ease;
-    border-radius: 2px;
-  }
-
-  .header-nav-link:hover::after {
-    width: 100%;
-  }
-
-  /* Accessibility: respect reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .header-slide-down,
-    .nav-item-fade-in,
-    .header-button-fade-in {
-      animation: none;
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
       opacity: 1;
-      transform: none;
+      transform: scale(1);
     }
   }
 
-  /* Mobile navigation improvements */
-  .mobile-nav-link {
-    @apply relative;
+  /* Header scroll behavior */
+  #site-header {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                background-color 0.3s ease,
+                backdrop-filter 0.3s ease,
+                box-shadow 0.3s ease;
+    animation: slideDown 0.6s ease-out;
   }
 
-  .mobile-nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -4px;
-    left: 0;
-    background-color: var(--color-accent-orange);
-    transition: width 0.3s ease;
-    border-radius: 2px;
-  }
-
-  .mobile-nav-link:hover::after {
-    width: 100%;
-  }
-
-  /* Ensure mobile menu has proper contrast */
-  #mobile-menu {
+  /* Enhanced background when scrolled */
+  #site-header.header-scrolled {
     background: var(--color-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
-  /* Dark theme adjustments for mobile menu */
+  .dark #site-header.header-scrolled {
+    background: var(--color-bg);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Smooth logo scaling on scroll */
+  #site-header.header-scrolled .logo-text {
+    transform: scale(0.95);
+  }
+
+  /* Add subtle border enhancement when scrolled */
+  #site-header.header-scrolled {
+    border-bottom-color: var(--color-gray-300);
+  }
+
+  .dark #site-header.header-scrolled {
+    border-bottom-color: var(--color-gray-600);
+  }
+
+  /* Desktop navigation link effects */
+  .nav-link {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-accent-orange);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: inherit;
+  }
+
+  .nav-link:hover::before,
+  .nav-link:focus::before {
+    opacity: 0.1;
+  }
+
+  /* Additional smooth background for active state */
+  .nav-link[aria-current="page"]::before {
+    opacity: 0.1;
+  }
+
+  /* Smooth scale effect on hover */
+  .nav-link {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark .nav-link:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Mobile menu animations */
+  #mobile-menu {
+    background: var(--color-bg);
+    border: 1px solid var(--color-gray-200);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
   .dark #mobile-menu {
-    background: #121212;
-    border-left-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-gray-700);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
   }
 
-  /* Light theme adjustments for mobile menu */
-  html:not(.dark) #mobile-menu {
-    background: #ffffff;
-    border-left-color: rgba(0, 0, 0, 0.1);
+  /* Mobile menu item animations */
+  .mobile-nav-link {
+    animation: fadeInUp 0.3s ease-out forwards;
+    animation-fill-mode: both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mobile-nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--color-accent-orange), transparent);
+    opacity: 0.1;
+    transition: left 0.4s ease;
+  }
+
+  .mobile-nav-link:hover::before,
+  .mobile-nav-link:focus::before {
+    left: 100%;
+  }
+
+  /* Focus ring improvements */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-accent-cyan focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  /* Theme toggle animations */
+  #theme-toggle {
+    position: relative;
+  }
+
+  #theme-toggle:hover {
+    transform: scale(1.05) rotate(10deg);
+  }
+
+  #theme-toggle:active {
+    transform: scale(0.95);
+  }
+
+  /* Mobile menu toggle animations */
+  #mobile-menu-toggle svg {
+    transition: all 0.2s ease;
+  }
+
+  #mobile-menu-toggle:hover svg {
+    transform: scale(1.1);
+  }
+
+  /* Logo animations */
+  .logo-text {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Backdrop blur support detection */
+  @supports (backdrop-filter: blur(16px)) {
+    #site-header {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    
+    #mobile-menu {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+  }
+
+  /* Improved mobile responsiveness */
+  @media (max-width: 1023px) {
+    .nav-link {
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #site-header {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .mobile-nav-link {
+      padding: 1rem;
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    
+    .nav-link::before,
+    .mobile-nav-link::before {
+      display: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .nav-link,
+    .mobile-nav-link {
+      border: 1px solid currentColor;
+    }
+    
+    .nav-link:hover,
+    .nav-link:focus,
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus {
+      background: currentColor;
+      color: var(--color-bg);
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    #site-header {
+      position: static;
+      box-shadow: none;
+      border-bottom: 1px solid #000;
+    }
+    
+    #mobile-menu,
+    #mobile-backdrop,
+    #theme-toggle,
+    #mobile-menu-toggle {
+      display: none !important;
+    }
   }
 </style>

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Section from '../components/Section.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CauseCard from '../components/CauseCard.astro';
 import Button from '../components/Button.astro';
@@ -63,6 +64,7 @@ const recentCauses = await getRecentCauses(3);
 								variant="primary"
 								size="lg"
 								icon="lightbulb"
+								accent="cyan"
 								class="hero-btn-primary"
 							>
 								Read My Thoughts
@@ -73,6 +75,7 @@ const recentCauses = await getRecentCauses(3);
 								variant="secondary"
 								size="lg"
 								icon="arrow-right"
+								accent="orange"
 								class="hero-btn-secondary"
 							>
 								View My Work
@@ -140,187 +143,178 @@ const recentCauses = await getRecentCauses(3);
 			</div>
 		</section>
 
-		<section class="py-20 bg-background-section section-fade-in" aria-labelledby="featured-projects-heading">
-			<div class="container">
-				<h2 id="featured-projects-heading" class="heading-2 text-center mb-12">Featured Projects</h2>
-				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 scroll-fade-in-stagger">
-					{featuredProjects.length === 0 ? (
-						<p class="col-span-full text-center text-text-muted">No featured projects yet.</p>
-					) : (
-						featuredProjects.map((project, index) => (
-							<div class="scroll-fade-in-up" style={`animation-delay: ${index * 0.1}s;`}>
-								<ProjectCard {...project.data} />
-							</div>
-						))
-					)}
-				</div>
-				<div class="text-center mt-12">
-					<Button
-						href="/projects/"
-						variant="secondary"
-						size="md"
-						icon="arrow-right"
-						class="scroll-fade-in"
-					>
-						View All Projects
-					</Button>
-				</div>
-			</div>
-		</section>
-
-		<!-- Recent Thoughts Section -->
-		<section class="py-20 section-fade-in" aria-labelledby="recent-thoughts-heading">
-			<div class="container">
-				<div class="text-center mb-12">
-					<h2 id="recent-thoughts-heading" class="heading-2 mb-4">Latest Thoughts</h2>
-					<p class="text-text-muted text-lg max-w-2xl mx-auto">
-						Exploring technology, cinema, philosophy, and the spaces in between
-					</p>
-				</div>
-
-				{recentPosts.length > 0 && (
-					<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-						{recentPosts.map((post, index) => (
-							<article class="group scroll-fade-in-up bg-background-card rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200/20 hover:border-accent-cyan/30" style={`animation-delay: ${index * 0.1}s;`}>
-								<a href={`/thoughts/${post.slug}/`} class="block">
-									{post.data.image && (
-										<div class="aspect-[16/10] relative overflow-hidden">
-											<img
-												src={post.data.image}
-												alt={post.data.imageAltText || post.data.title}
-												class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
-											/>
-											<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-										</div>
-									)}
-									<div class="p-6">
-										<div class="flex items-center gap-2 text-sm text-text-muted mb-3">
-											<time datetime={post.data.pubDate.toISOString()}>
-												{post.data.pubDate.toLocaleDateString('en-US', {
-													year: 'numeric',
-													month: 'short',
-													day: 'numeric',
-												})}
-											</time>
-											{post.data.tags && post.data.tags.length > 0 && (
-												<>
-													<span>•</span>
-													<span class="text-accent-orange">{post.data.tags[0]}</span>
-												</>
-											)}
-										</div>
-										<h3 class="text-xl font-bold text-text group-hover:text-accent-cyan transition-colors duration-300 mb-2">
-											{post.data.title}
-										</h3>
-										<p class="text-text-muted line-clamp-3 leading-relaxed">
-											{post.data.description}
-										</p>
-									</div>
-								</a>
-							</article>
-						))}
-					</div>
+		<Section 
+			variant="alternate" 
+			accent="cyan" 
+			title="Featured Projects" 
+			headingId="featured-projects-heading"
+		>
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 scroll-fade-in-stagger">
+				{featuredProjects.length === 0 ? (
+					<p class="col-span-full text-center text-text-muted">No featured projects yet.</p>
+				) : (
+					featuredProjects.map((project, index) => (
+						<div class="scroll-fade-in-up" style={`animation-delay: ${index * 0.1}s;`}>
+							<ProjectCard {...project.data} />
+						</div>
+					))
 				)}
-
-				<div class="text-center">
-					<a
-						href="/thoughts/"
-						class="inline-flex items-center px-6 py-3 rounded-lg border border-accent-cyan text-accent-cyan font-medium hover:bg-accent-cyan hover:text-background transition-all duration-300 hover:scale-105 hover:shadow-lg"
-					>
-						<span>Read All Posts</span>
-						<svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-						</svg>
-					</a>
-				</div>
 			</div>
-		</section>
+			<div class="text-center mt-12">
+				<Button
+					href="/projects/"
+					variant="outline"
+					size="md"
+					icon="arrow-right"
+					accent="auto"
+					class="scroll-fade-in"
+				>
+					View All Projects
+				</Button>
+			</div>
+		</Section>
 
-		<!-- Photography Preview Section -->
-		{featuredPhotos.length > 0 && (
-			<section class="py-20 bg-background-section section-fade-in" aria-labelledby="photography-heading">
-				<div class="container">
-					<div class="text-center mb-12">
-						<h2 id="photography-heading" class="heading-2 mb-4">Photography</h2>
-						<p class="text-text-muted text-lg max-w-2xl mx-auto">
-							Capturing the beauty of Sri Lankan wildlife and landscapes through my lens
-						</p>
-					</div>
-
-					<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-						{featuredPhotos.map((photo, index) => (
-							<div class="group relative aspect-square rounded-xl overflow-hidden scroll-fade-in-up" style={`animation-delay: ${index * 0.1}s;`}>
-								<img
-									src={photo.data.image}
-									alt={photo.data.title}
-									class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
-								/>
-								<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-									<div class="absolute bottom-4 left-4 text-white">
-										<h3 class="font-semibold text-sm">{photo.data.title}</h3>
-										<p class="text-xs text-white/80 mt-1">{photo.data.caption}</p>
+		<Section 
+			variant="default" 
+			accent="orange" 
+			title="Latest Thoughts" 
+			subtitle="Exploring technology, cinema, philosophy, and the spaces in between"
+			headingId="recent-thoughts-heading"
+		>
+			{recentPosts.length > 0 && (
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+					{recentPosts.map((post, index) => (
+						<article class="group scroll-fade-in-up bg-background-card rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200/20 hover:border-accent-orange/30" style={`animation-delay: ${index * 0.1}s;`}>
+							<a href={`/thoughts/${post.slug}/`} class="block">
+								{post.data.image && (
+									<div class="aspect-[16/10] relative overflow-hidden">
+										<img
+											src={post.data.image}
+											alt={post.data.imageAltText || post.data.title}
+											class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+										/>
+										<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 									</div>
+								)}
+								<div class="p-6">
+									<div class="flex items-center gap-2 text-sm text-text-muted mb-3">
+										<time datetime={post.data.pubDate.toISOString()}>
+											{post.data.pubDate.toLocaleDateString('en-US', {
+												year: 'numeric',
+												month: 'short',
+												day: 'numeric',
+											})}
+										</time>
+										{post.data.tags && post.data.tags.length > 0 && (
+											<>
+												<span>•</span>
+												<span class="text-accent-orange">{post.data.tags[0]}</span>
+											</>
+										)}
+									</div>
+									<h3 class="text-xl font-bold text-text group-hover:text-accent-orange transition-colors duration-300 mb-2">
+										{post.data.title}
+									</h3>
+									<p class="text-text-muted line-clamp-3 leading-relaxed">
+										{post.data.description}
+									</p>
+								</div>
+							</a>
+						</article>
+					))}
+				</div>
+			)}
+
+			<div class="text-center">
+				<Button
+					href="/thoughts/"
+					variant="outline"
+					size="md"
+					icon="arrow-right"
+					accent="auto"
+				>
+					Read All Posts
+				</Button>
+			</div>
+		</Section>
+
+		{featuredPhotos.length > 0 && (
+			<Section 
+				variant="alternate" 
+				accent="cyan" 
+				title="Photography" 
+				subtitle="Capturing the beauty of Sri Lankan wildlife and landscapes through my lens"
+				headingId="photography-heading"
+			>
+				<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+					{featuredPhotos.map((photo, index) => (
+						<div class="group relative aspect-square rounded-xl overflow-hidden scroll-fade-in-up" style={`animation-delay: ${index * 0.1}s;`}>
+							<img
+								src={photo.data.image}
+								alt={photo.data.title}
+								class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+							/>
+							<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+								<div class="absolute bottom-4 left-4 text-white">
+									<h3 class="font-semibold text-sm">{photo.data.title}</h3>
+									<p class="text-xs text-white/80 mt-1">{photo.data.caption}</p>
 								</div>
 							</div>
-						))}
-					</div>
-
-					<div class="text-center">
-						<a
-							href="/off-duty/#photography"
-							class="inline-flex items-center px-6 py-3 rounded-lg border border-accent-orange text-accent-orange font-medium hover:bg-accent-orange hover:text-background transition-all duration-300 hover:scale-105 hover:shadow-lg"
-						>
-							<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
-							</svg>
-							<span>Explore Gallery</span>
-						</a>
-					</div>
+						</div>
+					))}
 				</div>
-			</section>
+
+				<div class="text-center">
+					<Button
+						href="/off-duty/#photography"
+						variant="outline"
+						size="md"
+						icon="camera"
+						iconPosition="left"
+						accent="auto"
+					>
+						Explore Gallery
+					</Button>
+				</div>
+			</Section>
 		)}
 
-		<!-- Off Duty Section -->
 		{recentCauses.length > 0 && (
-			<section class="py-20 section-fade-in" aria-labelledby="off-duty-heading">
-				<div class="container">
-					<div class="text-center mb-12">
-						<h2 id="off-duty-heading" class="heading-2 mb-4">Off Duty</h2>
-						<p class="text-text-muted text-lg max-w-2xl mx-auto">
-							Organizations and causes I've been involved with over the years
-						</p>
-					</div>
-
-					<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-						{recentCauses.map((cause, index) => (
-							<CauseCard
-								title={cause.data.title}
-								position={cause.data.position}
-								description={cause.data.description}
-								icon={cause.data.icon}
-								fromYear={cause.data.fromYear}
-								toYear={cause.data.toYear}
-								variant="compact"
-								class="scroll-fade-in-up"
-								style={`animation-delay: ${index * 0.1}s;`}
-							/>
-						))}
-					</div>
-
-					<div class="text-center">
-						<a
-							href="/off-duty/"
-							class="inline-flex items-center px-6 py-3 rounded-lg border border-accent-cyan text-accent-cyan font-medium hover:bg-accent-cyan hover:text-background transition-all duration-300 hover:scale-105 hover:shadow-lg"
-						>
-							<span>View My Off Duty Activities</span>
-							<svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-							</svg>
-						</a>
-					</div>
+			<Section 
+				variant="default" 
+				accent="orange" 
+				title="Off Duty" 
+				subtitle="Organizations and causes I've been involved with over the years"
+				headingId="off-duty-heading"
+			>
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+					{recentCauses.map((cause, index) => (
+						<CauseCard
+							title={cause.data.title}
+							position={cause.data.position}
+							description={cause.data.description}
+							icon={cause.data.icon}
+							fromYear={cause.data.fromYear}
+							toYear={cause.data.toYear}
+							variant="compact"
+							class="scroll-fade-in-up"
+							style={`animation-delay: ${index * 0.1}s;`}
+						/>
+					))}
 				</div>
-			</section>
+
+				<div class="text-center">
+					<Button
+						href="/off-duty/"
+						variant="outline"
+						size="md"
+						icon="arrow-right"
+						accent="auto"
+					>
+						View My Off Duty Activities
+					</Button>
+				</div>
+			</Section>
 		)}
 	</main>
 	<Footer />

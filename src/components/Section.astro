@@ -1,0 +1,77 @@
+---
+interface Props {
+  variant?: 'default' | 'alternate';
+  accent?: 'cyan' | 'orange';
+  headingId?: string;
+  title?: string;
+  subtitle?: string;
+  class?: string;
+  padding?: 'sm' | 'md' | 'lg';
+}
+
+const {
+  variant = 'default',
+  accent = 'cyan',
+  headingId,
+  title,
+  subtitle,
+  class: className = '',
+  padding = 'lg',
+  ...props
+} = Astro.props;
+
+const variantClasses = {
+  default: 'bg-background',
+  alternate: 'bg-background-section'
+};
+
+const paddingClasses = {
+  sm: 'py-12',
+  md: 'py-16', 
+  lg: 'py-20'
+};
+
+const finalClasses = `section-fade-in ${variantClasses[variant]} ${paddingClasses[padding]} ${className}`;
+---
+
+<section 
+  class={finalClasses}
+  aria-labelledby={headingId}
+  data-accent={accent}
+  {...props}
+>
+  <div class="container">
+    {(title || subtitle) && (
+      <div class="text-center mb-12">
+        {title && (
+          <h2 
+            id={headingId}
+            class={`heading-2 mb-4 ${accent === 'orange' ? 'text-accent-orange' : ''}`}
+          >
+            {title}
+          </h2>
+        )}
+        {subtitle && (
+          <p class="text-text-muted text-lg max-w-2xl mx-auto">
+            {subtitle}
+          </p>
+        )}
+      </div>
+    )}
+    
+    <slot />
+  </div>
+</section>
+
+<style>
+  /* Section-specific accent styling */
+  section[data-accent="orange"] {
+    --section-accent: var(--color-accent-orange);
+    --section-accent-hover: var(--color-accent-orange);
+  }
+  
+  section[data-accent="cyan"] {
+    --section-accent: var(--color-accent-cyan);
+    --section-accent-hover: var(--color-accent-cyan);
+  }
+</style>

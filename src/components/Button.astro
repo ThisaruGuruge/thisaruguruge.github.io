@@ -9,6 +9,7 @@ interface Props {
   icon?: 'none' | 'arrow-right' | 'external' | 'lightbulb' | 'github' | 'camera';
   iconPosition?: 'left' | 'right';
   ariaLabel?: string;
+  accent?: 'cyan' | 'orange' | 'auto';
 }
 
 const {
@@ -21,16 +22,20 @@ const {
   icon = 'none',
   iconPosition = 'right',
   ariaLabel,
+  accent = 'auto',
   ...props
 } = Astro.props;
 
 const baseClasses = 'group inline-flex items-center justify-center font-semibold rounded-2xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background';
 
-const variantClasses = {
-  primary: 'relative text-background bg-accent-cyan rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-accent-cyan/25 hover:scale-105 hover:ring-2 hover:ring-accent-cyan/50 hover:ring-offset-2 hover:ring-offset-background focus-visible:ring-accent-cyan',
-  secondary: 'text-text border-2 border-text/20 hover:border-accent-orange hover:text-accent-orange hover:shadow-lg hover:scale-105 focus-visible:ring-accent-orange',
-  outline: 'border border-accent-cyan text-accent-cyan hover:bg-accent-cyan dark:hover:text-white hover:text-black hover:scale-105 hover:shadow-lg focus-visible:ring-accent-cyan',
-  ghost: 'text-text/60 hover:text-accent-cyan hover:scale-110 transform focus-visible:ring-accent-cyan'
+// Generate variant classes based on accent color
+const getVariantClasses = (accent: string) => {
+  return {
+    primary: `relative text-white overflow-hidden hover:shadow-2xl hover:scale-105 hover:ring-2 hover:ring-offset-2 hover:ring-offset-background focus-visible:ring-2 btn-primary btn-accent-${accent}`,
+    secondary: `text-text border-2 border-text/20 hover:shadow-lg hover:scale-105 focus-visible:ring-2 btn-secondary btn-accent-${accent}`,
+    outline: `border hover:scale-105 hover:shadow-lg focus-visible:ring-2 btn-outline btn-accent-${accent}`,
+    ghost: `text-text/60 hover:scale-110 transform focus-visible:ring-2 btn-ghost btn-accent-${accent}`
+  };
 };
 
 const sizeClasses = {
@@ -55,6 +60,7 @@ const iconHoverClasses = {
   'camera': ''
 };
 
+const variantClasses = getVariantClasses(accent);
 const finalClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
 
 const Element = href ? 'a' : 'button';
@@ -100,6 +106,127 @@ const linkProps = href ? { href, target, rel } : {};
   )}
   
   {variant === 'primary' && (
-    <div class="absolute inset-0 bg-gradient-to-r from-accent-cyan to-accent-cyan/90 group-hover:from-accent-cyan/90 group-hover:to-accent-cyan transition-all duration-300"></div>
+    <div class="absolute inset-0 btn-bg-gradient transition-all duration-300"></div>
   )}
 </Element>
+
+<style>
+  /* Button accent color theming */
+  .btn-accent-cyan.btn-primary {
+    background: var(--color-accent-cyan);
+    box-shadow: 0 0 0 0 rgba(var(--color-accent-cyan-rgb, 6, 182, 212), 0.25);
+  }
+  
+  .btn-accent-cyan.btn-primary:hover {
+    box-shadow: 0 25px 50px -12px rgba(var(--color-accent-cyan-rgb, 6, 182, 212), 0.25);
+    --tw-ring-color: var(--color-accent-cyan);
+  }
+  
+  .btn-accent-cyan.btn-primary .btn-bg-gradient {
+    background: linear-gradient(to right, var(--color-accent-cyan), var(--color-accent-cyan));
+  }
+  
+  .btn-accent-cyan.btn-primary:hover .btn-bg-gradient {
+    background: linear-gradient(to right, var(--color-accent-cyan), rgba(var(--color-accent-cyan-rgb, 6, 182, 212), 0.9));
+  }
+  
+  .btn-accent-orange.btn-primary {
+    background: var(--color-accent-orange);
+    box-shadow: 0 0 0 0 rgba(var(--color-accent-orange-rgb, 251, 146, 60), 0.25);
+  }
+  
+  .btn-accent-orange.btn-primary:hover {
+    box-shadow: 0 25px 50px -12px rgba(var(--color-accent-orange-rgb, 251, 146, 60), 0.25);
+    --tw-ring-color: var(--color-accent-orange);
+  }
+  
+  .btn-accent-orange.btn-primary .btn-bg-gradient {
+    background: linear-gradient(to right, var(--color-accent-orange), var(--color-accent-orange));
+  }
+  
+  .btn-accent-orange.btn-primary:hover .btn-bg-gradient {
+    background: linear-gradient(to right, var(--color-accent-orange), rgba(var(--color-accent-orange-rgb, 251, 146, 60), 0.9));
+  }
+  
+  /* Auto accent uses CSS variables from parent section */
+  .btn-accent-auto.btn-primary {
+    background: var(--section-accent, var(--color-accent-cyan));
+  }
+  
+  .btn-accent-auto.btn-primary:hover {
+    --tw-ring-color: var(--section-accent, var(--color-accent-cyan));
+  }
+  
+  .btn-accent-auto.btn-primary .btn-bg-gradient {
+    background: var(--section-accent, var(--color-accent-cyan));
+  }
+  
+  /* Secondary button variants */
+  .btn-accent-cyan.btn-secondary:hover {
+    border-color: var(--color-accent-cyan);
+    color: var(--color-accent-cyan);
+    --tw-ring-color: var(--color-accent-cyan);
+  }
+  
+  .btn-accent-orange.btn-secondary:hover {
+    border-color: var(--color-accent-orange);
+    color: var(--color-accent-orange);
+    --tw-ring-color: var(--color-accent-orange);
+  }
+  
+  .btn-accent-auto.btn-secondary:hover {
+    border-color: var(--section-accent, var(--color-accent-cyan));
+    color: var(--section-accent, var(--color-accent-cyan));
+    --tw-ring-color: var(--section-accent, var(--color-accent-cyan));
+  }
+  
+  /* Outline button variants */
+  .btn-accent-cyan.btn-outline {
+    border-color: var(--color-accent-cyan);
+    color: var(--color-accent-cyan);
+  }
+  
+  .btn-accent-cyan.btn-outline:hover {
+    background: var(--color-accent-cyan);
+    color: white;
+    --tw-ring-color: var(--color-accent-cyan);
+  }
+  
+  .btn-accent-orange.btn-outline {
+    border-color: var(--color-accent-orange);
+    color: var(--color-accent-orange);
+  }
+  
+  .btn-accent-orange.btn-outline:hover {
+    background: var(--color-accent-orange);
+    color: white;
+    --tw-ring-color: var(--color-accent-orange);
+  }
+  
+  .btn-accent-auto.btn-outline {
+    border-color: var(--section-accent, var(--color-accent-cyan));
+    color: var(--section-accent, var(--color-accent-cyan));
+  }
+  
+  .btn-accent-auto.btn-outline:hover {
+    background: var(--section-accent, var(--color-accent-cyan));
+    color: white;
+    --tw-ring-color: var(--section-accent, var(--color-accent-cyan));
+  }
+  
+  /* Ghost button variants */
+  .btn-accent-cyan.btn-ghost:hover {
+    color: var(--color-accent-cyan);
+    --tw-ring-color: var(--color-accent-cyan);
+  }
+  
+  .btn-accent-orange.btn-ghost:hover {
+    color: var(--color-accent-orange);
+    --tw-ring-color: var(--color-accent-orange);
+  }
+  
+  .btn-accent-auto.btn-ghost:hover {
+    color: var(--section-accent, var(--color-accent-cyan));
+    --tw-ring-color: var(--section-accent, var(--color-accent-cyan));
+  }
+</style>

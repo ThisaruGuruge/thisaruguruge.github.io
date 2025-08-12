@@ -104,7 +104,7 @@ function getImageDimensions(filePath) {
 }
 
 // Function to check if image is already optimized for target dimensions
-function isAlreadyOptimized(filePath, targetMaxWidth, targetQuality) {
+function isAlreadyOptimized(filePath, targetMaxWidth) {
   const dimensions = getImageDimensions(filePath);
   if (!dimensions) {
     // Can't determine dimensions, assume it needs optimization
@@ -115,7 +115,7 @@ function isAlreadyOptimized(filePath, targetMaxWidth, targetQuality) {
   if (dimensions.width <= targetMaxWidth) {
     // Check if file size suggests it's already optimized
     const stats = statSync(filePath);
-    const fileSizeKB = stats.size / 1024;
+    // File is already within target dimensions
 
     // Rough heuristic: if file is small relative to dimensions, it's likely already optimized
     const pixels = dimensions.width * dimensions.height;
@@ -156,7 +156,7 @@ function optimizeImages(dir, maxWidth, quality) {
     const tempPath = path.join(dir, `temp_${file}`);
 
     // Check if image is already optimized
-    if (isAlreadyOptimized(filePath, maxWidth, quality)) {
+    if (isAlreadyOptimized(filePath, maxWidth)) {
       console.log(`   ⏭️  Skipping ${file} (already optimized)`);
       skippedCount++;
       continue;

@@ -26,7 +26,7 @@ const {
   ...props
 } = Astro.props;
 
-const baseClasses = 'group inline-flex items-center justify-center font-semibold rounded-2xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+const baseClasses = 'group inline-flex items-center justify-center font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background';
 
 // Generate variant classes based on accent color
 const getVariantClasses = (accent: string) => {
@@ -39,9 +39,9 @@ const getVariantClasses = (accent: string) => {
 };
 
 const sizeClasses = {
-  sm: 'px-4 py-2 text-sm gap-2',
-  md: 'px-6 py-3 text-base gap-2',
-  lg: 'px-8 py-4 text-lg gap-3'
+  sm: 'px-4 py-2 text-sm gap-2 rounded-xl',
+  md: 'px-6 py-3 text-base gap-2 rounded-2xl', 
+  lg: 'px-8 py-4 text-lg gap-3 rounded-2xl'
 };
 
 const iconSvgs = {
@@ -111,15 +111,23 @@ const linkProps = href ? { href, target, rel } : {};
 </Element>
 
 <style>
+  /* Button base styles with CSS variables */
+  .group {
+    transition-duration: var(--timing-normal);
+    transition-timing-function: var(--easing-smooth);
+  }
+  
   /* Button accent color theming */
   .btn-accent-cyan.btn-primary {
     background: var(--color-accent-cyan);
-    box-shadow: 0 0 0 0 rgba(var(--color-accent-cyan-rgb, 6, 182, 212), 0.25);
+    box-shadow: 0 0 0 0 rgba(var(--color-accent-cyan-rgb), 0.25);
+    transition: all var(--timing-normal) var(--easing-smooth);
   }
   
   .btn-accent-cyan.btn-primary:hover {
-    box-shadow: 0 25px 50px -12px rgba(var(--color-accent-cyan-rgb, 6, 182, 212), 0.25);
+    box-shadow: 0 25px 50px -12px rgba(var(--color-accent-cyan-rgb), 0.25);
     --tw-ring-color: var(--color-accent-cyan);
+    transform: translateY(-2px) scale(1.02);
   }
   
   .btn-accent-cyan.btn-primary .btn-bg-gradient {
@@ -132,12 +140,14 @@ const linkProps = href ? { href, target, rel } : {};
   
   .btn-accent-orange.btn-primary {
     background: var(--color-accent-orange);
-    box-shadow: 0 0 0 0 rgba(var(--color-accent-orange-rgb, 251, 146, 60), 0.25);
+    box-shadow: 0 0 0 0 rgba(var(--color-accent-orange-rgb), 0.25);
+    transition: all var(--timing-normal) var(--easing-smooth);
   }
   
   .btn-accent-orange.btn-primary:hover {
-    box-shadow: 0 25px 50px -12px rgba(var(--color-accent-orange-rgb, 251, 146, 60), 0.25);
+    box-shadow: 0 25px 50px -12px rgba(var(--color-accent-orange-rgb), 0.25);
     --tw-ring-color: var(--color-accent-orange);
+    transform: translateY(-2px) scale(1.02);
   }
   
   .btn-accent-orange.btn-primary .btn-bg-gradient {

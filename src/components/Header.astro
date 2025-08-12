@@ -386,7 +386,7 @@ const currentPath = Astro.url.pathname;
   // Add double-click on logo to toggle sticky preference
   const logo = document.querySelector('a[aria-label="Go to homepage"]');
   let logoClickCount = 0;
-  let logoClickTimer: number;
+  let logoClickTimer: ReturnType<typeof setTimeout>;
   
   logo?.addEventListener('click', (e) => {
     logoClickCount++;
@@ -460,38 +460,35 @@ const currentPath = Astro.url.pathname;
 
   /* Header scroll behavior */
   #site-header {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                background-color 0.3s ease,
-                backdrop-filter 0.3s ease,
-                box-shadow 0.3s ease;
+    transition: transform var(--timing-normal) var(--easing-smooth), 
+                background-color var(--timing-normal) ease,
+                backdrop-filter var(--timing-normal) ease,
+                box-shadow var(--timing-normal) ease;
     animation: slideDown 0.6s ease-out;
   }
 
   /* Enhanced background when scrolled */
   #site-header.header-scrolled {
     background: var(--color-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(var(--blur-lg));
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+    box-shadow: 0 4px 6px -1px var(--color-shadow-light), 0 2px 4px -1px rgba(var(--color-bg-rgb), 0.06);
   }
 
   .dark #site-header.header-scrolled {
     background: var(--color-bg);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px -1px var(--color-shadow-light), 0 2px 4px -1px var(--color-shadow-medium);
   }
 
   /* Smooth logo scaling on scroll */
   #site-header.header-scrolled .logo-text {
     transform: scale(0.95);
+    transition: transform var(--timing-normal) var(--easing-smooth);
   }
 
   /* Add subtle border enhancement when scrolled */
   #site-header.header-scrolled {
-    border-bottom-color: var(--color-gray-300);
-  }
-
-  .dark #site-header.header-scrolled {
-    border-bottom-color: var(--color-gray-600);
+    border-bottom-color: var(--color-border-light);
   }
 
   /* Desktop navigation link effects */
@@ -509,7 +506,7 @@ const currentPath = Astro.url.pathname;
     height: 100%;
     background: var(--color-accent-orange);
     opacity: 0;
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity var(--timing-normal) var(--easing-smooth);
     border-radius: inherit;
   }
 
@@ -525,33 +522,24 @@ const currentPath = Astro.url.pathname;
 
   /* Smooth scale effect on hover */
   .nav-link {
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--timing-fast) var(--easing-smooth);
   }
 
   .nav-link:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .dark .nav-link:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px var(--color-shadow-light);
   }
 
   /* Mobile menu animations */
   #mobile-menu {
     background: var(--color-bg);
-    border: 1px solid var(--color-gray-200);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
-
-  .dark #mobile-menu {
-    border-color: var(--color-gray-700);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-border-light);
+    box-shadow: 0 20px 25px -5px var(--color-shadow-light), 0 10px 10px -5px var(--color-shadow-medium);
   }
 
   /* Mobile menu item animations */
   .mobile-nav-link {
-    animation: fadeInUp 0.3s ease-out forwards;
+    animation: fadeInUp var(--timing-normal) ease-out forwards;
     animation-fill-mode: both;
     position: relative;
     overflow: hidden;
@@ -566,7 +554,7 @@ const currentPath = Astro.url.pathname;
     height: 100%;
     background: linear-gradient(90deg, transparent, var(--color-accent-orange), transparent);
     opacity: 0.1;
-    transition: left 0.4s ease;
+    transition: left var(--timing-slow) var(--easing-smooth);
   }
 
   .mobile-nav-link:hover::before,
@@ -594,7 +582,7 @@ const currentPath = Astro.url.pathname;
 
   /* Mobile menu toggle animations */
   #mobile-menu-toggle svg {
-    transition: all 0.2s ease;
+    transition: all var(--timing-fast) var(--easing-smooth);
   }
 
   #mobile-menu-toggle:hover svg {
@@ -604,19 +592,19 @@ const currentPath = Astro.url.pathname;
   /* Logo animations */
   .logo-text {
     position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--timing-normal) var(--easing-smooth);
   }
 
   /* Backdrop blur support detection */
-  @supports (backdrop-filter: blur(16px)) {
+  @supports (backdrop-filter: blur(var(--blur-md))) {
     #site-header {
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(var(--blur-md));
+      -webkit-backdrop-filter: blur(var(--blur-md));
     }
     
     #mobile-menu {
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(var(--blur-sm));
+      -webkit-backdrop-filter: blur(var(--blur-sm));
     }
   }
 
